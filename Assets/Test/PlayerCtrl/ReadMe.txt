@@ -1,0 +1,5 @@
+InputSystemとCinemachineを使ったプレイヤーの挙動
+
+※ カメラがオブジェクトにめり込まなくなる方法
+CinemachineFreeLookコンポーネントのAdd ExtensionからCinemachineColiderを追加して、IgoneTagをPlayer
+にする。

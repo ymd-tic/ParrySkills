@@ -1,0 +1,67 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Generic: MonoBehaviour
+{
+    #region 汎用クラス
+
+    /// <summary>
+    /// 現在・最小・最大のパラメータ
+    /// </summary>
+    public class ParamateValue
+    {
+        public float cur; // 現在値
+        public float max; // 最大値
+        public float min; // 最小値
+
+        /// <summary>
+        /// 初期設定用
+        /// </summary>
+        /// <param name="curValue">初期値</param>
+        /// <param name="maxValue">最大値</param>
+        /// <param name="minValue">最小値</param>
+        public ParamateValue(float curValue, float maxValue, float minValue)
+        {
+            cur = curValue;
+            max = maxValue;
+            min = minValue;
+        }
+    }
+
+    /// <summary>
+    /// 値の増減
+    /// スライダーのグラデーション
+    /// </summary>
+    public class CalcuRation
+    {
+        /// <summary>
+        /// 値とスライダーを徐々に増減
+        /// </summary>
+        /// <param name="_value">増減値</param>
+        /// <returns></returns>
+        public IEnumerator ValueFluctuation(float _value, Slider _slider, ParamateValue _paramateValue)
+        {
+            float curTime = 0; // 経過時間
+            float completeTime = 0.07f; // スライダーの増減にかかる時間
+            float startValue = _paramateValue.cur; // 開始値
+            float endValue = Mathf.Clamp(_paramateValue.cur + _value, _paramateValue.min, _paramateValue.max); // 最終値
+
+            while (curTime < completeTime)
+            {
+                curTime += Time.deltaTime;
+                _paramateValue.cur = Mathf.Lerp(startValue, endValue, curTime / completeTime);
+                _slider.value = _paramateValue.cur / _paramateValue.max;
+                yield return null;
+            }
+            _paramateValue.cur = endValue;
+            _slider.value = _paramateValue.cur / _paramateValue.max;
+        }
+    }
+
+    #endregion
+
+}
+
+
