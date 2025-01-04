@@ -268,8 +268,6 @@ public class EnemySkeletonCtrl : EnemyBase
     /// <param name="_damage">ダメージ</param>
     public override void TakeDamage(int _damage)
     {
-        Debug.Log("ダメージを与えた！");
-
         base.TakeDamage(_damage);
         if (canDamageAnim)
         {

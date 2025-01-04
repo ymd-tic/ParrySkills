@@ -21,7 +21,7 @@ public class SkeletonAtackCollider : MonoBehaviour
 
     //-----protectedField------------------------------------------------------------
 
-    #region コライダー制御
+    #region アニメーションEvent
 
     public void ColliderOn()
     {

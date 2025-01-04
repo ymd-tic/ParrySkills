@@ -114,7 +114,6 @@ public class EnemyBase : MonoBehaviour
     public virtual void TakeParry()
     {
         if(isDie) { return; }
-
     }
 
     /// <summary>

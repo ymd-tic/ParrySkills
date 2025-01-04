@@ -5,9 +5,7 @@ using System.Collections.Generic;
 public class GolemAtackCollider : MonoBehaviour
 {
     //-----SerializeField------------------------------------------------------------
-    //[Header("’ÊíUŒ‚1")][SerializeField] BoxCollider atackOneCollider;
-    //[Header("’ÊíUŒ‚2")][SerializeField] SphereCollider atackTwoCollider;
-    //[Header("’ÊíUŒ‚3")][SerializeField] SphereCollider atackThreeCollider;
+
 
     [Header("UŒ‚“–‚½‚è”»’è")]
     [SerializeField] new List<ColliderList> collider = new List<ColliderList>();
@@ -46,38 +44,25 @@ public class GolemAtackCollider : MonoBehaviour
 
     #region ƒAƒjƒ[ƒVƒ‡ƒ“Event
 
-    ///// <summary>
-    ///// Œ»İ‚ÌUŒ‚ƒpƒ^[ƒ“‚É‚æ‚Á‚ÄUŒ‚”»’è‚ÌONEOFF
-    ///// </summary>
-    ///// <param name="isEnabled">ON = true, OFF = false</param>
-    //void ColliderOnOff(bool isEnabled)
-    //{
-    //    switch (animator.GetInteger("AtackValue"))
-    //    {
-    //        case 1:
-    //            atackOneCollider.enabled = isEnabled;
-    //            break;
+    public void SetColliderOn()
+    {
+        int atackValue = animator.GetInteger("AtackValue");
 
-    //        case 2:
-    //            atackTwoCollider.enabled = isEnabled;
-    //            break;
+        foreach (var col in collider[atackValue-1].colliders)
+        {
+            col.enabled = true;
+        }
+    }
 
-    //        case 3:
-    //            atackThreeCollider.enabled = isEnabled;
-    //            break;
-    //    }
-    //}
+    public void SetColliderOff()
+    {
+        int atackValue = animator.GetInteger("AtackValue");
 
-    ///// <summary>
-    ///// ”»’è‚ğ‘S‚ÄOFF
-    ///// </summary>
-    //void AtackColliderResset()
-    //{
-    //    atackOneCollider.enabled = false;
-    //    atackTwoCollider.enabled = false;
-    //    atackThreeCollider.enabled = false;
-    //}
-
+        foreach (var col in collider[atackValue - 1].colliders)
+        {
+            col.enabled = false;
+        }
+    }
     #endregion
 
 }

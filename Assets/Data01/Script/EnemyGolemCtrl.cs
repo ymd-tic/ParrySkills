@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -30,7 +31,7 @@ public class EnemyGolemCtrl : EnemyBase
     AtackState atackStae = AtackState.Melee1;
 
     //-----publicField---------------------------------------------------------------
-
+    
 
 
     //-----staticField---------------------------------------------------------------
@@ -143,6 +144,23 @@ public class EnemyGolemCtrl : EnemyBase
 
     private void KnockBack()
     {
+        if (AnimationEnd("KnockBack"))
+        {
+            rigidbody.isKinematic = true;
+            canDamageAnim = true;
+
+            // プレイヤーとの距離が追跡範囲内なら
+            if (DistanceFromPlayer() <= range.chase)
+            {   // かつ攻撃範囲内なら
+                if (DistanceFromPlayer() <= range.atack)
+                {
+                    ChangeAIState(AIState.Idle);
+                    return;
+                }
+
+                ChangeAIState(AIState.Chase);
+            }
+        }
     }
     #endregion
 
@@ -163,6 +181,17 @@ public class EnemyGolemCtrl : EnemyBase
 
     }
     #endregion
+
+    #region エネミーの制御
+
+    public override void TakeParry()
+    {
+        base.TakeParry();
+
+        rigidbody.isKinematic = false;
+        ChangeAIState(AIState.KnockBack);
+        transform.LookAt(playerPos);
+    }
 
     /// <summary>
     /// 状態ステートを変える
@@ -218,7 +247,7 @@ public class EnemyGolemCtrl : EnemyBase
                 break;
         }
 
-        Debug.Log($"{_nextState}ステートに更新");
+        //Debug.Log($"{_nextState}ステートに更新");
     }
 
     /// <summary>
@@ -245,4 +274,6 @@ public class EnemyGolemCtrl : EnemyBase
                 break;
         }
     }
+
+    #endregion
 }

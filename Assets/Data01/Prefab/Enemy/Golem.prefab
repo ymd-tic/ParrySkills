@@ -590,7 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1aaf606393d24e4eae02720cf20272b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  enemy: {fileID: 157965330569467742}
 --- !u!65 &8771917220056073217
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -610,8 +610,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.40334046, y: 0.531364, z: 0.52}
-  m_Center: {x: 0.07332974, y: 0.119117096, z: 2.58844e-10}
+  m_Size: {x: 0.61, y: 0.68, z: 0.67}
+  m_Center: {x: 0.07332974, y: 0.12, z: 2.58844e-10}
 --- !u!1 &3752105449456001431
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,7 +850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1aaf606393d24e4eae02720cf20272b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  enemy: {fileID: 157965330569467742}
 --- !u!135 &2752148958308077484
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -870,8 +870,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Radius: 0.2
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.3
+  m_Center: {x: 0.06, y: 0, z: -0.06}
 --- !u!1 &3752105449456001529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,7 +1013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1aaf606393d24e4eae02720cf20272b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  enemy: {fileID: 157965330569467742}
 --- !u!135 &8121365174903644696
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1594,8 +1594,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collider:
-  - colliders: []
-  - colliders: []
+  - colliders:
+    - {fileID: 2752148958308077484}
+  - colliders:
+    - {fileID: 8771917220056073217}
+  - colliders:
+    - {fileID: 8121365174903644696}
 --- !u!4 &9132298535501876003 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1358866418979710190, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
