@@ -35,28 +35,31 @@ public class EnemyHitManager : MonoBehaviour
         if (other.gameObject.CompareTag("PlayerAtack") && canDamage)
         {
             collider = other;
-            Invoke("ExecutionOrder", 0.04f);
+            StartCoroutine(ExeDamage());
         }
-    }
-
-    /// <summary>
-    /// パリィ・ヒット判定の実行順用
-    /// </summary>
-    private void ExecutionOrder()
-    {
-        if (ParrySystem.parrySuccess) { return; }
-
-        PlayerCtrl playerCtrl = collider.transform.root.GetComponent<PlayerCtrl>();
-
-        collider.transform.root.GetComponent<SkillCtrl>().AdrenalineGaugeCalculation(3);
-        enemy.TakeDamage(-playerCtrl.atackPower);
-        StartCoroutine(CanDamage());
     }
 
     #endregion
 
 
     #region コルーチン
+
+    /// <summary>
+    /// パリィ・ヒット判定の実行順用
+    /// </summary>
+    IEnumerator ExeDamage()
+    {
+        yield return new WaitForSecondsRealtime(0.04f);
+
+        if (!ParrySystem.parrySuccess)
+        {
+            PlayerCtrl playerCtrl = collider.transform.root.GetComponent<PlayerCtrl>();
+
+            collider.transform.root.GetComponent<SkillCtrl>().AdrenalineGaugeCalculation(3);
+            enemy.TakeDamage(-playerCtrl.atackPower);
+            StartCoroutine(CanDamage());
+        }
+    }
 
     /// <summary>
     /// 一定時間無敵

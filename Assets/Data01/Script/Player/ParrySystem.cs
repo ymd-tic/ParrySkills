@@ -35,7 +35,7 @@ public class ParrySystem : MonoBehaviour
         if (!other.CompareTag("EnemyAtack")) { return; }
         if (parrySuccess) {return; }
 
-        CompreteParry(other);
+        SuccessParry(other);
     }
 
     #endregion
@@ -47,7 +47,7 @@ public class ParrySystem : MonoBehaviour
     /// パリィの成功
     /// </summary>
     /// <param name="_other">ヒットした当たり判定</param>
-    private void CompreteParry(Collider _other)
+    private void SuccessParry(Collider _other)
     {
         parrySuccess = true;
         Debug.Log("パリィ成功");
@@ -72,7 +72,9 @@ public class ParrySystem : MonoBehaviour
     /// <returns></returns>
     IEnumerator ReseetParryFlag()
     {
-        yield return new WaitForSeconds(0.2f);
+        Time.timeScale = 0.5f;
+        yield return new WaitForSecondsRealtime(0.2f);
         parrySuccess = false;
+        Time.timeScale = 1.0f;
     }
 }

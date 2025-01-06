@@ -374,7 +374,7 @@ PrefabInstance:
       objectReference: {fileID: 9089897779028780591, guid: 6b45b043e6790274693d52fbe0ba5f46, type: 3}
     - target: {fileID: 8832030787540280305, guid: 1c0f2134a87d0194d8a9646a34d60c8c, type: 3}
       propertyPath: enemys.Array.data[0].spownValue
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8832030787540280305, guid: 1c0f2134a87d0194d8a9646a34d60c8c, type: 3}
       propertyPath: enemys.Array.data[1].spownValue

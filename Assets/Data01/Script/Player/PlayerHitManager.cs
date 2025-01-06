@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerHitManager : MonoBehaviour
@@ -32,7 +33,7 @@ public class PlayerHitManager : MonoBehaviour
     {
         if (!this.enabled) { return; }
         if (!other.gameObject.CompareTag("EnemyAtack")) { return; }
-        Invoke("ExecutionOrder", 0.02f);
+        StartCoroutine(ExeDamage());
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -49,11 +50,14 @@ public class PlayerHitManager : MonoBehaviour
     /// <summary>
     /// パリィ・ヒット判定の実行順用
     /// </summary>
-    private void ExecutionOrder()
+    IEnumerator ExeDamage()
     {
-        if (ParrySystem.parrySuccess) { return; }
+        yield return new WaitForSecondsRealtime(0.02f);
 
-        playerCtrl.TakeDamage(-15f);
+        if (!ParrySystem.parrySuccess)
+        {
+            playerCtrl.TakeDamage(-15f);
+        }
     }
 }
 
