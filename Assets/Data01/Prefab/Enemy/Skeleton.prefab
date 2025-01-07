@@ -1601,10 +1601,12 @@ MonoBehaviour:
   range:
     chase: 15
     atack: 2
+    leave: 1.5
   speed:
     patrol: 1
     chase: 2
     zero: 0
+  atackPower: 10
 --- !u!114 &7287496033707792196
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -271,10 +271,12 @@ public class PlayerCtrl : MonoBehaviour
     /// <param name="_damage"></param>
     public void TakeDamage(float _damage)
     {
-        Debug.Log("ダメージを食らった");
-        if(hpValue.cur + _damage <= hpValue.min)
+        Debug.Log(_damage + "ダメージを食らった");
+
+        // HPが0以下になったら
+        if (hpValue.cur + _damage <= hpValue.min)
         {
-            MainGameSceneConttroller.GameFinish("Over");
+            SceneController.GameFinish(SceneController.GameEndStatus.OVER);
         }
 
         animator.SetTrigger("Damage");

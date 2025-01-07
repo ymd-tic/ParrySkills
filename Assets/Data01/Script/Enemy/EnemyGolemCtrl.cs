@@ -13,6 +13,7 @@ public class EnemyGolemCtrl : EnemyBase
 
 
     //-----privateField--------------------------------------------------------------
+
     private enum AIState // 状態パターン
     {
         Idle,       // 待機
@@ -22,16 +23,18 @@ public class EnemyGolemCtrl : EnemyBase
     }
     AIState aiState = AIState.Idle;
 
-    private enum AtackState // 攻撃パターン
+    public enum AtackState // 攻撃パターン
     {
         Melee1,     // 近接1
         Melee2,     // 近接2
         Jump        // ジャンプ
     }
-    AtackState atackStae = AtackState.Melee1;
+    AtackState atackState = AtackState.Melee1;
+
+
 
     //-----publicField---------------------------------------------------------------
-    
+
 
 
     //-----staticField---------------------------------------------------------------
@@ -113,7 +116,7 @@ public class EnemyGolemCtrl : EnemyBase
     private void Atack()
     {
         // 攻撃分岐
-        switch (atackStae)
+        switch (atackState)
         {
             case AtackState.Melee1:
                 break;
@@ -256,7 +259,7 @@ public class EnemyGolemCtrl : EnemyBase
     /// <param name="_atackState"></param>
     private void SetAtackState(AtackState _atackState)
     {
-        atackStae = _atackState;
+        atackState = _atackState;
 
         animator.SetInteger("AtackValue",(int)_atackState + 1);
         // +1としているのはAnimatorの各遷移条件が1から始まるため
@@ -265,12 +268,15 @@ public class EnemyGolemCtrl : EnemyBase
         switch (_atackState)
         {
             case AtackState.Melee1:
+                atackPower = Generic.RandomPointRange(-10.0f, 2.0f);
                 break;
 
             case AtackState.Melee2:
+                atackPower = atackPower = Generic.RandomPointRange(-15.0f, 2.0f);
                 break;
 
             case AtackState.Jump:
+                atackPower = atackPower = Generic.RandomPointRange(-20.0f, 3.0f);
                 break;
         }
     }

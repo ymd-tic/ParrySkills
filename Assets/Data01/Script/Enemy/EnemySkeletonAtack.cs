@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SkeletonAtackCollider : MonoBehaviour
+public class EnemySkeletonAtack : MonoBehaviour
 {
 
     //-----SerializeField------------------------------------------------------------

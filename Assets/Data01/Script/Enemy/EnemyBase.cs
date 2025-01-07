@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using static EnemyGolemCtrl;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class EnemyBase : MonoBehaviour
     [Header("パリィ可能エフェクト")][SerializeField] private ParticleSystem parryEfect;
 
     [Header("行動パターン範囲")][SerializeField] protected Range range;
-    [System.Serializable] protected struct Range { public float chase, atack; }
+    [System.Serializable] protected struct Range { public float chase, atack, leave; }
 
     [Header("巡回速度")][SerializeField] protected Speed speed;
     [System.Serializable] protected struct Speed { public float patrol, chase, zero; }
@@ -27,7 +28,7 @@ public class EnemyBase : MonoBehaviour
     private TMP_Text damageText;
 
     //-----publicField---------------------------------------------------------------
-
+    public float atackPower = 10;
 
 
     //-----staticField---------------------------------------------------------------

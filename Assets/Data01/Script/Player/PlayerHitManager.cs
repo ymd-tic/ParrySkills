@@ -29,20 +29,20 @@ public class PlayerHitManager : MonoBehaviour
         playerCtrl = GetComponent<PlayerCtrl>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider _other)
     {
         if (!this.enabled) { return; }
-        if (!other.gameObject.CompareTag("EnemyAtack")) { return; }
-        StartCoroutine(ExeDamage());
+        if (!_other.gameObject.CompareTag("EnemyAtack")) { return; }
+        StartCoroutine(ExeDamage(_other));
     }
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+    private void OnControllerColliderHit(ControllerColliderHit _hit)
     {
         if (!this.enabled) { return; }
 
-        if (hit.collider.isTrigger)
+        if (_hit.collider.isTrigger)
         {
-            OnTriggerEnter(hit.collider);
+            OnTriggerEnter(_hit.collider);
         }
     }
     #endregion
@@ -50,13 +50,14 @@ public class PlayerHitManager : MonoBehaviour
     /// <summary>
     /// パリィ・ヒット判定の実行順用
     /// </summary>
-    IEnumerator ExeDamage()
+    IEnumerator ExeDamage(Collider _other)
     {
         yield return new WaitForSecondsRealtime(0.02f);
 
         if (!ParrySystem.parrySuccess)
         {
-            playerCtrl.TakeDamage(-15f);
+            EnemyBase enemy = _other.GetComponent<EnemyAtack>().enemy;
+            playerCtrl.TakeDamage(enemy.atackPower);
         }
     }
 }

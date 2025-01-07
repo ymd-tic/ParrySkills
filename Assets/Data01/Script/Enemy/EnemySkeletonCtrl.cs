@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using static EnemyGolemCtrl;
 
 public class EnemySkeletonCtrl : EnemyBase
 {
@@ -28,6 +29,11 @@ public class EnemySkeletonCtrl : EnemyBase
     }
     AIState aiState = AIState.Patrol;
 
+    private enum AtackState // UŒ‚ƒpƒ^[ƒ“
+    {
+        Melee1,     // ‹ßÚ1
+    }
+    private AtackState atackState = AtackState.Melee1;
 
     //-----publicField---------------------------------------------------------------
 
@@ -106,6 +112,14 @@ public class EnemySkeletonCtrl : EnemyBase
         else if (DistanceFromPlayer() > range.atack)
         {
             ChangeAIState(AIState.Chase);
+            return;
+        }
+        else if(DistanceFromPlayer() <= range.leave)
+        {
+            Vector3 distanceFromPlayer = (enemyPos.position - playerPos.position).normalized;
+            Vector3 newPosition = enemyPos.position + distanceFromPlayer * range.leave;
+
+            navMesh.destination = newPosition;
             return;
         }
 
