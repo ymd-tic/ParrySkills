@@ -14,7 +14,7 @@ public class EnemySkeletonCtrl : EnemyBase
 
     //-----privateField--------------------------------------------------------------
     private EnemyArea enemyArea;    // スポーンしたエリア
-    private bool isGoalPoint;       // 目標地点に着いたか
+    private bool isGoalPoint;       // 目標地点に着いたかのフラグ
     private Coroutine coroutine;    // コルーチン
 
     private enum AIState // 状態パターン
@@ -25,7 +25,8 @@ public class EnemySkeletonCtrl : EnemyBase
         Chase,      // 追跡
         Atack,      // 攻撃
         Damage,     // ダメージ
-        KnockBack   // ノックバック
+        KnockBack,  // ノックバック
+        Retreat     // 後退
     }
     AIState aiState = AIState.Patrol;
 
@@ -92,6 +93,10 @@ public class EnemySkeletonCtrl : EnemyBase
             case AIState.KnockBack:
                 KnockBack();
                 break;
+
+            case AIState.Retreat:
+                Retreat();
+                break;
         }
     }
 
@@ -116,10 +121,7 @@ public class EnemySkeletonCtrl : EnemyBase
         }
         else if(DistanceFromPlayer() <= range.leave)
         {
-            Vector3 distanceFromPlayer = (enemyPos.position - playerPos.position).normalized;
-            Vector3 newPosition = enemyPos.position + distanceFromPlayer * range.leave;
-
-            navMesh.destination = newPosition;
+            ChangeAIState(AIState.Retreat);
             return;
         }
 
@@ -208,9 +210,13 @@ public class EnemySkeletonCtrl : EnemyBase
             {
                 ChangeAIState(AIState.Chase);
             }
-            else
+            else if(DistanceFromPlayer() > range.leave)
             {
                 ChangeAIState(AIState.Idle);
+            }
+            else if (DistanceFromPlayer() <= range.leave)
+            {
+                ChangeAIState(AIState.Retreat);
             }
             canDamageAnim = true;
         }
@@ -246,7 +252,6 @@ public class EnemySkeletonCtrl : EnemyBase
         }
     }
 
-
     private void KnockBack()
     {
         if(AnimationEnd("KnockBack"))
@@ -260,6 +265,12 @@ public class EnemySkeletonCtrl : EnemyBase
                 if (DistanceFromPlayer() <= range.atack)
                 {
                     ChangeAIState(AIState.Idle);
+
+                    if(DistanceFromPlayer() <= range.leave)
+                    {
+                        ChangeAIState(AIState.Retreat);
+                    }
+
                     return;
                 }
 
@@ -269,6 +280,34 @@ public class EnemySkeletonCtrl : EnemyBase
             {
                 ChangeAIState(AIState.Patrol);
             }
+        }
+    }
+
+
+    private void Retreat()
+    {
+        transform.LookAt(playerPos);
+        // プレイヤーから離れる方向に移動
+        Vector3 directionAwayFromPlayer = (transform.position - playerPos.position).normalized;
+        Vector3 retreatPosition = transform.position + directionAwayFromPlayer * range.leave;
+
+        navMesh.destination = retreatPosition;
+
+        // 攻撃クールタイムがなくなったら
+
+        curIdleTime += Time.deltaTime;
+        if (curIdleTime > atackCoolTime)
+        {
+            ChangeAIState(AIState.Atack);
+            canDamageAnim = false;
+            curIdleTime = 0;
+            return;
+        }
+
+        // 一定の距離を取ったらIdle状態に遷移
+        if (DistanceFromPlayer() >= range.leave)
+        {
+            ChangeAIState(AIState.Idle);
         }
     }
     #endregion
@@ -336,7 +375,7 @@ public class EnemySkeletonCtrl : EnemyBase
 
             case AIState.Patrol:
                 navMesh.speed = speed.patrol;
-                //navMesh.destination = enemyArea.GetRandomPosInSphere();
+                navMesh.destination = enemyArea.GetRandomPosInSphere();
                 break;
 
             case AIState.Chase:
@@ -359,9 +398,14 @@ public class EnemySkeletonCtrl : EnemyBase
                 navMesh.speed = speed.zero;
                 navMesh.destination = enemyPos.position;
                 break;
+
+            case AIState.Retreat:
+                navMesh.speed = speed.patrol;
+                navMesh.destination = enemyPos.position;
+                break;
         }
 
-        //Debug.Log($"{_nextState}ステートに更新");
+        Debug.Log($"{_nextState}ステートに更新");
     }
 
     #endregion

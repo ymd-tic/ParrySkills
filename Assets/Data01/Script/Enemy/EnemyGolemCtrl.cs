@@ -119,12 +119,15 @@ public class EnemyGolemCtrl : EnemyBase
         switch (atackState)
         {
             case AtackState.Melee1:
+                Melee1();
                 break;
 
             case AtackState.Melee2:
+                Melee2();
                 break;
 
             case AtackState.Jump:
+                Jump();
                 break;
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -28,7 +29,7 @@ public class EnemyBase : MonoBehaviour
     private TMP_Text damageText;
 
     //-----publicField---------------------------------------------------------------
-    public float atackPower = 10;
+    [NonSerialized]public float atackPower = 10;
 
 
     //-----staticField---------------------------------------------------------------

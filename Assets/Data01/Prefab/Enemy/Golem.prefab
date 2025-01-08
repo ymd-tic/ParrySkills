@@ -1323,84 +1323,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1001 &6809902816492301046
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 9132298535501876003}
-    m_Modifications:
-    - target: {fileID: 2392602413063679753, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
-      propertyPath: m_Name
-      value: CanParryEfect
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392602413063679798, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.4999999
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392602413063679798, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.4999999
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392602413063679798, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.4999999
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392602413063679798, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392602413063679798, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.7849998
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392602413063679798, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.44
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392602413063679798, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392602413063679798, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392602413063679798, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392602413063679798, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392602413063679798, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392602413063679798, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392602413063679798, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392602413063679798, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
---- !u!4 &9202430395542635968 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2392602413063679798, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
-  m_PrefabInstance: {fileID: 6809902816492301046}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7811450590966771661
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1485,6 +1407,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5088264823213497113, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 5088264823213497113, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.4999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 5088264823213497113, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.4999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 5088264823213497113, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5938353477771360666, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
       propertyPath: m_LocalScale.x
       value: 5
@@ -1531,9 +1469,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1358866418979710190, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2464002297099359036}
-    - targetCorrespondingSourceObject: {fileID: 1358866418979710190, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 9202430395542635968}
     - targetCorrespondingSourceObject: {fileID: 5938353477771360666, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3752105449456303545}
@@ -1548,6 +1483,11 @@ PrefabInstance:
       insertIndex: 3
       addedObject: {fileID: 7314932167376981288}
   m_SourcePrefab: {fileID: 100100000, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+--- !u!198 &3097065909569156330 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5088264823213497127, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+  m_PrefabInstance: {fileID: 7811450590966771661}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4471685110761166423 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5938353477771360666, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
@@ -1573,14 +1513,16 @@ MonoBehaviour:
   maxHp: 600
   atackCoolTime: 3
   damageTextPrefab: {fileID: 8924579130654965952, guid: 8de52498b8a88484188f0e75f954eb5a, type: 3}
-  parryEfect: {fileID: 2392602413063679752, guid: 5989b94d428de9747bcc8d93ca476829, type: 3}
+  parryEfect: {fileID: 3097065909569156330}
   range:
     chase: 20
     atack: 4
+    leave: 0
   speed:
     patrol: 0
     chase: 4
     zero: 0
+  atackPower: 10
 --- !u!114 &7314932167376981288
 MonoBehaviour:
   m_ObjectHideFlags: 0

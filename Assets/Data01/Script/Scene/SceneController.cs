@@ -54,10 +54,13 @@ public class SceneController : MonoBehaviour
             case "Title":
                 Cursor.lockState = CursorLockMode.Confined;
                 break;
+
             case "Select":
                 Cursor.lockState = CursorLockMode.Confined;
                 break;
+
             case "Stage01":
+            case "Stage02":
                 Cursor.lockState = CursorLockMode.Locked;
                 clearObj = gameClearObj;
                 overObj = gameOverObj;
