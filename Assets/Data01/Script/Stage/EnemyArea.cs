@@ -47,8 +47,8 @@ public class EnemyArea : MonoBehaviour
 
     void Update()
     {
-        // エリアに入ったら
-        if(inArea)
+        // エリアに入っている場合
+        if (inArea)
         {
             // エリア内全ての敵が倒されたら
             if(AreaManager.enemyList.Count <= 0)

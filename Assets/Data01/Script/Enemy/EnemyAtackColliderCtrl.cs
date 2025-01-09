@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class EnemyGolemAtack : MonoBehaviour
+public class EnemyAtackColliderCtrl : MonoBehaviour
 {
     //-----SerializeField------------------------------------------------------------
 

@@ -65,7 +65,7 @@ public class Generic: MonoBehaviour
     /// </summary>
     /// <param name="_value">初期値</param>
     /// <param name="_range">誤差</param>
-    /// <returns>ランダムな値</returns>
+    /// <returns>ランダム値</returns>
     public static float RandomPointRange(float _value , float _range)
     {
         return (int)Random.Range(_value - _range, _value + _range);

@@ -196,6 +196,14 @@ public class EnemySkeletonCtrl : EnemyBase
 
     private void Atack()
     {
+        // 攻撃分岐
+        switch(atackState)
+        {
+            case AtackState.Melee1:
+                Melee1();
+                break;
+        }
+
         // 攻撃モーションの終了
         if (AnimationEnd("Atack"))
         {
@@ -312,6 +320,14 @@ public class EnemySkeletonCtrl : EnemyBase
     }
     #endregion
 
+    #region 攻撃パターン
+
+    private void Melee1()
+    {
+
+    }
+
+    #endregion
 
     #region エネミーの制御
 
@@ -384,6 +400,10 @@ public class EnemySkeletonCtrl : EnemyBase
                 break;
 
             case AIState.Atack:
+                // 攻撃をランダムで選択
+                AtackState atack = EnumGeneric.GetRandom<AtackState>();
+                SetAtackState(atack);
+
                 transform.LookAt(playerPos.position);
                 navMesh.speed = speed.zero;
                 navMesh.destination = enemyPos.position;
@@ -406,6 +426,26 @@ public class EnemySkeletonCtrl : EnemyBase
         }
 
         Debug.Log($"{_nextState}ステートに更新");
+    }
+
+    /// <summary>
+    /// 攻撃ステートを設定
+    /// </summary>
+    /// <param name="_atack">攻撃</param>
+    private void SetAtackState(AtackState _atack)
+    {
+        atackState = _atack;
+
+        animator.SetInteger("AtackValue", (int)_atack + 1);
+        // +1としているのはAnimatorの各遷移条件が1から始まるため
+
+        // 攻撃ステートに移る時に1回だけ呼ばれる処理
+        switch (_atack)
+        {
+            case AtackState.Melee1:
+                atackPower = Generic.RandomPointRange(-10.0f, 2.0f);
+                break;
+        }
     }
 
     #endregion

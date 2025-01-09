@@ -222,8 +222,6 @@ public class EnemyMinotaurCtrl : EnemyBase
         // 攻撃モーションの終了
         if (AnimationEnd("Atack"))
         {
-            Debug.Log("AAAA");
-
             // プレイヤーとの距離が
             // 追跡範囲外
             if (DistanceFromPlayer() > range.chase)
@@ -469,37 +467,37 @@ public class EnemyMinotaurCtrl : EnemyBase
     }
 
     /// <summary>
-    /// 攻撃ステートを決める
+    /// 攻撃ステートを設定
     /// </summary>
-    /// <param name="_atackState"></param>
-    private void SetAtackState(AtackState _atackState)
+    /// <param name="_atack">攻撃</param>
+    private void SetAtackState(AtackState _atack)
     {
-        atackState = _atackState;
+        atackState = _atack;
 
-        animator.SetInteger("AtackValue", (int)_atackState + 1);
+        animator.SetInteger("AtackValue", (int)_atack + 1);
         // +1としているのはAnimatorの各遷移条件が1から始まるため
 
         // 攻撃ステートに移る時に1回だけ呼ばれる処理
-        switch (_atackState)
+        switch (_atack)
         {
             case AtackState.Melee1:
                 atackPower = Generic.RandomPointRange(-10.0f, 2.0f);
                 break;
 
             case AtackState.Melee2:
-                atackPower = atackPower = Generic.RandomPointRange(-15.0f, 2.0f);
+                atackPower = Generic.RandomPointRange(-15.0f, 2.0f);
                 break;
 
             case AtackState.Melee3:
-                atackPower = atackPower = Generic.RandomPointRange(-20.0f, 3.0f);
+                atackPower = Generic.RandomPointRange(-20.0f, 3.0f);
                 break;
 
             case AtackState.Kick:
-                atackPower = atackPower = Generic.RandomPointRange(-15.0f, 4.0f);
+                atackPower =    Generic.RandomPointRange(-15.0f, 4.0f);
                 break;
 
             case AtackState.Kick2:
-                atackPower = atackPower = Generic.RandomPointRange(-7.0f, 3.0f);
+                atackPower = Generic.RandomPointRange(-7.0f, 3.0f);
                 break;
         }
     }

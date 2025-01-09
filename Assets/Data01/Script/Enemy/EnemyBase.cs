@@ -111,7 +111,7 @@ public class EnemyBase : MonoBehaviour
     }
 
     /// <summary>
-    /// パリィされる
+    /// パリィされた判定
     /// </summary>
     public virtual void TakeParry()
     {
@@ -119,7 +119,7 @@ public class EnemyBase : MonoBehaviour
     }
 
     /// <summary>
-    /// HPが0になったら
+    /// HPが0になったら呼ばれる
     /// </summary>
     private void Die()
     {
@@ -128,8 +128,8 @@ public class EnemyBase : MonoBehaviour
         AreaManager.enemyList.Remove(this.gameObject);
         capsuleCollider.enabled = false;
     }
-
     #endregion
+
 
 
     #region アニメーションEvent
