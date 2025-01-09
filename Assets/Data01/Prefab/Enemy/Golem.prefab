@@ -1198,6 +1198,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AtackCollider
       objectReference: {fileID: 0}
+    - target: {fileID: 257675175484491541, guid: 7f94f302924b6f849b8a5e10a055f3bd, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 157965330569467742}
     - target: {fileID: 1430797650139415774, guid: 7f94f302924b6f849b8a5e10a055f3bd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1281,6 +1285,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AtackCollider
       objectReference: {fileID: 0}
+    - target: {fileID: 257675175484491541, guid: 7f94f302924b6f849b8a5e10a055f3bd, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 157965330569467742}
     - target: {fileID: 1430797650139415774, guid: 7f94f302924b6f849b8a5e10a055f3bd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1373,6 +1381,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AtackCollider
       objectReference: {fileID: 0}
+    - target: {fileID: 257675175484491541, guid: 7f94f302924b6f849b8a5e10a055f3bd, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 157965330569467742}
     - target: {fileID: 1430797650139415774, guid: 7f94f302924b6f849b8a5e10a055f3bd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.094

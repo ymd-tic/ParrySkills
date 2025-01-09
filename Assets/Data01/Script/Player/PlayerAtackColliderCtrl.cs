@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class TitleSceneController : MonoBehaviour
+public class PlayerAtackColliderCtrl : MonoBehaviour
 {
 
     //-----SerializeField------------------------------------------------------------
-
+    [Header("攻撃判定")][SerializeField] BoxCollider atackCollider;
 
 
     //-----privateField--------------------------------------------------------------
@@ -22,15 +21,18 @@ public class TitleSceneController : MonoBehaviour
 
     //-----protectedField------------------------------------------------------------
 
+    #region コライダー制御
 
-
-    void Start()
+    public void ColliderOn()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        atackCollider.enabled = true;
     }
 
-    public void OnPushMainGame()
+    public void ColliderOff()
     {
-        SceneManager.LoadScene("MainGameScene",LoadSceneMode.Single);
+        atackCollider.enabled = false;
+
     }
+
+    #endregion
 }

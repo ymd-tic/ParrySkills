@@ -232,9 +232,20 @@ public class EnemySkeletonCtrl : EnemyBase
 
     private void Damage()
     {
+        curIdleTime += Time.deltaTime;
+
         if (AnimationEnd("Damage"))
         {
             rigidbody.isKinematic = true;
+
+            // 攻撃クールタイムがなくなったら
+            if (curIdleTime > atackCoolTime)
+            {
+                ChangeAIState(AIState.Atack);
+                canDamageAnim = false;
+                curIdleTime = 0;
+                return;
+            }
 
             // プレイヤーとの距離が追跡範囲内なら
             if (DistanceFromPlayer() <= range.chase)
@@ -247,16 +258,6 @@ public class EnemySkeletonCtrl : EnemyBase
 
                 ChangeAIState(AIState.Chase);
             }
-        }
-
-        // 攻撃クールタイムがなくなったら
-        curIdleTime += Time.deltaTime;
-        if (curIdleTime > atackCoolTime)
-        {
-            ChangeAIState(AIState.Atack);
-            canDamageAnim = false;
-            curIdleTime = 0;
-            return;
         }
     }
 
@@ -370,6 +371,9 @@ public class EnemySkeletonCtrl : EnemyBase
 
         foreach (var animState in animator.parameters)
         {
+            // トリガー以外はスキップ
+            if (animState.type != AnimatorControllerParameterType.Trigger) { continue; }
+
             if (animState.name != $"{_nextState}")
             {
                 animator.ResetTrigger($"{animState.name}");
@@ -425,7 +429,7 @@ public class EnemySkeletonCtrl : EnemyBase
                 break;
         }
 
-        Debug.Log($"{_nextState}ステートに更新");
+        //Debug.Log($"{_nextState}ステートに更新");
     }
 
     /// <summary>

@@ -271,8 +271,7 @@ public class PlayerCtrl : MonoBehaviour
     /// <param name="_damage"></param>
     public void TakeDamage(float _damage)
     {
-        Debug.Log(_damage + "ダメージを食らった");
-
+        Debug.Log(_damage);
         // HPが0以下になったら
         if (hpValue.cur + _damage <= hpValue.min)
         {

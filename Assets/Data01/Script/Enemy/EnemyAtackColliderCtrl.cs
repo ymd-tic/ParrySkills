@@ -44,20 +44,30 @@ public class EnemyAtackColliderCtrl : MonoBehaviour
 
     #region アニメーションEvent
 
+    /// <summary>
+    /// コライダーを有効にする
+    /// </summary>
     public void SetColliderOn()
     {
+        // 現在の攻撃を取得
         int atackValue = animator.GetInteger("AtackValue");
 
+        // コライダーを有効にする
         foreach (var col in collider[atackValue-1].colliders)
         {
             col.enabled = true;
         }
     }
 
+    /// <summary>
+    /// コライダーを無効にする
+    /// </summary>
     public void SetColliderOff()
     {
+        // 現在の攻撃を取得
         int atackValue = animator.GetInteger("AtackValue");
 
+        // コライダーを無効にする
         foreach (var col in collider[atackValue - 1].colliders)
         {
             col.enabled = false;

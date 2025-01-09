@@ -69731,14 +69731,14 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.96666664
-    functionName: ColliderOn
+    functionName: SetColliderOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1.0666667
-    functionName: ColliderOff
+    functionName: SetColliderOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
