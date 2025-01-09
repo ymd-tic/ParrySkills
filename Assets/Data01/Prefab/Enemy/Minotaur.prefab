@@ -4580,6 +4580,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: f4926889894dc974996745dbff65d505, type: 2}
+    - target: {fileID: 6536201570390258100, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536201570390258100, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7223229556108726935, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
       propertyPath: m_Radius
       value: 0.5
@@ -4626,13 +4634,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 1000
-  atackCoolTime: 5
+  dafaultAtackCoolTime: 4
   damageTextPrefab: {fileID: 8924579130654965952, guid: 8de52498b8a88484188f0e75f954eb5a, type: 3}
   parryEfect: {fileID: 5072295290179279665}
   range:
     chase: 15
-    atack: 2
-    leave: 1.5
+    atack: 2.5
+    leave: 2
   speed:
     patrol: 1
     chase: 3

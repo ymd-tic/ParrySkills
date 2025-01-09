@@ -242,6 +242,9 @@ public class EnemyGolemCtrl : EnemyBase
                 AtackState atack = EnumGeneric.GetRandom<AtackState>();
                 SetAtackState(atack);
 
+                // 攻撃クールタイムをランダムで設定
+                atackCoolTime = Generic.RandomPointRange(dafaultAtackCoolTime, 0.5f);
+
                 transform.LookAt(playerPos.position);
                 navMesh.speed = speed.zero;
                 navMesh.destination = enemyPos.position;

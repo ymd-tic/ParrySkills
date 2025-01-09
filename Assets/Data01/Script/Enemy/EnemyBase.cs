@@ -13,7 +13,7 @@ public class EnemyBase : MonoBehaviour
 
     //-----SerializeField------------------------------------------------------------
     [Header("最大Hp")]          [SerializeField] private   float maxHp = 100;
-    [Header("攻撃クールタイム")][SerializeField] protected float atackCoolTime = 3;
+    [Header("攻撃クールタイム")][SerializeField] protected float dafaultAtackCoolTime = 3;
     [Header("ダメ―ジ表記")]    [SerializeField] private GameObject damageTextPrefab;
     [Header("パリィ可能エフェクト")][SerializeField] private ParticleSystem parryEfect;
 
@@ -27,6 +27,7 @@ public class EnemyBase : MonoBehaviour
     private Generic.ParamateValue hpValue;
     private CapsuleCollider capsuleCollider;
     private TMP_Text damageText;
+
 
     //-----publicField---------------------------------------------------------------
     [NonSerialized]public float atackPower = 10;
@@ -45,6 +46,7 @@ public class EnemyBase : MonoBehaviour
     protected new Rigidbody rigidbody;
     protected float curIdleTime = 0;  // 待機時間
     protected bool isDie = false;
+    protected float atackCoolTime = 3; // 攻撃クールタイム
 
 
     #region システム
@@ -60,6 +62,7 @@ public class EnemyBase : MonoBehaviour
         damageText = damageTextPrefab.transform.GetChild(0).GetComponent<TMP_Text>();
 
         hpValue = new Generic.ParamateValue(maxHp, maxHp, 0);
+        atackCoolTime = Generic.RandomPointRange(dafaultAtackCoolTime, 0.5f);
     }
 
 
@@ -82,6 +85,8 @@ public class EnemyBase : MonoBehaviour
     {
         return Vector3.Distance(playerPos.position, enemyPos.position);
     }
+
+    
     #endregion
 
 

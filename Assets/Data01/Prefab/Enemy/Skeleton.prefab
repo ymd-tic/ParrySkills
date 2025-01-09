@@ -1444,15 +1444,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1358866418979710190, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1358866418979710190, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1358866418979710190, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1358866418979710190, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1496,7 +1496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1358866418979710190, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3248015764908887353, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
       propertyPath: m_Radius
@@ -1528,7 +1528,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: bc41dc4f2cd6aee4dabf0fb96a5810d8, type: 2}
     - target: {fileID: 6536201570390258100, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
       propertyPath: m_CullingMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6536201570390258100, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
       propertyPath: m_ApplyRootMotion
@@ -1604,7 +1604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 200
-  atackCoolTime: 3
+  dafaultAtackCoolTime: 3
   damageTextPrefab: {fileID: 8924579130654965952, guid: 8de52498b8a88484188f0e75f954eb5a, type: 3}
   parryEfect: {fileID: 1450043979336239922}
   range:

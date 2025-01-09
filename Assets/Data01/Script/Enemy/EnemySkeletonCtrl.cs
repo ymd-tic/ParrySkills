@@ -233,19 +233,18 @@ public class EnemySkeletonCtrl : EnemyBase
     private void Damage()
     {
         curIdleTime += Time.deltaTime;
+        if (curIdleTime > atackCoolTime)
+        {
+            ChangeAIState(AIState.Atack);
+            canDamageAnim = false;
+            curIdleTime = 0;
+            rigidbody.isKinematic = true;
+            return;
+        }
 
         if (AnimationEnd("Damage"))
         {
             rigidbody.isKinematic = true;
-
-            // 攻撃クールタイムがなくなったら
-            if (curIdleTime > atackCoolTime)
-            {
-                ChangeAIState(AIState.Atack);
-                canDamageAnim = false;
-                curIdleTime = 0;
-                return;
-            }
 
             // プレイヤーとの距離が追跡範囲内なら
             if (DistanceFromPlayer() <= range.chase)
@@ -407,6 +406,9 @@ public class EnemySkeletonCtrl : EnemyBase
                 // 攻撃をランダムで選択
                 AtackState atack = EnumGeneric.GetRandom<AtackState>();
                 SetAtackState(atack);
+
+                // 攻撃クールタイムをランダムで設定
+                atackCoolTime = Generic.RandomPointRange(dafaultAtackCoolTime, 0.5f);
 
                 transform.LookAt(playerPos.position);
                 navMesh.speed = speed.zero;

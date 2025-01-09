@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ParrySystem : MonoBehaviour
@@ -10,6 +11,7 @@ public class ParrySystem : MonoBehaviour
 
     //-----privateField--------------------------------------------------------------
     private PlayerCtrl playerCtrl;
+    private Dictionary<int, bool> atackCollider { get; } = new Dictionary<int, bool>();
 
 
     //-----publicField---------------------------------------------------------------
@@ -50,16 +52,23 @@ public class ParrySystem : MonoBehaviour
     private void SuccessParry(Collider _other)
     {
         parrySuccess = true;
-        Debug.Log("パリィ成功");
+        // 判定を一度だけにする
+        EnemyBase enemy = _other.GetComponent<EnemyAtack>().enemy;
+        int enemyId = enemy.GetInstanceID();
+        if (atackCollider.ContainsKey(enemyId)) { return; }
+        atackCollider[enemyId] = true;
+
         // アドレナリンゲージを増やす
         this.transform.parent.GetComponent<SkillCtrl>().AdrenalineGaugeCalculation(15f);
         // 敵をノックバックさせる
-        _other.GetComponent<EnemyAtack>().enemy.TakeParry();
+        enemy.TakeParry();
 
         // エフェクト生成
         Vector3 efectPos = this.transform.position;
         efectPos.y = 1.5f;
         Instantiate(parryEfect, efectPos, Quaternion.identity);
+        
+        Time.timeScale = 0.5f;
 
         StartCoroutine(ReseetParryFlag());
     }
@@ -72,9 +81,10 @@ public class ParrySystem : MonoBehaviour
     /// <returns></returns>
     IEnumerator ReseetParryFlag()
     {
-        Time.timeScale = 0.5f;
         yield return new WaitForSecondsRealtime(0.2f);
         parrySuccess = false;
         Time.timeScale = 1.0f;
+        yield return new WaitForSecondsRealtime(0.8f);
+        atackCollider.Clear();
     }
 }
