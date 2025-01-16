@@ -248,7 +248,7 @@ public class EnemyWizardCtrl : EnemyBase
         // クールタイムをランダムに再設定
         distanceTime.goal = Generic.RandomPointRange(distanceTime.def, 1f); // 距離を測るまでの時間
         atackTime.goal = Generic.RandomPointRange(atackTime.def, 2f);     // 攻撃までの時間
-        warpTime.goal = Generic.RandomPointRange(warpTime.def, 1f);         // ワープまでの時間
+        warpTime.goal = Generic.RandomPointRange(warpTime.def, 1.5f);         // ワープまでの時間
 
         // 次のステートに移る時に1回だけ呼ばれる処理
         switch (_nextState)
