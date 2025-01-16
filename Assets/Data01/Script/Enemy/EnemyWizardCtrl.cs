@@ -33,11 +33,15 @@ public class EnemyWizardCtrl : EnemyBase
     [Header("遠距離攻撃")]
     [SerializeField] private GameObject fireBall;   // ファイアボール
 
+    [Header("エフェクト")]
+    [SerializeField] private GameObject warpEffect; // ワープエフェクト
+
     //-----privateField--------------------------------------------------------------
     private EnemyArea enemyArea;    // スポーンしたエリア
     private Coroutine coroutine;    // コルーチン
     private AIState aiState = AIState.Patrol;
     private AtackState atackState = AtackState.Magic1;
+    private bool isWarp = false;   // ワープ中かどうか
     //-----publicField---------------------------------------------------------------
 
 
@@ -95,6 +99,8 @@ public class EnemyWizardCtrl : EnemyBase
     private void Idle()
     {
         transform.LookAt(playerPos);
+
+        if(isWarp) { return; }
 
         // 攻撃クールタイムが終わったら攻撃ステートに移る
         atackTime.cur += Time.deltaTime;
@@ -205,12 +211,10 @@ public class EnemyWizardCtrl : EnemyBase
         {
             ChangeAIState(AIState.Idle);
 
-            // ワープ
-            Vector3 warpPos = enemyArea.GetRandomPosInSphere(); // 範囲内のランダムな座標を取得
-            enemyPos.position = warpPos;
             StartCoroutine(Warp());
-            warpTime.cur = 0;
         }
+
+
     }
     #endregion
 
@@ -242,9 +246,9 @@ public class EnemyWizardCtrl : EnemyBase
         }
 
         // クールタイムをランダムに再設定
-        distanceTime.goal = Generic.RandomPointRange(distanceTime.def, 1f);
-        atackTime.goal = Generic.RandomPointRange(atackTime.def, 1f);
-        warpTime.goal = Generic.RandomPointRange(warpTime.def, 1f);
+        distanceTime.goal = Generic.RandomPointRange(distanceTime.def, 1f); // 距離を測るまでの時間
+        atackTime.goal = Generic.RandomPointRange(atackTime.def, 2f);     // 攻撃までの時間
+        warpTime.goal = Generic.RandomPointRange(warpTime.def, 1f);         // ワープまでの時間
 
         // 次のステートに移る時に1回だけ呼ばれる処理
         switch (_nextState)
@@ -290,7 +294,7 @@ public class EnemyWizardCtrl : EnemyBase
                 break;
         }
 
-        Debug.Log($"{_nextState}ステートに更新");
+        //Debug.Log($"{_nextState}ステートに更新");
     }
 
     private void SetAtackState(AtackState _atack)
@@ -305,22 +309,22 @@ public class EnemyWizardCtrl : EnemyBase
         {
             case AtackState.Magic1:
                 atackPower = Generic.RandomPointRange(-10.0f, 2.0f);
-                Debug.Log("魔法1");
+                //Debug.Log("魔法1");
                 break;
 
             case AtackState.Magic2:
                 atackPower = Generic.RandomPointRange(-15.0f, 2.0f);
-                Debug.Log("魔法2");
+                //Debug.Log("魔法2");
                 break;
 
             case AtackState.Magic3:
                 atackPower = Generic.RandomPointRange(-20.0f, 3.0f);
-                Debug.Log("魔法3");
+                //Debug.Log("魔法3");
                 break;
 
             case AtackState.Magic4:
                 atackPower = Generic.RandomPointRange(-15.0f, 4.0f);
-                Debug.Log("魔法4");
+                //Debug.Log("魔法4");
                 break;
         }
     }
@@ -341,10 +345,34 @@ public class EnemyWizardCtrl : EnemyBase
         ChangeAIState(AIState.Patrol);
     }
 
+    /// <summary>
+    /// ワープ移動
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Warp()
     {
+        float waitTime = 1.5f; // 待機時間
+        isWarp = true;
+
+        // エフェクト生成
+        Vector3 efectPos = this.transform.position;
+        Instantiate(warpEffect, efectPos, Quaternion.identity);
+
+        // 移動
+        Vector3 warpPos = enemyArea.GetRandomPosInSphere(); // 範囲内のランダムな座標を取得
+        enemyPos.position = warpPos;
+
         this.transform.GetChild(0).gameObject.SetActive(false);
-        yield return new WaitForSeconds(1f);
+
+        yield return new WaitForSeconds(waitTime);
+
+        isWarp = false;
+        warpTime.cur = 0;
+
+        // エフェクト生成
+        efectPos = this.transform.position;
+        Instantiate(warpEffect, efectPos, Quaternion.identity);
+
         this.transform.GetChild(0).gameObject.SetActive(true);
     }
 

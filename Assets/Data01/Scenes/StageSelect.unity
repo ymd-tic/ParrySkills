@@ -292,6 +292,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1963236166}
     m_Modifications:
+    - target: {fileID: 3195679660950378661, guid: 0ad811b39c8b601498e86d6f8714460d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 603770908}
+    - target: {fileID: 3195679660950378661, guid: 0ad811b39c8b601498e86d6f8714460d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLoadScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 3195679660950378661, guid: 0ad811b39c8b601498e86d6f8714460d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Stage02
+      objectReference: {fileID: 0}
     - target: {fileID: 7297580393473477491, guid: 0ad811b39c8b601498e86d6f8714460d, type: 3}
       propertyPath: m_text
       value: 'Stage02
@@ -392,6 +404,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9096693146567574433, guid: 0ad811b39c8b601498e86d6f8714460d, type: 3}
   m_PrefabInstance: {fileID: 487857365}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &603770908 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 394403851919408091, guid: 6e2dacf7e3cb4e942ba602dc232595d7, type: 3}
+  m_PrefabInstance: {fileID: 1025665268}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56214236db72c44f8e5cdf606f20e76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &727814851
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,6 +557,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1963236166}
     m_Modifications:
+    - target: {fileID: 3195679660950378661, guid: 0ad811b39c8b601498e86d6f8714460d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 603770908}
+    - target: {fileID: 3195679660950378661, guid: 0ad811b39c8b601498e86d6f8714460d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLoadScene
+      objectReference: {fileID: 0}
     - target: {fileID: 8817821446293635836, guid: 0ad811b39c8b601498e86d6f8714460d, type: 3}
       propertyPath: m_Name
       value: StageButtom1
@@ -890,6 +921,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1963236166}
     m_Modifications:
+    - target: {fileID: 3195679660950378661, guid: 0ad811b39c8b601498e86d6f8714460d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 603770908}
+    - target: {fileID: 3195679660950378661, guid: 0ad811b39c8b601498e86d6f8714460d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLoadScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 3195679660950378661, guid: 0ad811b39c8b601498e86d6f8714460d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Stage03
+      objectReference: {fileID: 0}
     - target: {fileID: 7297580393473477491, guid: 0ad811b39c8b601498e86d6f8714460d, type: 3}
       propertyPath: m_text
       value: 'Stage03

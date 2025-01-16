@@ -31978,6 +31978,7 @@ MonoBehaviour:
   warpTime:
     def: 6
   fireBall: {fileID: 5019171374544439892, guid: 959bf1b37c5262744ad74326c44a83a0, type: 3}
+  warpEffect: {fileID: 5162910912013668194, guid: 3dd51084744db614c8119cda344504ef, type: 3}
 --- !u!1001 &8681001917486152849
 PrefabInstance:
   m_ObjectHideFlags: 0
