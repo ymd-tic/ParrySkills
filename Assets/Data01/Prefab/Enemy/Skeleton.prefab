@@ -1558,6 +1558,18 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[0].colliders.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[0].colliders.Array.data[0]
+      value: 
+      objectReference: {fileID: 493674137268672611}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 9097869498531446160, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
@@ -1572,9 +1584,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1315637347056454114, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
       insertIndex: 2
       addedObject: {fileID: 6617679954454898547}
-    - targetCorrespondingSourceObject: {fileID: 1315637347056454114, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 5329449691988446719}
   m_SourcePrefab: {fileID: 100100000, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
 --- !u!4 &66418966331009423 stripped
 Transform:
@@ -1604,32 +1613,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 200
-  dafaultAtackCoolTime: 3
-  damageTextPrefab: {fileID: 8924579130654965952, guid: 8de52498b8a88484188f0e75f954eb5a, type: 3}
-  parryEfect: {fileID: 1450043979336239922}
-  range:
-    chase: 15
-    atack: 2
-    leave: 1.7
   speed:
-    patrol: 1
-    chase: 2
-    zero: 0
---- !u!114 &5329449691988446719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4665913410126338551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65969f0cd84d8e742b4111336f62a220, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collider:
-  - colliders:
-    - {fileID: 493674137268672611}
+    fast: 2
+    slow: 1
+  range:
+    far: 10
+    near: 1.5
+    atack: 2
+  parryEfect: {fileID: 1450043979336239922}
+  damageTextObj: {fileID: 8924579130654965952, guid: 8de52498b8a88484188f0e75f954eb5a, type: 3}
+  atackTime:
+    def: 5
 --- !u!1001 &7771094622385373580
 PrefabInstance:
   m_ObjectHideFlags: 0

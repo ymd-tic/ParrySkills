@@ -4596,6 +4596,86 @@ PrefabInstance:
       propertyPath: m_AngularSpeed
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[0].colliders.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[1].colliders.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[2].colliders.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[3].colliders.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[4].colliders.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[0].colliders.Array.data[0]
+      value: 
+      objectReference: {fileID: 8691978214159174062}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[0].colliders.Array.data[1]
+      value: 
+      objectReference: {fileID: 986848595759856334}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[0].colliders.Array.data[2]
+      value: 
+      objectReference: {fileID: 4025398467304506036}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[0].colliders.Array.data[3]
+      value: 
+      objectReference: {fileID: 1598510874168642175}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[1].colliders.Array.data[0]
+      value: 
+      objectReference: {fileID: 8691978214159174062}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[1].colliders.Array.data[1]
+      value: 
+      objectReference: {fileID: 986848595759856334}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[1].colliders.Array.data[2]
+      value: 
+      objectReference: {fileID: 4025398467304506036}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[1].colliders.Array.data[3]
+      value: 
+      objectReference: {fileID: 1598510874168642175}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[2].colliders.Array.data[0]
+      value: 
+      objectReference: {fileID: 8691978214159174062}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[2].colliders.Array.data[1]
+      value: 
+      objectReference: {fileID: 986848595759856334}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[2].colliders.Array.data[2]
+      value: 
+      objectReference: {fileID: 4025398467304506036}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[2].colliders.Array.data[3]
+      value: 
+      objectReference: {fileID: 1598510874168642175}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[3].colliders.Array.data[0]
+      value: 
+      objectReference: {fileID: 4612933700740206945}
+    - target: {fileID: 8779585811259037909, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: collider.Array.data[4].colliders.Array.data[0]
+      value: 
+      objectReference: {fileID: 1264516345315754238}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -4612,9 +4692,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1315637347056454114, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
       insertIndex: 2
       addedObject: {fileID: 6866285716871828852}
-    - targetCorrespondingSourceObject: {fileID: 1315637347056454114, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 7088119167284437133}
   m_SourcePrefab: {fileID: 100100000, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
 --- !u!1 &1349770811125123572 stripped
 GameObject:
@@ -4634,49 +4711,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 1000
-  dafaultAtackCoolTime: 4
-  damageTextPrefab: {fileID: 8924579130654965952, guid: 8de52498b8a88484188f0e75f954eb5a, type: 3}
-  parryEfect: {fileID: 5072295290179279665}
-  range:
-    chase: 15
-    atack: 2.5
-    leave: 2
   speed:
-    patrol: 1
-    chase: 3
-    zero: 0
---- !u!114 &7088119167284437133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1349770811125123572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65969f0cd84d8e742b4111336f62a220, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collider:
-  - colliders:
-    - {fileID: 8691978214159174062}
-    - {fileID: 986848595759856334}
-    - {fileID: 4025398467304506036}
-    - {fileID: 1598510874168642175}
-  - colliders:
-    - {fileID: 8691978214159174062}
-    - {fileID: 986848595759856334}
-    - {fileID: 4025398467304506036}
-    - {fileID: 1598510874168642175}
-  - colliders:
-    - {fileID: 8691978214159174062}
-    - {fileID: 986848595759856334}
-    - {fileID: 4025398467304506036}
-    - {fileID: 1598510874168642175}
-  - colliders:
-    - {fileID: 4612933700740206945}
-  - colliders:
-    - {fileID: 1264516345315754238}
+    fast: 3
+    slow: 1
+  range:
+    far: 12
+    near: 2.5
+    atack: 3
+  parryEfect: {fileID: 5072295290179279665}
+  damageTextObj: {fileID: 8924579130654965952, guid: 8de52498b8a88484188f0e75f954eb5a, type: 3}
+  atackTime:
+    def: 3
 --- !u!198 &5072295290179279665 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5088264823213497127, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}

@@ -6,6 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
+    public class SceneData // シーン名データ
+    {
+        public const string TITLE = "Title";
+        public const string SELECT = "Select";
+        public const string STAGE01 = "Stage01";
+        public const string STAGE02 = "Stage02";
+    }
+
+    public enum GameEndStatus // ゲーム終了時の状態
+    {
+        CLEAR,
+        OVER
+    }
+
 
     //-----SerializeField------------------------------------------------------------
     [Tooltip("ゲーム終了")]
@@ -29,38 +43,20 @@ public class SceneController : MonoBehaviour
     //-----protectedField------------------------------------------------------------
 
 
-    public struct SceneData // シーン名の構造体
-    {
-        public string TITLE;
-        public string SELECT;
-        public string STAGE01;
-    }
-    static public SceneData sceneData;
-
-    public enum GameEndStatus // ゲーム終了時の状態
-    {
-        CLEAR,
-        OVER
-    }
-
     private void Awake()
     {
-        sceneData.TITLE = "Title";
-        sceneData.SELECT = "Select";
-        sceneData.STAGE01 = "Stage01";
-
         switch (SceneManager.GetActiveScene().name)
         {
-            case "Title":
+            case SceneData.TITLE:
                 Cursor.lockState = CursorLockMode.Confined;
                 break;
 
-            case "Select":
+            case SceneData.SELECT:
                 Cursor.lockState = CursorLockMode.Confined;
                 break;
 
-            case "Stage01":
-            case "Stage02":
+            case SceneData.STAGE01:
+            case SceneData.STAGE02:
                 Cursor.lockState = CursorLockMode.Locked;
                 clearObj = gameClearObj;
                 overObj = gameOverObj;

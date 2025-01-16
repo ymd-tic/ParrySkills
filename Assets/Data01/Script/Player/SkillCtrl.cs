@@ -5,18 +5,20 @@ using UnityEngine.UI;
 
 public class SkillCtrl : MonoBehaviour
 {
-
-    //-----SerializeField------------------------------------------------------------
-    [Header("最大アドレナリン")][SerializeField] private float maxAdrenaline;
-    [Header("アドレナリンゲージ")][SerializeField] public Slider adrenalineGauge;
-    [Header("スキル")][SerializeField] private SkillParamate[] skills = new SkillParamate[4];
-
-    [System.Serializable] struct SkillParamate // スキルのパラメータ
-    { 
+    [System.Serializable]
+    private class SkillParamate // スキルのパラメータ
+    {
         public int cost; // 消費アドレナリン
         public int coolTime; // リキャスト時間
         public Image icon; // スキルアイコン
     }
+
+    //-----SerializeField------------------------------------------------------------
+    [Header("アドレナリン")]
+    [SerializeField] private float maxAdrenaline;   // 最大アドレナリン
+    [SerializeField] public Slider adrenalineGauge; // アドレナリンゲージ
+    [Header("スキル")]
+    [SerializeField] private SkillParamate[] skills = new SkillParamate[4]; // スキルのパラメータ
 
 
     //-----privateField--------------------------------------------------------------

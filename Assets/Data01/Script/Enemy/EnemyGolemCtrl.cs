@@ -7,13 +7,6 @@ using UnityEngine;
 
 public class EnemyGolemCtrl : EnemyBase
 {
-
-    //-----SerializeField------------------------------------------------------------
-
-
-
-    //-----privateField--------------------------------------------------------------
-
     private enum AIState // 状態パターン
     {
         Idle,       // 待機
@@ -21,7 +14,6 @@ public class EnemyGolemCtrl : EnemyBase
         Atack,      // 攻撃
         KnockBack   // ノックバック
     }
-    AIState aiState = AIState.Idle;
 
     public enum AtackState // 攻撃パターン
     {
@@ -29,7 +21,15 @@ public class EnemyGolemCtrl : EnemyBase
         Melee2,     // 近接2
         Jump        // ジャンプ
     }
-    AtackState atackState = AtackState.Melee1;
+
+    //-----SerializeField------------------------------------------------------------
+    [Header("クールタイム")]
+    [SerializeField] private CoolTime atackTime;   // 攻撃クールタイム
+
+
+    //-----privateField--------------------------------------------------------------
+    private AIState aiState = AIState.Idle;
+    private AtackState atackState = AtackState.Melee1;
 
 
 
@@ -81,7 +81,7 @@ public class EnemyGolemCtrl : EnemyBase
     private void Idle()
     {
         // プレイヤーとの距離が追跡範囲内なら
-        if(DistanceFromPlayer() <= range.chase)
+        if(DistanceFromPlayer() <= range.far)
         {
             if(DistanceFromPlayer() > range.atack)
             {
@@ -90,20 +90,20 @@ public class EnemyGolemCtrl : EnemyBase
             }
         }
 
-        // 攻撃クールタイムがなくなったら
-        curIdleTime += Time.deltaTime;
-        if (curIdleTime > atackCoolTime)
+        // 攻撃クールタイムが終わったら攻撃ステートに移る
+        atackTime.cur += Time.deltaTime;
+        if (atackTime.cur > atackTime.goal)
         {
             ChangeAIState(AIState.Atack);
             canDamageAnim = false;
-            curIdleTime = 0;
+            atackTime.cur = 0;
             return;
         }
     }
 
     private void Chase()
     {
-        navMesh.destination = playerPos.position;
+        agent.destination = playerPos.position;
 
         // プレイヤーとの距離が攻撃範囲内なら
         if (DistanceFromPlayer() <= range.atack)
@@ -146,6 +146,25 @@ public class EnemyGolemCtrl : EnemyBase
 
             animator.SetInteger("AtackValue", 0);
         }
+
+        #region 攻撃ステート
+
+        void Melee1()
+        {
+
+        }
+
+        void Melee2()
+        {
+
+        }
+
+        void Jump()
+        {
+
+        }
+        #endregion
+
     }
 
     private void KnockBack()
@@ -156,7 +175,7 @@ public class EnemyGolemCtrl : EnemyBase
             canDamageAnim = true;
 
             // プレイヤーとの距離が追跡範囲内なら
-            if (DistanceFromPlayer() <= range.chase)
+            if (DistanceFromPlayer() <= range.far)
             {   // かつ攻撃範囲内なら
                 if (DistanceFromPlayer() <= range.atack)
                 {
@@ -167,24 +186,6 @@ public class EnemyGolemCtrl : EnemyBase
                 ChangeAIState(AIState.Chase);
             }
         }
-    }
-    #endregion
-
-    #region 攻撃パターン
-
-    private void Melee1()
-    {
-
-    }
-
-    private void Melee2()
-    {
-
-    }
-
-    private void Jump()
-    {
-
     }
     #endregion
 
@@ -228,13 +229,13 @@ public class EnemyGolemCtrl : EnemyBase
         switch (_nextState)
         {
             case AIState.Idle:
-                navMesh.speed = speed.zero;
-                navMesh.destination = enemyPos.position;
+                agent.speed = speed.zero;
+                agent.destination = enemyPos.position;
                 break;
 
             case AIState.Chase:
-                navMesh.speed = speed.chase;
-                navMesh.destination = playerPos.position;
+                agent.speed = speed.fast;
+                agent.destination = playerPos.position;
                 break;
 
             case AIState.Atack:
@@ -243,16 +244,16 @@ public class EnemyGolemCtrl : EnemyBase
                 SetAtackState(atack);
 
                 // 攻撃クールタイムをランダムで設定
-                atackCoolTime = Generic.RandomPointRange(dafaultAtackCoolTime, 0.5f);
+                atackTime.goal = Generic.RandomPointRange(atackTime.def, 0.5f);
 
                 transform.LookAt(playerPos.position);
-                navMesh.speed = speed.zero;
-                navMesh.destination = enemyPos.position;
+                agent.speed = speed.zero;
+                agent.destination = enemyPos.position;
                 break;
 
             case AIState.KnockBack:
-                navMesh.speed = speed.zero;
-                navMesh.destination = enemyPos.position;
+                agent.speed = speed.zero;
+                agent.destination = enemyPos.position;
                 break;
         }
 

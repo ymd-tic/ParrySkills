@@ -6,6 +6,12 @@ using UnityEngine;
 
 public class EnemyArea : MonoBehaviour
 {
+    [System.Serializable]
+    public class SpownEnemy // スポーンする敵の情報
+    {
+        public GameObject enemyObj; // エネミー
+        public int spownValue;   // スポーン数
+    }
 
     //-----SerializeField------------------------------------------------------------
     [Header("前後のバリア")]
@@ -13,13 +19,6 @@ public class EnemyArea : MonoBehaviour
 
     [Header("エネミー")]
     [SerializeField] private List<SpownEnemy> enemys = new List<SpownEnemy>();
-
-    [System.Serializable]
-    public class SpownEnemy // スポーンする敵の情報
-    {
-        public GameObject enemyObj; // エネミー
-        public int spownValue;   // スポーン数
-    }
 
 
     //-----privateField--------------------------------------------------------------

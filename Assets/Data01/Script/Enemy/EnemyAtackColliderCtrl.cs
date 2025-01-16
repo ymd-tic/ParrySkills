@@ -4,19 +4,20 @@ using System.Collections.Generic;
 
 public class EnemyAtackColliderCtrl : MonoBehaviour
 {
-    //-----SerializeField------------------------------------------------------------
-
-
-    [Header("攻撃当たり判定")]
-    [SerializeField] new List<ColliderList> collider = new List<ColliderList>();
-
     [System.Serializable]
-    public class ColliderList
+    public class ColliderList // コライダーのリスト
     {
         [Header("コライダー")]
         public List<Collider> colliders = new List<Collider>();
+
     }
-    
+
+    //-----SerializeField------------------------------------------------------------
+
+
+    [Header("各攻撃の判定")]
+    [SerializeField] new List<ColliderList> collider = new List<ColliderList>();
+
 
     //-----privateField--------------------------------------------------------------
     Animator animator;

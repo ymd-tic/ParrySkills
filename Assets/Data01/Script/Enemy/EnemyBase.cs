@@ -6,27 +6,49 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
-using static EnemyGolemCtrl;
 
 public class EnemyBase : MonoBehaviour
 {
+    [Serializable]
+    protected class CoolTime // クールタイム
+    {
+        public float def = 0; // デフォルト時間
+        [NonSerialized] public float cur = 0;   // 現在
+        [NonSerialized] public float goal = 0;  // 目標
+    }
+
+    [Serializable]
+    protected class Range // 行動パターン範囲
+    {
+        public float far = 0;   // 遠い
+        public float near = 0;  // 近い
+        public float atack = 0; // 攻撃距離
+    }
+
+    [Serializable]
+    protected class Speed // 移動速度
+    {
+        public float fast = 0;  // 速い
+        public float slow = 0;  // 遅い
+        [NonSerialized]
+        public readonly float zero = 0;  // 停止
+    }
 
     //-----SerializeField------------------------------------------------------------
-    [Header("最大Hp")]          [SerializeField] private   float maxHp = 100;
-    [Header("攻撃クールタイム")][SerializeField] protected float dafaultAtackCoolTime = 3;
-    [Header("ダメ―ジ表記")]    [SerializeField] private GameObject damageTextPrefab;
-    [Header("パリィ可能エフェクト")][SerializeField] private ParticleSystem parryEfect;
+    [Header("ステータス")]          
+    [SerializeField] private float maxHp = 100; // 最大HP
+    [SerializeField] protected Speed speed;     // 移動速度
+    [SerializeField] protected Range range;     // 行動パターン範囲
 
-    [Header("行動パターン範囲")][SerializeField] protected Range range;
-    [System.Serializable] protected struct Range { public float chase, atack, leave; }
+    [Header("エフェクト")]
+    [SerializeField] private ParticleSystem parryEfect; // パリィエフェクト
+    [SerializeField] private GameObject damageTextObj;  // ダメージUI
 
-    [Header("巡回速度")][SerializeField] protected Speed speed;
-    [System.Serializable] protected struct Speed { public float patrol, chase, zero; }
 
     //-----privateField--------------------------------------------------------------
-    private Generic.ParamateValue hpValue;
-    private CapsuleCollider capsuleCollider;
-    private TMP_Text damageText;
+    private Generic.ParamateValue hpValue;  // HP
+    private CapsuleCollider capsuleCollider;// カプセルコライダー
+    private TMP_Text damageText;            // ダメージUIテキスト
 
 
     //-----publicField---------------------------------------------------------------
@@ -40,13 +62,11 @@ public class EnemyBase : MonoBehaviour
     //-----protectedField------------------------------------------------------------
     protected Transform playerPos;  // プレイヤー座標
     protected Transform enemyPos;   // 敵座標
-    protected bool canDamageAnim = true;   // ダメージアニメーションを再生するか
-    protected NavMeshAgent navMesh;
+    protected bool canDamageAnim = true;   // ダメージアニメーションの再生フラグ
+    protected bool isDie = false;          // 死亡フラグ
+    protected NavMeshAgent agent;
     protected Animator animator;
     protected new Rigidbody rigidbody;
-    protected float curIdleTime = 0;  // 待機時間
-    protected bool isDie = false;
-    protected float atackCoolTime = 3; // 攻撃クールタイム
 
 
     #region システム
@@ -55,14 +75,14 @@ public class EnemyBase : MonoBehaviour
     {
         playerPos = GameObject.FindWithTag("Player").transform;
         enemyPos = this.gameObject.transform;
-        navMesh = GetComponent<NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         rigidbody = GetComponent<Rigidbody>();
-        damageText = damageTextPrefab.transform.GetChild(0).GetComponent<TMP_Text>();
+        damageText = damageTextObj.transform.GetChild(0).GetComponent<TMP_Text>();
 
         hpValue = new Generic.ParamateValue(maxHp, maxHp, 0);
-        atackCoolTime = Generic.RandomPointRange(dafaultAtackCoolTime, 0.5f);
+        //atackCoolTime = Generic.RandomPointRange(dafaultAtackCoolTime, 0.5f);
     }
 
 
@@ -86,7 +106,6 @@ public class EnemyBase : MonoBehaviour
         return Vector3.Distance(playerPos.position, enemyPos.position);
     }
 
-    
     #endregion
 
 
@@ -107,7 +126,7 @@ public class EnemyBase : MonoBehaviour
         // UIのポップアップ位置
         Vector3 popTextPos = new Vector3(enemyPos.position.x, 2.5f, enemyPos.position.z);
         // ダメージUI生成
-        Instantiate(damageTextPrefab, popTextPos, Quaternion.identity);
+        Instantiate(damageTextObj, popTextPos, Quaternion.identity);
 
         if (hpValue.cur <= hpValue.min)
         {
@@ -133,6 +152,7 @@ public class EnemyBase : MonoBehaviour
         AreaManager.enemyList.Remove(this.gameObject);
         capsuleCollider.enabled = false;
     }
+
     #endregion
 
 
@@ -152,7 +172,7 @@ public class EnemyBase : MonoBehaviour
     /// </summary>
     /// <param name="_animName">ステート名</param>
     /// <returns></returns>
-    protected bool AnimationEnd(string _animName)
+    protected bool AnimationEnd([HideInInspector]string _animName)
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName(_animName))
         {

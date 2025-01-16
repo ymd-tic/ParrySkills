@@ -7,34 +7,35 @@ using static EnemyGolemCtrl;
 
 public class EnemySkeletonCtrl : EnemyBase
 {
-
-    //-----SerializeField------------------------------------------------------------
-
-
-
-    //-----privateField--------------------------------------------------------------
-    private EnemyArea enemyArea;    // スポーンしたエリア
-    private bool isGoalPoint;       // 目標地点に着いたかのフラグ
-    private Coroutine coroutine;    // コルーチン
-
     private enum AIState // 状態パターン
     {
         Idle,       // 待機
-        Wait,       // 見渡す
+        Wait,       // 待つ
         Patrol,     // 巡回
         Chase,      // 追跡
         Atack,      // 攻撃
         Damage,     // ダメージ
         KnockBack,  // ノックバック
-        Retreat     // 後退
+        Distance    // 距離をとる
     }
-    AIState aiState = AIState.Patrol;
 
     private enum AtackState // 攻撃パターン
     {
         Melee1,     // 近接1
     }
+    //-----SerializeField------------------------------------------------------------
+    [Header("クールタイム")]
+    [SerializeField] private CoolTime atackTime;    // 攻撃クールタイム
+
+
+
+    //-----privateField--------------------------------------------------------------
+    private EnemyArea enemyArea;    // スポーンしたエリア
+    private Coroutine coroutine;    // コルーチン
+    private AIState aiState = AIState.Patrol;
     private AtackState atackState = AtackState.Melee1;
+
+
 
     //-----publicField---------------------------------------------------------------
 
@@ -55,9 +56,9 @@ public class EnemySkeletonCtrl : EnemyBase
     {
         base.Start();
 
-        enemyArea = this.transform.parent.GetComponent<EnemyArea>();
         // 目的地をエリア内に設定
-        navMesh.destination = enemyArea.GetRandomPosInSphere();
+        enemyArea = this.transform.parent.GetComponent<EnemyArea>();
+        agent.destination = enemyArea.GetRandomPosInSphere();
     }
 
     protected override void Update()
@@ -94,8 +95,8 @@ public class EnemySkeletonCtrl : EnemyBase
                 KnockBack();
                 break;
 
-            case AIState.Retreat:
-                Retreat();
+            case AIState.Distance:
+                Distance();
                 break;
         }
     }
@@ -108,7 +109,7 @@ public class EnemySkeletonCtrl : EnemyBase
     private void Idle()
     {
         // プレイヤーとの距離が追跡範囲外なら
-        if (DistanceFromPlayer() > range.chase)
+        if (DistanceFromPlayer() > range.far)
         {
             ChangeAIState(AIState.Patrol);
             return;
@@ -119,56 +120,54 @@ public class EnemySkeletonCtrl : EnemyBase
             ChangeAIState(AIState.Chase);
             return;
         }
-        else if(DistanceFromPlayer() <= range.leave)
+        else if(DistanceFromPlayer() <= range.near)
         {
-            ChangeAIState(AIState.Retreat);
+            ChangeAIState(AIState.Distance);
             return;
         }
 
-        // 攻撃クールタイムがなくなったら
-        curIdleTime += Time.deltaTime;
-        if (curIdleTime > atackCoolTime)
+        // 攻撃クールタイムが終わったら攻撃ステートに移る
+        atackTime.cur += Time.deltaTime;
+        if (atackTime.cur > atackTime.goal)
         {
             ChangeAIState(AIState.Atack);
             canDamageAnim = false;
-            curIdleTime = 0;
+            atackTime.cur = 0;
             return;
         }
     }
 
     private void Wait()
     {
-        if (!isGoalPoint)
+        if (coroutine == null)
         {
-            // 一定時間待つ→次の地点に移動
+            // 待機時間が終わったら次の地点を決める
             coroutine = StartCoroutine(SetNextPatrolPoint());
         }
 
-        // プレイヤーとの距離が追跡範囲無内なら
-        if (DistanceFromPlayer() <= range.chase)
+        // プレイヤーが近くに来たら待機を解除
+        if (DistanceFromPlayer() <= range.far)
         {
             ChangeAIState(AIState.Chase);
-            isGoalPoint = false;
 
             if (coroutine != null)
             {
                 StopCoroutine(coroutine);
+                coroutine = null;
             }
-
-            return;
         }
     }
 
     private void Patrol()
     {
-        // 目的地に近づいたら
-        if (navMesh.remainingDistance < 2f)
+        // 目標地点に到着したら
+        if (agent.remainingDistance < 2f)
         {
             ChangeAIState(AIState.Wait);
         }
 
         // プレイヤーとの距離が追跡範囲内なら
-        if (DistanceFromPlayer() <= range.chase)
+        if (DistanceFromPlayer() <= range.far)
         {
             ChangeAIState(AIState.Chase);
             return;
@@ -177,10 +176,10 @@ public class EnemySkeletonCtrl : EnemyBase
 
     private void Chase()
     {
-        navMesh.destination = playerPos.position;
+        agent.destination = playerPos.position;
 
         // プレイヤーとの距離が追跡範囲外なら
-        if (DistanceFromPlayer() > range.chase)
+        if (DistanceFromPlayer() > range.far)
         {
             ChangeAIState(AIState.Patrol);
             return;
@@ -209,7 +208,7 @@ public class EnemySkeletonCtrl : EnemyBase
         {
             // プレイヤーとの距離が
             // 追跡範囲外
-            if (DistanceFromPlayer() > range.chase)
+            if (DistanceFromPlayer() > range.far)
             {
                 ChangeAIState(AIState.Patrol);
             }
@@ -218,26 +217,37 @@ public class EnemySkeletonCtrl : EnemyBase
             {
                 ChangeAIState(AIState.Chase);
             }
-            else if(DistanceFromPlayer() > range.leave)
+            else if (DistanceFromPlayer() > range.near)
             {
                 ChangeAIState(AIState.Idle);
             }
-            else if (DistanceFromPlayer() <= range.leave)
+            else if (DistanceFromPlayer() <= range.near)
             {
-                ChangeAIState(AIState.Retreat);
+                ChangeAIState(AIState.Distance);
             }
             canDamageAnim = true;
         }
+
+        #region 攻撃パターン
+
+        void Melee1()
+        {
+
+        }
+
+        #endregion
+
     }
 
-    private void Damage()
+private void Damage()
     {
-        curIdleTime += Time.deltaTime;
-        if (curIdleTime > atackCoolTime)
+        // 攻撃クールタイムが終わったら攻撃ステートに移る
+        atackTime.cur += Time.deltaTime;
+        if (atackTime.cur > atackTime.goal)
         {
             ChangeAIState(AIState.Atack);
             canDamageAnim = false;
-            curIdleTime = 0;
+            atackTime.cur = 0;
             rigidbody.isKinematic = true;
             return;
         }
@@ -247,7 +257,7 @@ public class EnemySkeletonCtrl : EnemyBase
             rigidbody.isKinematic = true;
 
             // プレイヤーとの距離が追跡範囲内なら
-            if (DistanceFromPlayer() <= range.chase)
+            if (DistanceFromPlayer() <= range.far)
             {   // かつ攻撃範囲内なら
                 if (DistanceFromPlayer() <= range.atack)
                 {
@@ -268,15 +278,15 @@ public class EnemySkeletonCtrl : EnemyBase
             canDamageAnim = true;
 
             // プレイヤーとの距離が追跡範囲内なら
-            if (DistanceFromPlayer() <= range.chase)
+            if (DistanceFromPlayer() <= range.far)
             {   // かつ攻撃範囲内なら
                 if (DistanceFromPlayer() <= range.atack)
                 {
                     ChangeAIState(AIState.Idle);
 
-                    if(DistanceFromPlayer() <= range.leave)
+                    if(DistanceFromPlayer() <= range.near)
                     {
-                        ChangeAIState(AIState.Retreat);
+                        ChangeAIState(AIState.Distance);
                     }
 
                     return;
@@ -292,42 +302,33 @@ public class EnemySkeletonCtrl : EnemyBase
     }
 
 
-    private void Retreat()
+    private void Distance()
     {
         transform.LookAt(playerPos);
         // プレイヤーから離れる方向に移動
         Vector3 directionAwayFromPlayer = (transform.position - playerPos.position).normalized;
-        Vector3 retreatPosition = transform.position + directionAwayFromPlayer * range.leave;
+        Vector3 retreatPosition = transform.position + directionAwayFromPlayer * range.near;
 
-        navMesh.destination = retreatPosition;
+        agent.destination = retreatPosition;
 
-        // 攻撃クールタイムがなくなったら
-
-        curIdleTime += Time.deltaTime;
-        if (curIdleTime > atackCoolTime)
+        // 攻撃クールタイムが終わったら攻撃ステートに移る
+        atackTime.cur += Time.deltaTime;
+        if (atackTime.cur > atackTime.goal)
         {
             ChangeAIState(AIState.Atack);
             canDamageAnim = false;
-            curIdleTime = 0;
+            atackTime.cur = 0;
             return;
         }
 
         // 一定の距離を取ったらIdle状態に遷移
-        if (DistanceFromPlayer() >= range.leave)
+        if (DistanceFromPlayer() >= range.near)
         {
             ChangeAIState(AIState.Idle);
         }
     }
     #endregion
 
-    #region 攻撃パターン
-
-    private void Melee1()
-    {
-
-    }
-
-    #endregion
 
     #region エネミーの制御
 
@@ -383,23 +384,23 @@ public class EnemySkeletonCtrl : EnemyBase
         switch (_nextState)
         {
             case AIState.Idle:
-                navMesh.speed = speed.zero;
-                navMesh.destination = enemyPos.position;
+                agent.speed = speed.zero;
+                agent.destination = enemyPos.position;
                 break;
 
             case AIState.Wait:
-                navMesh.speed = speed.zero;
-                navMesh.destination = enemyPos.position;
+                agent.speed = speed.zero;
+                agent.destination = enemyPos.position;
                 break;
 
             case AIState.Patrol:
-                navMesh.speed = speed.patrol;
-                navMesh.destination = enemyArea.GetRandomPosInSphere();
+                agent.speed = speed.slow;
+                agent.destination = enemyArea.GetRandomPosInSphere();
                 break;
 
             case AIState.Chase:
-                navMesh.speed = speed.chase;
-                navMesh.destination = playerPos.position;
+                agent.speed = speed.fast;
+                agent.destination = playerPos.position;
                 break;
 
             case AIState.Atack:
@@ -408,26 +409,26 @@ public class EnemySkeletonCtrl : EnemyBase
                 SetAtackState(atack);
 
                 // 攻撃クールタイムをランダムで設定
-                atackCoolTime = Generic.RandomPointRange(dafaultAtackCoolTime, 0.5f);
+                atackTime.goal = Generic.RandomPointRange(atackTime.def, 0.5f);
 
                 transform.LookAt(playerPos.position);
-                navMesh.speed = speed.zero;
-                navMesh.destination = enemyPos.position;
+                agent.speed = speed.zero;
+                agent.destination = enemyPos.position;
                 break;
 
             case AIState.Damage:
-                navMesh.speed = speed.zero;
-                navMesh.destination = enemyPos.position;
+                agent.speed = speed.zero;
+                agent.destination = enemyPos.position;
                 break;
 
             case AIState.KnockBack:
-                navMesh.speed = speed.zero;
-                navMesh.destination = enemyPos.position;
+                agent.speed = speed.zero;
+                agent.destination = enemyPos.position;
                 break;
 
-            case AIState.Retreat:
-                navMesh.speed = speed.patrol;
-                navMesh.destination = enemyPos.position;
+            case AIState.Distance:
+                agent.speed = speed.slow;
+                agent.destination = enemyPos.position;
                 break;
         }
 
@@ -466,10 +467,8 @@ public class EnemySkeletonCtrl : EnemyBase
     IEnumerator SetNextPatrolPoint()
     {
         float waitTime = 5.5f; // 待機時間
-        isGoalPoint = true;
         yield return new WaitForSeconds(waitTime);
         ChangeAIState(AIState.Patrol);
-        isGoalPoint = false;
     }
 
     #endregion

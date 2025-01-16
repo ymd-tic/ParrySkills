@@ -61,14 +61,14 @@ public class Generic: MonoBehaviour
     }
 
     /// <summary>
-    /// ランダムな整数値を返す
+    /// 数値に誤差を追加して返す
     /// </summary>
     /// <param name="_value">初期値</param>
-    /// <param name="_range">誤差</param>
-    /// <returns>ランダム値</returns>
-    public static float RandomPointRange(float _value , float _range)
+    /// <param name="_error">誤差</param>
+    /// <returns>初期値±誤差 </returns>
+    public static float RandomPointRange(float _value , float _error)
     {
-        return (int)Random.Range(_value - _range, _value + _range);
+        return (int)Random.Range(_value - _error, _value + _error);
     }
 
     #endregion

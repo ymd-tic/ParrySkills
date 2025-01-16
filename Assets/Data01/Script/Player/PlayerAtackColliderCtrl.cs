@@ -4,7 +4,7 @@ public class PlayerAtackColliderCtrl : MonoBehaviour
 {
 
     //-----SerializeField------------------------------------------------------------
-    [Header("攻撃判定")][SerializeField] BoxCollider atackCollider;
+    [Header("コライダー")][SerializeField] BoxCollider atackCollider;    // 攻撃判定
 
 
     //-----privateField--------------------------------------------------------------

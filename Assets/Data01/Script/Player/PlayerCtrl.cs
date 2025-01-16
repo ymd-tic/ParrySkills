@@ -6,30 +6,40 @@ using UnityEngine.UI;
 public class PlayerCtrl : MonoBehaviour
 {
     //-----SerializeField------------------------------------------------------------
-    [Header("最大HP")]            　[SerializeField] private float maxHp = 10;
-    [Header("最大スタミナ")]        [SerializeField] private float maxStamina = 10;
-    [Header("メインカメラ")]        [SerializeField] private Camera mainCamera;
-    [Header("移動速度")]            [SerializeField] private float moveSpeed;
-    [Header("方向転換速度")]        [SerializeField] private float rotSpeed;
-    [Header("回避速度")]            [SerializeField] private float rollingSpeed;
-    [Header("スタミナ回復速度")]    [SerializeField] private float staminaHealSpeed;
-    [Header("スタミナ使用量")]      [SerializeField] private float staminaUseValue;
-    [Header("HPゲージ")]            [SerializeField] private Slider hpGage;
-    [Header("スタミナゲージ")]      [SerializeField] private Slider staminaGage;
-    [Header("パリィ当たり判定")]    [SerializeField] public BoxCollider parryCollider;
-    [Header("剣の軌跡エフェクト")]  [SerializeField] public ParticleSystem[] slashEfects = new ParticleSystem[4];
+    [Header("ステータス")]
+    [SerializeField] private float maxHp = 10;      // 最大HP
+    [SerializeField] private float maxStamina = 10; // 最大スタミナ
+    [SerializeField] private float moveSpeed;       // 移動速度
+    [SerializeField] private float rotSpeed;        // 方向転換速度
+    [SerializeField] private float rollingSpeed;    // 回避速度
+    [SerializeField] private float staminaHealSpeed;// スタミナ回復速度
+    [SerializeField] private float staminaUseValue; // スタミナ消費量
+
+    [Header("メインカメラ")]        
+    [SerializeField] private Camera mainCamera;     // メインカメラ
+
+    [Header("ゲージ")]           
+    [SerializeField] private Slider hpGage;         // HPゲージ
+    [SerializeField] private Slider staminaGage;    // スタミナゲージ
+
+    [Header("コライダー")]    
+    [SerializeField] public BoxCollider parryCollider; // パリィ当たり判定
+
+    [Header("エフェクト")] 
+    [SerializeField] public ParticleSystem[] slashEfects = new ParticleSystem[4]; // 剣の軌跡
 
 
     //-----privateField--------------------------------------------------------------
-    private Vector3 moveVector; // 移動方向
-    private Vector3 rollingVector; // 回避方向
+    private Vector3 moveVector;     // 移動方向
+    private Vector3 rollingVector;  // 回避方向
     private float horizontal; // X軸
     private float vertical;   // Z軸
-    private float curAtackState = 0; // 現在の攻撃段数
-    private bool isCanCombo = false; // コンボ可能か
-    private bool isCanAtack = true;  // 攻撃出来るか
-    private bool isCanRolling = false;
-    private bool isNowRolling = false;  // 回避しているか
+    private float curAtackState = 0;    // 現在の攻撃段数
+    private bool isCanCombo = false;    // コンボ可能フラグ (true => コンボ可能 false => コンボ不可)
+    private bool isCanAtack = true;     // 攻撃可能フラグ   (true => 攻撃可能   false => 攻撃不可)
+    private bool isCanRolling = false;  // 回避可能フラグ   (true => 回避可能   false => 回避不可)
+    private bool isNowRolling = false;  // 回避状態フラグ   (true => 回避中     false => 回避していない)
+
     private CharacterController characterController;
     private SkillCtrl skillController;
     private Coroutine rollingCoroutine;
@@ -39,8 +49,8 @@ public class PlayerCtrl : MonoBehaviour
     private Generic.ParamateValue staminaValue;
 
     //-----publicField---------------------------------------------------------------
+    [System.NonSerialized] public int atackPower = 1;   // 攻撃力
     [System.NonSerialized] public Animator animator;
-    [System.NonSerialized] public int atackPower = 1;
 
 
     //-----staticField---------------------------------------------------------------

@@ -1,0 +1,371 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.VersionControl;
+using UnityEngine;
+
+public class EnemyWizardCtrl : EnemyBase
+{
+    private enum AIState // 状態パターン
+    {
+        Idle,       // 待機
+        Wait,       // 待つ
+        Patrol,     // 巡回
+        Atack,      // 攻撃
+        Damage,     // ダメージ
+        Distance    // 距離をとる
+    }
+
+    private enum AtackState // 攻撃パターン
+    {
+        Magic1,     // 魔法1
+        Magic2,     // 魔法2
+        Magic3,     // 魔法3
+        Magic4      // 魔法4
+    }
+
+    //-----SerializeField------------------------------------------------------------
+    [Header("クールタイム")]
+    [SerializeField] private CoolTime atackTime;    // 攻撃クールタイム
+    [SerializeField] private CoolTime distanceTime; // 距離をとるクールタイム
+    [SerializeField] private CoolTime warpTime;     // ワープクールタイム
+
+    [Header("遠距離攻撃")]
+    [SerializeField] private GameObject fireBall;   // ファイアボール
+
+    //-----privateField--------------------------------------------------------------
+    private EnemyArea enemyArea;    // スポーンしたエリア
+    private Coroutine coroutine;    // コルーチン
+    private AIState aiState = AIState.Patrol;
+    private AtackState atackState = AtackState.Magic1;
+    //-----publicField---------------------------------------------------------------
+
+
+
+    //-----staticField---------------------------------------------------------------
+
+
+
+    //-----protectedField------------------------------------------------------------
+
+    # region システム
+    protected override void Start()
+    {
+        base.Start();
+
+        // 目的地をエリア内に設定
+        enemyArea = this.transform.parent.GetComponent<EnemyArea>();
+        agent.destination = enemyArea.GetRandomPosInSphere();
+
+        // クールタイムの初期値設定
+        atackTime.goal = Generic.RandomPointRange(atackTime.def, 0.5f);
+        distanceTime.goal = Generic.RandomPointRange(distanceTime.def, 0.5f);
+        warpTime.goal = Generic.RandomPointRange(warpTime.def, 0.5f);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        switch (aiState)
+        {
+            case AIState.Idle:
+                Idle();
+                break;
+            case AIState.Wait:
+                Wait();
+                break;
+            case AIState.Patrol:
+                Patrol();
+                break;
+            case AIState.Atack:
+                Atack();
+                break;
+            case AIState.Damage:
+                Damage();
+                break;
+            case AIState.Distance:
+                Distance();
+                break;
+        }
+    }
+
+    #endregion
+
+    #region 状態ステート
+    private void Idle()
+    {
+        transform.LookAt(playerPos);
+
+        // 攻撃クールタイムが終わったら攻撃ステートに移る
+        atackTime.cur += Time.deltaTime;
+        if(atackTime.cur > atackTime.goal)
+        {
+            ChangeAIState(AIState.Atack);
+            atackTime.cur = 0;
+            return;
+        }
+
+        // 距離をとるクールタイムが終わったら離れるステートに移る
+        distanceTime.cur += Time.deltaTime;
+        if (distanceTime.cur > distanceTime.goal)
+        {
+            ChangeAIState(AIState.Distance);
+            distanceTime.cur = 0;
+        }
+    }
+
+    private void Wait()
+    {
+        // 動いているコルーチンがある場合はスキップ
+        if(coroutine == null)
+        {
+            // 待機時間が終わったら次の地点を決める
+            coroutine = StartCoroutine(SetNextPatrolPoint());
+        }
+
+        // プレイヤーが近くに来たら待機を解除
+        if (DistanceFromPlayer() <= range.far)
+        {
+            ChangeAIState(AIState.Idle);
+
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+                coroutine = null;
+            }
+        }
+    }
+
+    private void Patrol()
+    {
+        // 目標地点に着いたら次の地点を決める
+        if(agent.remainingDistance < 2f)
+        {
+            ChangeAIState(AIState.Wait);
+        }
+
+        // プレイヤーが近くに来たら待機を解除
+        if (DistanceFromPlayer() <= range.far)
+        {
+            ChangeAIState(AIState.Idle);
+        }
+    }
+
+    private void Atack()
+    {
+        // 攻撃モーションの終了
+        if(AnimationEnd("Atack"))
+        {
+            Debug.Log("攻撃終了");
+
+            ChangeAIState(AIState.Idle);
+        }
+        #region 攻撃ステート
+
+
+        #endregion
+    }
+
+    private void Damage()
+    {
+    }
+
+    private void Distance()
+    {
+        transform.LookAt(playerPos);
+
+        // プレイヤーが近くに来たら
+        if (DistanceFromPlayer() <= range.atack)
+        {
+            // プレイヤーから離れる方向に移動
+            Vector3 directionAwayFromPlayer = (transform.position - playerPos.position).normalized;
+            Vector3 retreatPosition = transform.position + directionAwayFromPlayer * range.atack;
+            agent.destination = retreatPosition;
+        }
+
+        // プレイヤーが遠くに行ったら
+        if (DistanceFromPlayer() >= range.far)
+        {
+            // プレイヤーに近づく方向に移動
+            agent.destination = playerPos.position;
+        }
+
+        // 攻撃クールタイムが終わったら攻撃ステートに移る
+        atackTime.cur += Time.deltaTime;
+        if (atackTime.cur > atackTime.goal)
+        {
+            ChangeAIState(AIState.Atack);
+            atackTime.cur = 0;
+            return;
+        }
+
+        // ワープクールタイムが終わったら待機ステートに移る
+        warpTime.cur += Time.deltaTime;
+        if (warpTime.cur > warpTime.goal)
+        {
+            ChangeAIState(AIState.Idle);
+
+            // ワープ
+            Vector3 warpPos = enemyArea.GetRandomPosInSphere(); // 範囲内のランダムな座標を取得
+            enemyPos.position = warpPos;
+            StartCoroutine(Warp());
+            warpTime.cur = 0;
+        }
+    }
+    #endregion
+
+    #region エネミーの制御
+
+    /// <summary>
+    /// 状態ステートを変える
+    /// ステート毎のアニメーションを再生
+    /// </summary>
+    /// <param name="_nextState">次のステート</param>
+    private void ChangeAIState(AIState _nextState)
+    {
+        if (isDie) { return; }
+
+        aiState = _nextState;   // ステート更新
+
+        animator.SetTrigger($"{_nextState}");   // アニメーション更新
+
+        // 他のトリガーをリセット
+        foreach (var animState in animator.parameters)
+        {
+            // トリガー以外はスキップ
+            if (animState.type != AnimatorControllerParameterType.Trigger) { continue; }
+
+            if (animState.name != $"{_nextState}")
+            {
+                animator.ResetTrigger($"{animState.name}");
+            }
+        }
+
+        // クールタイムをランダムに再設定
+        distanceTime.goal = Generic.RandomPointRange(distanceTime.def, 1f);
+        atackTime.goal = Generic.RandomPointRange(atackTime.def, 1f);
+        warpTime.goal = Generic.RandomPointRange(warpTime.def, 1f);
+
+        // 次のステートに移る時に1回だけ呼ばれる処理
+        switch (_nextState)
+        {
+            case AIState.Idle:
+                agent.speed = speed.zero;
+                agent.destination = enemyPos.position;
+                break;
+
+            case AIState.Wait:
+                agent.speed = speed.zero;
+                agent.destination = enemyPos.position;
+                break;
+
+            case AIState.Patrol:
+                agent.speed = speed.slow;
+                agent.destination = enemyArea.GetRandomPosInSphere();
+                break;
+
+            case AIState.Atack:
+                // プレイヤーとの距離によって攻撃パターンを変える
+                AtackState atack;
+                if(DistanceFromPlayer() <= range.atack)
+                {
+                    atack = (AtackState)Random.Range(0, 1); // 近接攻撃
+                }
+                else
+                {
+                    atack = (AtackState)Random.Range(2, 4); // 遠距離攻撃
+                }
+                SetAtackState(atack);
+
+                agent.speed = speed.zero;
+                agent.destination = enemyPos.position;
+                break;
+
+            case AIState.Damage:
+                break;
+
+            case AIState.Distance:
+                agent.speed = speed.slow;
+                agent.destination = enemyPos.position;
+                break;
+        }
+
+        Debug.Log($"{_nextState}ステートに更新");
+    }
+
+    private void SetAtackState(AtackState _atack)
+    {
+        atackState = _atack;
+
+        animator.SetInteger("AtackValue", (int)_atack + 1);
+        // +1としているのはAnimatorの各遷移条件が1から始まるため
+
+        // 攻撃ステートに移る時に1回だけ呼ばれる処理
+        switch (_atack)
+        {
+            case AtackState.Magic1:
+                atackPower = Generic.RandomPointRange(-10.0f, 2.0f);
+                Debug.Log("魔法1");
+                break;
+
+            case AtackState.Magic2:
+                atackPower = Generic.RandomPointRange(-15.0f, 2.0f);
+                Debug.Log("魔法2");
+                break;
+
+            case AtackState.Magic3:
+                atackPower = Generic.RandomPointRange(-20.0f, 3.0f);
+                Debug.Log("魔法3");
+                break;
+
+            case AtackState.Magic4:
+                atackPower = Generic.RandomPointRange(-15.0f, 4.0f);
+                Debug.Log("魔法4");
+                break;
+        }
+    }
+
+    #endregion
+
+    #region コルーチン
+
+    /// <summary>
+    /// 巡回地点に着いたら一定時間待機してから次の地点を決める
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator SetNextPatrolPoint()
+    {
+        float waitTime = 2.5f; // 待機時間
+        yield return new WaitForSeconds(waitTime);
+        coroutine = null;
+        ChangeAIState(AIState.Patrol);
+    }
+
+    IEnumerator Warp()
+    {
+        this.transform.GetChild(0).gameObject.SetActive(false);
+        yield return new WaitForSeconds(1f);
+        this.transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+    #endregion
+
+    #region アニメーションEvent
+
+    public void FireBall()
+    {
+        GameObject obj;
+        Vector3 pos = this.transform.position;
+        Quaternion rot = this.transform.rotation;
+        pos.y += 1f;
+
+        // ファイアボールを生成
+        obj = Instantiate(fireBall, pos, rot);
+        // 正面方向に飛ばす
+        obj.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
+        // ダメージを設定
+        obj.GetComponent<EnemyAtack>().enemy = this;
+    }
+    #endregion
+}
+

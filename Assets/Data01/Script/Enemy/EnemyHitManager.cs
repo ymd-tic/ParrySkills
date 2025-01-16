@@ -9,7 +9,7 @@ public class EnemyHitManager : MonoBehaviour
 
     //-----privateField--------------------------------------------------------------
     private EnemyBase enemy;
-    private bool canDamage = true; // ダメージを食らうか
+    private bool canDamage = true; // ダメージを受けるか判定
 
 
     //-----publicField---------------------------------------------------------------
