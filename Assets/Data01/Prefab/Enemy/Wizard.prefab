@@ -31967,18 +31967,19 @@ MonoBehaviour:
     slow: 1
   range:
     far: 10
-    near: 3
-    atack: 5
+    near: 2
+    atack: 4
   parryEfect: {fileID: 4505119153791457844}
   damageTextObj: {fileID: 8924579130654965952, guid: 8de52498b8a88484188f0e75f954eb5a, type: 3}
   atackTime:
     def: 5
   distanceTime:
-    def: 3
+    def: 2
   warpTime:
-    def: 6
+    def: 5
   fireBall: {fileID: 5019171374544439892, guid: 959bf1b37c5262744ad74326c44a83a0, type: 3}
   warpEffect: {fileID: 5162910912013668194, guid: 3dd51084744db614c8119cda344504ef, type: 3}
+  warpMoveEffect: {fileID: 4642842036948581472, guid: 5f0bbfb8f23abfe4b84e7f9757fc1cb9, type: 3}
 --- !u!1001 &8681001917486152849
 PrefabInstance:
   m_ObjectHideFlags: 0

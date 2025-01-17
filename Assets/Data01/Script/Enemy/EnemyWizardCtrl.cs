@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.VersionControl;
 using UnityEngine;
-
+using DG.Tweening;
 public class EnemyWizardCtrl : EnemyBase
 {
     private enum AIState // 状態パターン
@@ -13,7 +13,8 @@ public class EnemyWizardCtrl : EnemyBase
         Patrol,     // 巡回
         Atack,      // 攻撃
         Damage,     // ダメージ
-        Distance    // 距離をとる
+        Distance,   // 距離をとる
+        Warp        // ワープ
     }
 
     private enum AtackState // 攻撃パターン
@@ -35,6 +36,7 @@ public class EnemyWizardCtrl : EnemyBase
 
     [Header("エフェクト")]
     [SerializeField] private GameObject warpEffect; // ワープエフェクト
+    [SerializeField] private GameObject warpMoveEffect; // ワープエフェクト
 
     //-----privateField--------------------------------------------------------------
     private EnemyArea enemyArea;    // スポーンしたエリア
@@ -89,6 +91,9 @@ public class EnemyWizardCtrl : EnemyBase
                 break;
             case AIState.Distance:
                 Distance();
+                break;
+            case AIState.Warp:
+                WarpCoroutine(); 
                 break;
         }
     }
@@ -162,7 +167,7 @@ public class EnemyWizardCtrl : EnemyBase
         // 攻撃モーションの終了
         if(AnimationEnd("Atack"))
         {
-            Debug.Log("攻撃終了");
+            //Debug.Log("攻撃終了");
 
             ChangeAIState(AIState.Idle);
         }
@@ -209,13 +214,15 @@ public class EnemyWizardCtrl : EnemyBase
         warpTime.cur += Time.deltaTime;
         if (warpTime.cur > warpTime.goal)
         {
-            ChangeAIState(AIState.Idle);
-
-            StartCoroutine(Warp());
+            ChangeAIState(AIState.Warp);
         }
+    }
 
+    private void Warp()
+    {
 
     }
+
     #endregion
 
     #region エネミーの制御
@@ -231,7 +238,6 @@ public class EnemyWizardCtrl : EnemyBase
 
         aiState = _nextState;   // ステート更新
 
-        animator.SetTrigger($"{_nextState}");   // アニメーション更新
 
         // 他のトリガーをリセット
         foreach (var animState in animator.parameters)
@@ -239,7 +245,11 @@ public class EnemyWizardCtrl : EnemyBase
             // トリガー以外はスキップ
             if (animState.type != AnimatorControllerParameterType.Trigger) { continue; }
 
-            if (animState.name != $"{_nextState}")
+            if(animState.name == $"{_nextState}")
+            {
+                animator.SetTrigger($"{_nextState}");   // アニメーション更新
+            }
+            else
             {
                 animator.ResetTrigger($"{animState.name}");
             }
@@ -290,6 +300,12 @@ public class EnemyWizardCtrl : EnemyBase
 
             case AIState.Distance:
                 agent.speed = speed.slow;
+                agent.destination = enemyPos.position;
+                break;
+
+            case AIState.Warp:
+                StartCoroutine(WarpCoroutine());
+                agent.speed = speed.zero;
                 agent.destination = enemyPos.position;
                 break;
         }
@@ -349,19 +365,26 @@ public class EnemyWizardCtrl : EnemyBase
     /// ワープ移動
     /// </summary>
     /// <returns></returns>
-    IEnumerator Warp()
+    IEnumerator WarpCoroutine()
     {
         float waitTime = 1.5f; // 待機時間
         isWarp = true;
 
-        // エフェクト生成
+        // 消えるエフェクト生成
         Vector3 efectPos = this.transform.position;
         Instantiate(warpEffect, efectPos, Quaternion.identity);
 
-        // 移動
+        // ワープ
         Vector3 warpPos = enemyArea.GetRandomPosInSphere(); // 範囲内のランダムな座標を取得
-        enemyPos.position = warpPos;
+        enemyPos.position = warpPos;    // ワープ地点に座標移動
 
+        // 影エフェクトの生成と移動
+        var shadow = Instantiate(warpMoveEffect, efectPos, Quaternion.identity);
+        warpPos.y = 1f;   // ワープ地点の高さを上げる
+        shadow.transform.position = new(shadow.transform.position.x,warpPos.y,shadow.transform.position.z);
+        shadow.transform.DOMove(warpPos, waitTime);    // ワープ地点まで残像を移動
+
+        // 姿を非表示
         this.transform.GetChild(0).gameObject.SetActive(false);
 
         yield return new WaitForSeconds(waitTime);
@@ -369,11 +392,17 @@ public class EnemyWizardCtrl : EnemyBase
         isWarp = false;
         warpTime.cur = 0;
 
+        // 影エフェクト削除
+        Destroy(shadow);
+
         // エフェクト生成
         efectPos = this.transform.position;
         Instantiate(warpEffect, efectPos, Quaternion.identity);
 
+        // 姿を表示
         this.transform.GetChild(0).gameObject.SetActive(true);
+
+        ChangeAIState(AIState.Idle);
     }
 
     #endregion
@@ -382,7 +411,10 @@ public class EnemyWizardCtrl : EnemyBase
 
     public void FireBall()
     {
-        GameObject obj;
+        GameObject obj; // ファイアボール
+        float shotSpeed = 1000; // 発射速度
+
+        // 生成座標
         Vector3 pos = this.transform.position;
         Quaternion rot = this.transform.rotation;
         pos.y += 1f;
@@ -390,7 +422,7 @@ public class EnemyWizardCtrl : EnemyBase
         // ファイアボールを生成
         obj = Instantiate(fireBall, pos, rot);
         // 正面方向に飛ばす
-        obj.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
+        obj.GetComponent<Rigidbody>().AddForce(transform.forward * shotSpeed);
         // ダメージを設定
         obj.GetComponent<EnemyAtack>().enemy = this;
     }
