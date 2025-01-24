@@ -1,11 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -42,13 +38,11 @@ public class EnemyBase : MonoBehaviour
 
     [Header("エフェクト")]
     [SerializeField] private ParticleSystem parryEfect; // パリィエフェクト
-    [SerializeField] private GameObject damageTextObj;  // ダメージUI
+    [SerializeField] protected GameObject damageTextObj;  // ダメージUI
 
 
     //-----privateField--------------------------------------------------------------
-    private Generic.ParamateValue hpValue;  // HP
     private CapsuleCollider capsuleCollider;// カプセルコライダー
-    private TMP_Text damageText;            // ダメージUIテキスト
 
 
     //-----publicField---------------------------------------------------------------
@@ -62,11 +56,13 @@ public class EnemyBase : MonoBehaviour
     //-----protectedField------------------------------------------------------------
     protected Transform playerPos;  // プレイヤー座標
     protected Transform enemyPos;   // 敵座標
+    protected Generic.ParamateValue hpValue;  // HP
     protected bool canDamageAnim = true;   // ダメージアニメーションの再生フラグ
     protected bool isDie = false;          // 死亡フラグ
     protected NavMeshAgent agent;
     protected Animator animator;
     protected new Rigidbody rigidbody;
+    protected TMP_Text damageText;            // ダメージUIテキスト
 
 
     #region システム
@@ -82,19 +78,12 @@ public class EnemyBase : MonoBehaviour
         damageText = damageTextObj.transform.GetChild(0).GetComponent<TMP_Text>();
 
         hpValue = new Generic.ParamateValue(maxHp, maxHp, 0);
-        //atackCoolTime = Generic.RandomPointRange(dafaultAtackCoolTime, 0.5f);
     }
 
 
     protected virtual void Update()
     {
-        if (AnimationEnd("Die")) // 死ぬアニメーションが終わったら消す
-        {
-            Debug.Log($"{gameObject.name}を倒した");
-            Destroy(this.gameObject);
-        }
 
-        if (isDie) { return; }  // 死んだら何もしない
     }
 
     /// <summary>
@@ -145,12 +134,14 @@ public class EnemyBase : MonoBehaviour
     /// <summary>
     /// HPが0になったら呼ばれる
     /// </summary>
-    private void Die()
+    protected void Die()
     {
         isDie = true;
         animator.SetTrigger("Die");
         AreaManager.enemyList.Remove(this.gameObject);
         capsuleCollider.enabled = false;
+        agent.destination = enemyPos.position;
+        agent.speed = speed.zero;
     }
 
     #endregion

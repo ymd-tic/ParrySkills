@@ -64,7 +64,7 @@ public class PlayerCtrl : MonoBehaviour
     private void Awake()
     {
         hpValue = new Generic.ParamateValue(maxHp, maxHp, 0);
-        staminaValue = new Generic.ParamateValue(maxHp, maxStamina, 0);
+        staminaValue = new Generic.ParamateValue(maxStamina, maxStamina, 0);
     }
 
     void Start()
@@ -279,19 +279,22 @@ public class PlayerCtrl : MonoBehaviour
     /// É_ÉÅÅ[ÉWÇéÛÇØÇÈ
     /// </summary>
     /// <param name="_damage"></param>
-    public void TakeDamage(float _damage)
+    public async void TakeDamage(float _damage)
     {
         Debug.Log(_damage);
-        // HPÇ™0à»â∫Ç…Ç»Ç¡ÇΩÇÁ
-        if (hpValue.cur + _damage <= hpValue.min)
-        {
-            SceneController.GameFinish(SceneController.GameEndStatus.OVER);
-        }
 
         animator.SetTrigger("Damage");
         animator.SetFloat("Atack", 0f);
         ParryColliderOff();
-        StartCoroutine(new Generic.CalcuRation().ValueFluctuation(_damage,hpGage,hpValue));
+
+        // HPÇ™å∏ÇÈÇ‹Ç≈ë“Ç¬
+        await new Generic.CalcuRation().ValueFluctuation(_damage,hpGage,hpValue).AsTask(this);
+
+        // HPÇ™0à»â∫Ç…Ç»Ç¡ÇΩÇÁ
+        if (hpValue.cur <= hpValue.min)
+        {
+            SceneController.GameFinish(SceneController.GameEndStatus.OVER);
+        }
     }
 
     /// <summary>

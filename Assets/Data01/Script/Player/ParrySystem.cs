@@ -59,7 +59,7 @@ public class ParrySystem : MonoBehaviour
         atackCollider[enemyId] = true;
 
         // アドレナリンゲージを増やす
-        this.transform.parent.GetComponent<SkillCtrl>().AdrenalineGaugeCalculation(15f);
+        this.transform.parent.GetComponent<SkillCtrl>().AdrenalineGaugeCalculation(10f);
         // 敵をノックバックさせる
         enemy.TakeParry();
 

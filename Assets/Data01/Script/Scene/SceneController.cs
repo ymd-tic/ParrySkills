@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,11 +7,10 @@ public class SceneController : MonoBehaviour
     public class SceneData // シーン名データ
     {
         public const string TITLE = "Title";
-        public const string SELECT = "Select";
+        public const string SELECT = "StageSelect";
         public const string STAGE01 = "Stage01";
         public const string STAGE02 = "Stage02";
     }
-
     public enum GameEndStatus // ゲーム終了時の状態
     {
         CLEAR,
@@ -23,8 +20,8 @@ public class SceneController : MonoBehaviour
 
     //-----SerializeField------------------------------------------------------------
     [Tooltip("ゲーム終了")]
-    [SerializeField] GameObject gameClearObj;
-    [SerializeField] GameObject gameOverObj;
+    [SerializeField] GameObject gameClearObj;   // クリア
+    [SerializeField] GameObject gameOverObj;    // オーバー
 
 
     //-----privateField--------------------------------------------------------------
@@ -70,38 +67,41 @@ public class SceneController : MonoBehaviour
     /// <param name="_name">ロードシーン名</param>
     static public void OnLoadScene(string _name)
     {
-        foreach(var _scene in GetSceneNames())
-        {
-            if(_name == _scene)
-            {
-                Time.timeScale = 1;
-                SceneManager.LoadScene(_name,LoadSceneMode.Single);
-                return;
-            }
-        }
+        Time.timeScale = 1;
+        SceneManager.LoadSceneAsync(_name,LoadSceneMode.Single);
 
-        Debug.LogError("シーンが存在しません");
+        //foreach (var _scene in sceneData))
+        //{
+        //    if (_name == _scene)
+        //    {
+        //        Time.timeScale = 1;
+        //        SceneManager.LoadSceneAsync(_name, LoadSceneMode.Single);
+        //        return;
+        //    }
+        //}
+
+        //Debug.LogError("シーンが存在しません");
     }
     /// <summary>
     /// シーンの名前を取得
     /// </summary>
     /// <returns>シーンの名前配列</returns>
-    static private string[] GetSceneNames()
-    {
-        // シーンの名前格納用の配列
-        string[] sceneNameArray = new string[EditorBuildSettings.scenes.Length];
+    //static private string[] GetSceneNames()
+    //{
+    //    // シーンの名前格納用の配列
+    //    string[] sceneNameArray = new string[EditorBuildSettings.scenes.Length];
 
-        // シーンの名前を取得、格納
-        for (int i = 0; i < EditorBuildSettings.scenes.Length; i++)
-        {
-            string scenePath = EditorBuildSettings.scenes[i].path;
-            string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePath);
+    //    // シーンの名前を取得、格納
+    //    for (int i = 0; i < EditorBuildSettings.scenes.Length; i++)
+    //    {
+    //        string scenePath = EditorBuildSettings.scenes[i].path;
+    //        string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePath);
 
-            sceneNameArray[i] = sceneName;
-        }
+    //        sceneNameArray[i] = sceneName;
+    //    }
 
-        return sceneNameArray;
-    }
+    //    return sceneNameArray;
+    //}
 
 
     /// <summary>

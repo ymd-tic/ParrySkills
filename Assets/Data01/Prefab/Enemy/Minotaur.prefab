@@ -4568,6 +4568,14 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5088264823213497113, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.392
+      objectReference: {fileID: 0}
+    - target: {fileID: 5088264823213497113, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.143
+      objectReference: {fileID: 0}
     - target: {fileID: 5088264823213497126, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -4710,7 +4718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbe3a6e9449c334fbe5f54bde881dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 1000
+  maxHp: 300
   speed:
     fast: 3
     slow: 1
@@ -4721,7 +4729,7 @@ MonoBehaviour:
   parryEfect: {fileID: 5072295290179279665}
   damageTextObj: {fileID: 8924579130654965952, guid: 8de52498b8a88484188f0e75f954eb5a, type: 3}
   atackTime:
-    def: 3
+    def: 4
 --- !u!198 &5072295290179279665 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5088264823213497127, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}

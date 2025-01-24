@@ -56,7 +56,7 @@ public class EnemyHitManager : MonoBehaviour
         {
             PlayerCtrl playerCtrl = collider.transform.root.GetComponent<PlayerCtrl>();
 
-            collider.transform.root.GetComponent<SkillCtrl>().AdrenalineGaugeCalculation(3);
+            collider.transform.root.GetComponent<SkillCtrl>().AdrenalineGaugeCalculation(1.0f);
             enemy.TakeDamage(-playerCtrl.atackPower);
             StartCoroutine(CanDamage());
         }

@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class EnemyMinotaurCtrl : EnemyBase
 {
@@ -33,7 +30,7 @@ public class EnemyMinotaurCtrl : EnemyBase
 
 
     //-----privateField--------------------------------------------------------------
-    private EnemyArea enemyArea;    // スポーンしたエリア
+    private EnemyAreaBase enemyArea;    // スポーンしたエリア
     private Coroutine coroutine;    // コルーチン
     private AIState aiState = AIState.Patrol;
     private AtackState atackState = AtackState.Melee1;
@@ -58,13 +55,16 @@ public class EnemyMinotaurCtrl : EnemyBase
         base.Start();
 
         // 目的地をエリア内に設定
-        enemyArea = this.transform.parent.GetComponent<EnemyArea>();
+        enemyArea = this.transform.parent.GetComponent<EnemyAreaBase>();
         agent.destination = enemyArea.GetRandomPosInSphere();
     }
 
     protected override void Update()
     {
         base.Update();
+
+        // 死んだら何もしない
+        if (isDie) { return; }
 
         switch (aiState)
         {
@@ -132,7 +132,6 @@ public class EnemyMinotaurCtrl : EnemyBase
         if (atackTime.cur > atackTime.goal)
         {
             ChangeAIState(AIState.Atack);
-            canDamageAnim = false;
             atackTime.cur = 0;
             return;
         }
@@ -279,7 +278,6 @@ public class EnemyMinotaurCtrl : EnemyBase
         if (atackTime.cur > atackTime.goal)
         {
             ChangeAIState(AIState.Atack);
-            canDamageAnim = false;
             atackTime.cur = 0;
             rigidbody.isKinematic = true;
             return;
@@ -288,6 +286,7 @@ public class EnemyMinotaurCtrl : EnemyBase
         if (AnimationEnd("Damage"))
         {
             rigidbody.isKinematic = true;
+            canDamageAnim = true;
 
             // プレイヤーとの距離が追跡範囲内なら
             if (DistanceFromPlayer() <= range.far)
@@ -348,7 +347,6 @@ public class EnemyMinotaurCtrl : EnemyBase
         if (atackTime.cur > atackTime.goal)
         {
             ChangeAIState(AIState.Atack);
-            canDamageAnim = false;
             atackTime.cur = 0;
             return;
         }
@@ -371,6 +369,7 @@ public class EnemyMinotaurCtrl : EnemyBase
     public override void TakeDamage(int _damage)
     {
         base.TakeDamage(_damage);
+
         if (canDamageAnim)
         {
             rigidbody.isKinematic = false;
@@ -444,6 +443,7 @@ public class EnemyMinotaurCtrl : EnemyBase
                 // 攻撃クールタイムをランダムで設定
                 atackTime.goal = Generic.RandomErrorRange(atackTime.def, 0.5f);
 
+                canDamageAnim = false;
                 transform.LookAt(playerPos.position);
                 agent.speed = speed.zero;
                 agent.destination = enemyPos.position;

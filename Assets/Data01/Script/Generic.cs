@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -70,9 +70,25 @@ public class Generic: MonoBehaviour
     {
         return (int)Random.Range(_value - _error, _value + _error);
     }
-
     #endregion
-
 }
+
+// コルーチンのタスク
+public static class CoroutineExtensions
+{
+    public static Task AsTask(this IEnumerator coroutine, MonoBehaviour monoBehaviour)
+    {
+        var tcs = new TaskCompletionSource<bool>();
+        monoBehaviour.StartCoroutine(RunCoroutine(coroutine, tcs));
+        return tcs.Task;
+    }
+
+    private static IEnumerator RunCoroutine(IEnumerator coroutine, TaskCompletionSource<bool> tcs)
+    {
+        yield return coroutine;
+        tcs.SetResult(true);
+    }
+}
+
 
 

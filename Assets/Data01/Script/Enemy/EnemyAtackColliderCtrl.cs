@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class EnemyAtackColliderCtrl : MonoBehaviour
@@ -69,9 +68,12 @@ public class EnemyAtackColliderCtrl : MonoBehaviour
         int atackValue = animator.GetInteger("AtackValue");
 
         // コライダーを無効にする
-        foreach (var col in collider[atackValue - 1].colliders)
+        foreach (var col in collider)
         {
-            col.enabled = false;
+            foreach (var col2 in col.colliders)
+            {
+                col2.enabled = false;
+            }
         }
     }
     #endregion

@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 public class EnemyWizardCtrl : EnemyBase
 {
@@ -30,7 +28,8 @@ public class EnemyWizardCtrl : EnemyBase
     [SerializeField] private CoolTime atackTime;    // 攻撃クールタイム
     [SerializeField] private CoolTime distanceTime; // 距離をとるクールタイム
     [SerializeField] private CoolTime warpTime;     // ワープクールタイム
-
+    [Header("ゲージ")]
+    [SerializeField] private Slider hpGage; // HPゲージ
     [Header("遠距離攻撃")]
     [SerializeField] private GameObject fireBall;   // ファイアボール
 
@@ -39,7 +38,7 @@ public class EnemyWizardCtrl : EnemyBase
     [SerializeField] private GameObject warpShadowEffect; // 影エフェクト
 
     //-----privateField--------------------------------------------------------------
-    private EnemyArea enemyArea;    // スポーンしたエリア
+    private EnemyAreaBase enemyArea;    // スポーンしたエリア
     private Coroutine coroutine;    // コルーチン
     private AIState aiState = AIState.Patrol;
     private AtackState atackState = AtackState.Magic1;
@@ -59,8 +58,10 @@ public class EnemyWizardCtrl : EnemyBase
     {
         base.Start();
 
+        hpGage.value = hpValue.cur / hpValue.max;
+
         // 目的地をエリア内に設定
-        enemyArea = this.transform.parent.GetComponent<EnemyArea>();
+        enemyArea = this.transform.parent.GetComponent<EnemyAreaBase>();
         agent.destination = enemyArea.GetRandomPosInSphere();
 
         // クールタイムの初期値設定
@@ -71,7 +72,15 @@ public class EnemyWizardCtrl : EnemyBase
 
     protected override void Update()
     {
-        base.Update();
+        if (AnimationEnd("Die"))
+        {
+            SceneController.GameFinish(SceneController.GameEndStatus.CLEAR);
+            Destroy(this.gameObject);
+        }
+
+        // 死んだら何もしない
+        if (isDie) { return; }
+
         switch (aiState)
         {
             case AIState.Idle:
@@ -170,6 +179,7 @@ public class EnemyWizardCtrl : EnemyBase
             //Debug.Log("攻撃終了");
 
             ChangeAIState(AIState.Idle);
+            canDamageAnim = true;
         }
         #region 攻撃ステート
 
@@ -179,6 +189,35 @@ public class EnemyWizardCtrl : EnemyBase
 
     private void Damage()
     {
+        // ワープクールタイムが終わったら待機ステートに移る
+        warpTime.cur += Time.deltaTime;
+        if (warpTime.cur > warpTime.goal)
+        {
+            ChangeAIState(AIState.Warp);
+            warpTime.cur = 0;
+            rigidbody.isKinematic = true;
+            canDamageAnim = true;
+            return;
+        }
+
+        // 攻撃クールタイムが終わったら攻撃ステートに移る
+        atackTime.cur += Time.deltaTime;
+        if (atackTime.cur > atackTime.goal)
+        {
+            ChangeAIState(AIState.Atack);
+            atackTime.cur = 0;
+            rigidbody.isKinematic = true;
+            return;
+        }
+
+        // アニメーションが終了したら
+        if (AnimationEnd("Damage"))
+        {
+            rigidbody.isKinematic = true;
+            canDamageAnim = true;
+
+            ChangeAIState(AIState.Idle);
+        }
     }
 
     private void Distance()
@@ -226,6 +265,45 @@ public class EnemyWizardCtrl : EnemyBase
     #endregion
 
     #region エネミーの制御
+
+    /// <summary>
+    /// ダメージを受ける
+    /// </summary>
+    /// <param name="_damage">ダメージ</param>
+    public override async void TakeDamage(int _damage)
+    {
+        if (isDie) { return; }
+
+        // 受けたダメージを反映
+        damageText.text = $"{Mathf.Abs(_damage)}";
+        // UIのポップアップ位置
+        Vector3 popTextPos = new Vector3(enemyPos.position.x, 2.5f, enemyPos.position.z);
+        // ダメージUI生成
+        Instantiate(damageTextObj, popTextPos, Quaternion.identity);
+
+        // HPを減らす
+        await new Generic.CalcuRation().ValueFluctuation(_damage, hpGage, hpValue).AsTask(this);
+
+        if (hpValue.cur <= hpValue.min)
+        {
+            Die();
+            return;
+        }
+
+        if (canDamageAnim)
+        {
+            rigidbody.isKinematic = false;
+            ChangeAIState(AIState.Damage);
+            transform.LookAt(playerPos);
+        }
+    }
+
+    public override void TakeParry()
+    {
+        base.TakeParry();
+
+        ChangeAIState(AIState.Warp);
+    }
 
     /// <summary>
     /// 状態ステートを設定
@@ -290,12 +368,15 @@ public class EnemyWizardCtrl : EnemyBase
                     atack = (AtackState)Random.Range(2, 4); // 遠距離攻撃
                 }
                 SetAtackState(atack);
+                canDamageAnim = false;
 
                 agent.speed = speed.zero;
                 agent.destination = enemyPos.position;
                 break;
 
             case AIState.Damage:
+                agent.speed = speed.zero;
+                agent.destination = enemyPos.position;
                 break;
 
             case AIState.Distance:

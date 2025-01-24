@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyGolemCtrl : EnemyBase
 {
@@ -25,11 +21,13 @@ public class EnemyGolemCtrl : EnemyBase
     //-----SerializeField------------------------------------------------------------
     [Header("クールタイム")]
     [SerializeField] private CoolTime atackTime;   // 攻撃クールタイム
-
+    [Header("ゲージ")]
+    [SerializeField] private Slider hpGage; // HPゲージ
 
     //-----privateField--------------------------------------------------------------
     private AIState aiState = AIState.Idle;
     private AtackState atackState = AtackState.Melee1;
+    private bool findPlayer = false;    // プレイヤーを見つけたかフラグ
 
 
 
@@ -48,11 +46,22 @@ public class EnemyGolemCtrl : EnemyBase
     protected override void Start()
     {
         base.Start();
+        hpGage.value = hpValue.cur / hpValue.max;
+
+        // クールタイムの初期値設定
+        atackTime.goal = Generic.RandomErrorRange(atackTime.def, 2f);
     }
 
     protected override void Update()
     {
-        base.Update();
+        if (AnimationEnd("Die"))
+        {
+            SceneController.GameFinish(SceneController.GameEndStatus.CLEAR);
+            Destroy(this.gameObject);
+        }
+
+        // 死んだら何もしない
+        if (isDie) { return; }
 
         switch (aiState)
         {
@@ -86,9 +95,16 @@ public class EnemyGolemCtrl : EnemyBase
             if(DistanceFromPlayer() > range.atack)
             {
                 ChangeAIState(AIState.Chase);
+
+                if(!findPlayer)
+                {
+                    findPlayer = true;
+                }
                 return;
             }
         }
+
+        if(!findPlayer) { return; }
 
         // 攻撃クールタイムが終わったら攻撃ステートに移る
         atackTime.cur += Time.deltaTime;
@@ -191,6 +207,26 @@ public class EnemyGolemCtrl : EnemyBase
 
     #region エネミーの制御
 
+    public override async void TakeDamage(int _damage)
+    {
+        if(isDie) { return; }
+
+        // 受けたダメージを反映
+        damageText.text = $"{Mathf.Abs(_damage)}";
+        // UIのポップアップ位置
+        Vector3 popTextPos = new Vector3(enemyPos.position.x, 2.5f, enemyPos.position.z);
+        // ダメージUI生成
+        Instantiate(damageTextObj, popTextPos, Quaternion.identity);
+
+        // HPを減らす
+        await new Generic.CalcuRation().ValueFluctuation(_damage, hpGage, hpValue).AsTask(this);
+
+        if (hpValue.cur <= hpValue.min)
+        {
+            Die();
+        }
+    }
+
     public override void TakeParry()
     {
         base.TakeParry();
@@ -244,7 +280,7 @@ public class EnemyGolemCtrl : EnemyBase
                 SetAtackState(atack);
 
                 // 攻撃クールタイムをランダムで設定
-                atackTime.goal = Generic.RandomErrorRange(atackTime.def, 0.5f);
+                atackTime.goal = Generic.RandomErrorRange(atackTime.def, 2.0f);
 
                 transform.LookAt(playerPos.position);
                 agent.speed = speed.zero;

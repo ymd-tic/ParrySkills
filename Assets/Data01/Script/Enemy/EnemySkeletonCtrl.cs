@@ -1,9 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
-using static EnemyGolemCtrl;
 
 public class EnemySkeletonCtrl : EnemyBase
 {
@@ -30,7 +26,7 @@ public class EnemySkeletonCtrl : EnemyBase
 
 
     //-----privateField--------------------------------------------------------------
-    private EnemyArea enemyArea;    // スポーンしたエリア
+    private EnemyAreaBase enemyArea;    // スポーンしたエリア
     private Coroutine coroutine;    // コルーチン
     private AIState aiState = AIState.Patrol;
     private AtackState atackState = AtackState.Melee1;
@@ -57,13 +53,16 @@ public class EnemySkeletonCtrl : EnemyBase
         base.Start();
 
         // 目的地をエリア内に設定
-        enemyArea = this.transform.parent.GetComponent<EnemyArea>();
+        enemyArea = this.transform.parent.GetComponent<EnemyAreaBase>();
         agent.destination = enemyArea.GetRandomPosInSphere();
     }
 
     protected override void Update()
     {
         base.Update();
+
+        // 死んだら何もしない
+        if(isDie) { return; }    
 
         switch (aiState)
         {
@@ -131,7 +130,6 @@ public class EnemySkeletonCtrl : EnemyBase
         if (atackTime.cur > atackTime.goal)
         {
             ChangeAIState(AIState.Atack);
-            canDamageAnim = false;
             atackTime.cur = 0;
             return;
         }
@@ -246,7 +244,6 @@ private void Damage()
         if (atackTime.cur > atackTime.goal)
         {
             ChangeAIState(AIState.Atack);
-            canDamageAnim = false;
             atackTime.cur = 0;
             rigidbody.isKinematic = true;
             return;
@@ -255,6 +252,7 @@ private void Damage()
         if (AnimationEnd("Damage"))
         {
             rigidbody.isKinematic = true;
+            canDamageAnim = true;
 
             // プレイヤーとの距離が追跡範囲内なら
             if (DistanceFromPlayer() <= range.far)
@@ -316,7 +314,6 @@ private void Damage()
         if (atackTime.cur > atackTime.goal)
         {
             ChangeAIState(AIState.Atack);
-            canDamageAnim = false;
             atackTime.cur = 0;
             return;
         }
@@ -411,6 +408,7 @@ private void Damage()
                 // 攻撃クールタイムをランダムで設定
                 atackTime.goal = Generic.RandomErrorRange(atackTime.def, 0.5f);
 
+                canDamageAnim = false;
                 transform.LookAt(playerPos.position);
                 agent.speed = speed.zero;
                 agent.destination = enemyPos.position;
