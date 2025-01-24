@@ -244,7 +244,7 @@ public class EnemyGolemCtrl : EnemyBase
                 SetAtackState(atack);
 
                 // 攻撃クールタイムをランダムで設定
-                atackTime.goal = Generic.RandomPointRange(atackTime.def, 0.5f);
+                atackTime.goal = Generic.RandomErrorRange(atackTime.def, 0.5f);
 
                 transform.LookAt(playerPos.position);
                 agent.speed = speed.zero;
@@ -275,15 +275,15 @@ public class EnemyGolemCtrl : EnemyBase
         switch (_atack)
         {
             case AtackState.Melee1:
-                atackPower = Generic.RandomPointRange(-10.0f, 2.0f);
+                atackPower = Generic.RandomErrorRange(-10.0f, 2.0f);
                 break;
 
             case AtackState.Melee2:
-                atackPower = Generic.RandomPointRange(-15.0f, 2.0f);
+                atackPower = Generic.RandomErrorRange(-15.0f, 2.0f);
                 break;
 
             case AtackState.Jump:
-                atackPower = Generic.RandomPointRange(-20.0f, 3.0f);
+                atackPower = Generic.RandomErrorRange(-20.0f, 3.0f);
                 break;
         }
     }

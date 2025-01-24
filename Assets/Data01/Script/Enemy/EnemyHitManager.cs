@@ -9,6 +9,7 @@ public class EnemyHitManager : MonoBehaviour
 
     //-----privateField--------------------------------------------------------------
     private EnemyBase enemy;
+    private new Collider collider = null;
     private bool canDamage = true; // ƒ_ƒ[ƒW‚ğó‚¯‚é‚©”»’è
 
 
@@ -29,7 +30,7 @@ public class EnemyHitManager : MonoBehaviour
         enemy = GetComponent<EnemyBase>();
     }
 
-    private new Collider collider = null;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("PlayerAtack") && canDamage)

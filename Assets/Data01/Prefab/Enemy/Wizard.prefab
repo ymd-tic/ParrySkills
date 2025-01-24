@@ -31974,12 +31974,12 @@ MonoBehaviour:
   atackTime:
     def: 5
   distanceTime:
-    def: 2
+    def: 3
   warpTime:
-    def: 5
+    def: 6
   fireBall: {fileID: 5019171374544439892, guid: 959bf1b37c5262744ad74326c44a83a0, type: 3}
   warpEffect: {fileID: 5162910912013668194, guid: 3dd51084744db614c8119cda344504ef, type: 3}
-  warpMoveEffect: {fileID: 4642842036948581472, guid: 5f0bbfb8f23abfe4b84e7f9757fc1cb9, type: 3}
+  warpShadowEffect: {fileID: 4642842036948581472, guid: 5f0bbfb8f23abfe4b84e7f9757fc1cb9, type: 3}
 --- !u!1001 &8681001917486152849
 PrefabInstance:
   m_ObjectHideFlags: 0

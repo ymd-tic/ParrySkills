@@ -34,15 +34,17 @@ public class DamageUI : MonoBehaviour
 
     void Update()
     {
-        transform.LookAt(Camera.main.transform.position);
+        // UI‚ğƒJƒƒ‰‚ÉŒü‚©‚¹‚é
         transform.rotation = Camera.main.transform.rotation;
 
+        // ™X‚É”¼“§–¾‚É‚µ‚ÄÁ‚·
         curTime += Time.deltaTime;
         float colorAlpha = Mathf.Lerp(startAlpha, 0, curTime / feadSpeed);
         Color newColor = damageText.color;
         newColor.a = colorAlpha;
         damageText.color = newColor;
 
+        // “§–¾“x0
         if (colorAlpha <= 0)
         {
             Destroy(gameObject);

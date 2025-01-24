@@ -36,7 +36,7 @@ public class EnemyWizardCtrl : EnemyBase
 
     [Header("エフェクト")]
     [SerializeField] private GameObject warpEffect; // ワープエフェクト
-    [SerializeField] private GameObject warpMoveEffect; // ワープエフェクト
+    [SerializeField] private GameObject warpShadowEffect; // 影エフェクト
 
     //-----privateField--------------------------------------------------------------
     private EnemyArea enemyArea;    // スポーンしたエリア
@@ -64,9 +64,9 @@ public class EnemyWizardCtrl : EnemyBase
         agent.destination = enemyArea.GetRandomPosInSphere();
 
         // クールタイムの初期値設定
-        atackTime.goal = Generic.RandomPointRange(atackTime.def, 0.5f);
-        distanceTime.goal = Generic.RandomPointRange(distanceTime.def, 0.5f);
-        warpTime.goal = Generic.RandomPointRange(warpTime.def, 0.5f);
+        atackTime.goal = Generic.RandomErrorRange(atackTime.def, 2f);
+        distanceTime.goal = Generic.RandomErrorRange(distanceTime.def, 2f);
+        warpTime.goal = Generic.RandomErrorRange(warpTime.def, 2f);
     }
 
     protected override void Update()
@@ -93,7 +93,7 @@ public class EnemyWizardCtrl : EnemyBase
                 Distance();
                 break;
             case AIState.Warp:
-                WarpCoroutine(); 
+                Warp(); 
                 break;
         }
     }
@@ -228,7 +228,7 @@ public class EnemyWizardCtrl : EnemyBase
     #region エネミーの制御
 
     /// <summary>
-    /// 状態ステートを変える
+    /// 状態ステートを設定
     /// ステート毎のアニメーションを再生
     /// </summary>
     /// <param name="_nextState">次のステート</param>
@@ -239,7 +239,7 @@ public class EnemyWizardCtrl : EnemyBase
         aiState = _nextState;   // ステート更新
 
 
-        // 他のトリガーをリセット
+        // アニメーション更新
         foreach (var animState in animator.parameters)
         {
             // トリガー以外はスキップ
@@ -247,18 +247,18 @@ public class EnemyWizardCtrl : EnemyBase
 
             if(animState.name == $"{_nextState}")
             {
-                animator.SetTrigger($"{_nextState}");   // アニメーション更新
+                animator.SetTrigger($"{_nextState}");   // 更新
             }
-            else
+            else　      
             {
-                animator.ResetTrigger($"{animState.name}");
+                animator.ResetTrigger($"{animState.name}"); // 他をリセット
             }
         }
 
         // クールタイムをランダムに再設定
-        distanceTime.goal = Generic.RandomPointRange(distanceTime.def, 1f); // 距離を測るまでの時間
-        atackTime.goal = Generic.RandomPointRange(atackTime.def, 2f);     // 攻撃までの時間
-        warpTime.goal = Generic.RandomPointRange(warpTime.def, 1.5f);         // ワープまでの時間
+        distanceTime.goal = Generic.RandomErrorRange(distanceTime.def, 2f); // 距離を測るまでの時間
+        atackTime.goal = Generic.RandomErrorRange(atackTime.def, 1f);       // 攻撃までの時間
+        warpTime.goal = Generic.RandomErrorRange(warpTime.def, 2f);         // ワープまでの時間
 
         // 次のステートに移る時に1回だけ呼ばれる処理
         switch (_nextState)
@@ -313,33 +313,37 @@ public class EnemyWizardCtrl : EnemyBase
         //Debug.Log($"{_nextState}ステートに更新");
     }
 
+    /// <summary>
+    /// 攻撃ステートを設定
+    /// </summary>
+    /// <param name="_atack">攻撃</param>
     private void SetAtackState(AtackState _atack)
     {
         atackState = _atack;
 
         animator.SetInteger("AtackValue", (int)_atack + 1);
-        // +1としているのはAnimatorの各遷移条件が1から始まるため
+        // +1としているのはAnimatorの遷移条件が1から始まるため
 
         // 攻撃ステートに移る時に1回だけ呼ばれる処理
         switch (_atack)
         {
             case AtackState.Magic1:
-                atackPower = Generic.RandomPointRange(-10.0f, 2.0f);
+                atackPower = Generic.RandomErrorRange(-10.0f, 2.0f);
                 //Debug.Log("魔法1");
                 break;
 
             case AtackState.Magic2:
-                atackPower = Generic.RandomPointRange(-15.0f, 2.0f);
+                atackPower = Generic.RandomErrorRange(-15.0f, 2.0f);
                 //Debug.Log("魔法2");
                 break;
 
             case AtackState.Magic3:
-                atackPower = Generic.RandomPointRange(-20.0f, 3.0f);
+                atackPower = Generic.RandomErrorRange(-20.0f, 3.0f);
                 //Debug.Log("魔法3");
                 break;
 
             case AtackState.Magic4:
-                atackPower = Generic.RandomPointRange(-15.0f, 4.0f);
+                atackPower = Generic.RandomErrorRange(-15.0f, 4.0f);
                 //Debug.Log("魔法4");
                 break;
         }
@@ -379,7 +383,7 @@ public class EnemyWizardCtrl : EnemyBase
         enemyPos.position = warpPos;    // ワープ地点に座標移動
 
         // 影エフェクトの生成と移動
-        var shadow = Instantiate(warpMoveEffect, efectPos, Quaternion.identity);
+        var shadow = Instantiate(warpShadowEffect, efectPos, Quaternion.identity);
         warpPos.y = 1f;   // ワープ地点の高さを上げる
         shadow.transform.position = new(shadow.transform.position.x,warpPos.y,shadow.transform.position.z);
         shadow.transform.DOMove(warpPos, waitTime);    // ワープ地点まで残像を移動
@@ -409,6 +413,9 @@ public class EnemyWizardCtrl : EnemyBase
 
     #region アニメーションEvent
 
+    /// <summary>
+    /// 遠距離魔法攻撃
+    /// </summary>
     public void FireBall()
     {
         GameObject obj; // ファイアボール

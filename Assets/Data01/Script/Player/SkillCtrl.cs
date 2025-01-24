@@ -166,7 +166,7 @@ public class SkillCtrl : MonoBehaviour
     }
 
     /// <summary>
-    /// 攻撃力upバフの効果時間
+    /// 攻撃力upバフの効果
     /// </summary>
     /// <returns></returns>
     IEnumerator SkillBuffCoroutine(int _buffValue)

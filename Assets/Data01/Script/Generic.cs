@@ -66,7 +66,7 @@ public class Generic: MonoBehaviour
     /// <param name="_value">‰Šú’l</param>
     /// <param name="_error">Œë·</param>
     /// <returns>‰Šú’l}Œë· </returns>
-    public static float RandomPointRange(float _value , float _error)
+    public static float RandomErrorRange(float _value , float _error)
     {
         return (int)Random.Range(_value - _error, _value + _error);
     }
