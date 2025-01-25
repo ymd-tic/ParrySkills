@@ -64,9 +64,6 @@ public class EnemyAtackColliderCtrl : MonoBehaviour
     /// </summary>
     public void SetColliderOff()
     {
-        // 現在の攻撃を取得
-        int atackValue = animator.GetInteger("AtackValue");
-
         // コライダーを無効にする
         foreach (var col in collider)
         {

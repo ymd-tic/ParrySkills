@@ -219,7 +219,7 @@ public class EnemySkeletonCtrl : EnemyBase
             {
                 ChangeAIState(AIState.Idle);
             }
-            else if (DistanceFromPlayer() <= range.near)
+            else
             {
                 ChangeAIState(AIState.Distance);
             }
@@ -254,16 +254,24 @@ private void Damage()
             rigidbody.isKinematic = true;
             canDamageAnim = true;
 
-            // プレイヤーとの距離が追跡範囲内なら
-            if (DistanceFromPlayer() <= range.far)
-            {   // かつ攻撃範囲内なら
-                if (DistanceFromPlayer() <= range.atack)
-                {
-                    ChangeAIState(AIState.Idle);
-                    return;
-                }
-
+            // プレイヤーとの距離が
+            // 追跡範囲外
+            if (DistanceFromPlayer() > range.far)
+            {
+                ChangeAIState(AIState.Patrol);
+            }
+            // 攻撃範囲外
+            else if (DistanceFromPlayer() > range.atack)
+            {
                 ChangeAIState(AIState.Chase);
+            }
+            else if (DistanceFromPlayer() > range.near)
+            {
+                ChangeAIState(AIState.Idle);
+            }
+            else
+            {
+                ChangeAIState(AIState.Distance);
             }
         }
     }
