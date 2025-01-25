@@ -6,7 +6,7 @@ public class ParrySystem : MonoBehaviour
 {
 
     //-----SerializeField------------------------------------------------------------
-    [Header("パリィ成功エフェクト")][SerializeField] ParticleSystem parryEfect;
+    [Header("パリィ成功エフェクト")][SerializeField] ParticleSystem[] parryEfects;
 
 
     //-----privateField--------------------------------------------------------------
@@ -66,8 +66,11 @@ public class ParrySystem : MonoBehaviour
         // エフェクト生成
         Vector3 efectPos = this.transform.position;
         efectPos.y = 1.5f;
-        Instantiate(parryEfect, efectPos, Quaternion.identity);
-        
+        foreach (var efect in parryEfects)
+        {
+            Instantiate(efect, efectPos, Quaternion.identity);
+        }
+
         Time.timeScale = 0.5f;
 
         StartCoroutine(ReseetParryFlag());

@@ -3324,7 +3324,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6527d307a08a1624fb2a0d9279abd3a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parryEfect: {fileID: 19800000, guid: 3156817f64ec68948ad6bb26569b9ef5, type: 3}
+  parryEfects:
+  - {fileID: 19800000, guid: 3156817f64ec68948ad6bb26569b9ef5, type: 3}
+  - {fileID: 7980029976762078213, guid: d107c99f513d5b845ab01f4dfe2daf91, type: 3}
 --- !u!1 &6900567468435302570
 GameObject:
   m_ObjectHideFlags: 0

@@ -83,7 +83,10 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void Update()
     {
-
+        if(AnimationEnd("Die"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     /// <summary>
