@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -22,6 +23,9 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField] private Slider hpGage;         // HPゲージ
     [SerializeField] private Slider staminaGage;    // スタミナゲージ
 
+    [Header("メニュー")]
+    [SerializeField] private GameObject menuObj;    // メニュー画面
+
     [Header("コライダー")]    
     [SerializeField] public BoxCollider parryCollider; // パリィ当たり判定
 
@@ -39,6 +43,7 @@ public class PlayerCtrl : MonoBehaviour
     private bool isCanAtack = true;     // 攻撃可能フラグ   (true => 攻撃可能   false => 攻撃不可)
     private bool isCanRolling = false;  // 回避可能フラグ   (true => 回避可能   false => 回避不可)
     private bool isNowRolling = false;  // 回避状態フラグ   (true => 回避中     false => 回避していない)
+    private bool isOpenMenu = false;    // メニュー開閉フラグ (true => 開いている false => 閉じている)
 
     private CharacterController characterController;
     private SkillCtrl skillController;
@@ -148,8 +153,9 @@ public class PlayerCtrl : MonoBehaviour
             }
         }
 
-        atackPower = (int)curAtackState * 10;
-
+        // 攻撃力設定
+        atackPower = (int)curAtackState * 2 + 10;
+        // バフを追加
         atackPower += skillController.GetAtackBuff();
 
         // 敵が近くにいたら敵の方を向く
@@ -190,6 +196,34 @@ public class PlayerCtrl : MonoBehaviour
         }
     }
 
+
+    public void OnMenu(InputAction.CallbackContext _context)
+    {
+        if (!_context.performed) { return; }
+
+        if (!isOpenMenu) // メニューが閉じていたら
+        {
+            isOpenMenu = true;
+
+            Cursor.lockState = CursorLockMode.Confined;
+            Time.timeScale = 0f;
+
+            // メニューを移動
+            menuObj.transform.DOMove(new Vector3(0, 0, 0), 1.0f)
+                                .SetEase(Ease.Linear);
+        }
+        else
+        {
+            isOpenMenu = false;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1.0f;
+
+            // メニューを移動
+            menuObj.transform.DOMove(new Vector3(0, -600, 0), 1.0f)
+                                .SetEase(Ease.Linear);
+        }
+    }
     #endregion
 
 

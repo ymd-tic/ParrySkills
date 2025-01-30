@@ -1941,6 +1941,7 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   hpGage: {fileID: 0}
   staminaGage: {fileID: 0}
+  menuObj: {fileID: 0}
   parryCollider: {fileID: 7140726068584412766}
   slashEfects:
   - {fileID: 8095144745230039255}
@@ -2057,46 +2058,6 @@ MonoBehaviour:
     m_ActionId: 88be43e2-6a65-4b14-b24e-bfbd072bb56a
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f4a72868-7f70-4dea-bd59-df5187346031
-    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 72f093a8-3341-4994-836d-7fd5cedd1a37
-    m_ActionName: UI/Submit[/Keyboard/enter]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d00eec64-509d-495a-a3cd-bb28592f47fa
-    m_ActionName: UI/Cancel[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 436a01d9-b793-4b60-a5be-c4a34ba5cd1a
-    m_ActionName: UI/Point[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: c2e21940-928c-48e8-9525-baeae33dae08
-    m_ActionName: UI/Click[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 93796128-c578-435b-8493-2ceda9758ffd
-    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 23d97bd0-25ae-440b-889d-2e203da5048f
-    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6750e98e-0e1b-43c3-8453-62bef34625f3
-    m_ActionName: UI/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 052dcb72-1d0f-4f9e-bb6e-d2b4ff7f434d
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 697f86c9-3c47-4a26-b47a-10209d0f3386
-    m_ActionName: UI/TrackedDeviceOrientation
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5637735183298660156}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
@@ -2176,6 +2137,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ae4e95f8-60e0-4120-9c1b-663f42ac96ea
     m_ActionName: Player/SkillFoue[/Keyboard/4]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5637735183298660156}
+        m_TargetAssemblyTypeName: PlayerCtrl, Assembly-CSharp
+        m_MethodName: OnMenu
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6eb06f7f-04cb-4f5c-958a-32fe60be05b3
+    m_ActionName: Player/Menu[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

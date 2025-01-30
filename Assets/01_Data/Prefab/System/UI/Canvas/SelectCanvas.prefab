@@ -220,7 +220,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7297580393473477491, guid: 0ad811b39c8b601498e86d6f8714460d, type: 3}
       propertyPath: m_text
-      value: "\u30B9\u30C6\u30FC\u30B81\n"
+      value: "\u30B9\u30C6\u30FC\u30B82\n"
       objectReference: {fileID: 0}
     - target: {fileID: 8817821446293635836, guid: 0ad811b39c8b601498e86d6f8714460d, type: 3}
       propertyPath: m_Name

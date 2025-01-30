@@ -111,7 +111,7 @@ public class SceneController : MonoBehaviour
     static public void GameFinish(GameEndStatus _status)
     {
         Cursor.lockState = CursorLockMode.Confined;
-        Time.timeScale = 0;
+        Time.timeScale = 0f;
         AreaManager.enemyList.Clear();
 
         switch (_status)
