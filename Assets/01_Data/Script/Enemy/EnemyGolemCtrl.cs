@@ -56,7 +56,9 @@ public class EnemyGolemCtrl : EnemyBase
     {
         if (AnimationEnd("Die"))
         {
-            SceneController.GameFinish(SceneController.GameEndStatus.CLEAR);
+            MySceneManager sceneManager = new MySceneManager();
+            sceneManager.GameFinish(MySceneManager.GameEndStatus.CLEAR);
+
             Destroy(this.gameObject);
         }
 

@@ -1938,10 +1938,11 @@ MonoBehaviour:
   rollingSpeed: 5
   staminaHealSpeed: 3
   staminaUseValue: 20
-  mainCamera: {fileID: 0}
+  mainCamera: {fileID: 3165472214829628834, guid: a165ff9e9f737e242854a8266b3359b3, type: 3}
   hpGage: {fileID: 0}
   staminaGage: {fileID: 0}
   menuObj: {fileID: 0}
+  menuBtn: {fileID: 0}
   parryCollider: {fileID: 7140726068584412766}
   slashEfects:
   - {fileID: 8095144745230039255}
@@ -2151,7 +2152,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 6eb06f7f-04cb-4f5c-958a-32fe60be05b3
+    m_ActionId: 64d3a39d-77fe-4695-9a18-f887c84ea94b
     m_ActionName: Player/Menu[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
