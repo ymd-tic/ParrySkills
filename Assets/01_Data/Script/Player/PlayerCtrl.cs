@@ -201,16 +201,19 @@ public class PlayerCtrl : MonoBehaviour
     {
         if (!_context.performed) { return; }
 
+        float speed = 0.2f; // メニュー開閉速度
+        var rectPos = menuObj.GetComponent<RectTransform>();
+
         if (!isOpenMenu) // メニューが閉じていたら
         {
             isOpenMenu = true;
-
             Cursor.lockState = CursorLockMode.Confined;
             Time.timeScale = 0f;
 
             // メニューを移動
-            menuObj.transform.DOMove(new Vector3(0, 0, 0), 1.0f)
-                                .SetEase(Ease.Linear);
+            rectPos.DOAnchorPos(new Vector2(0, 0), speed)
+                                .SetEase(Ease.Linear)
+                                .SetUpdate(true);
         }
         else
         {
@@ -220,8 +223,9 @@ public class PlayerCtrl : MonoBehaviour
             Time.timeScale = 1.0f;
 
             // メニューを移動
-            menuObj.transform.DOMove(new Vector3(0, -600, 0), 1.0f)
-                                .SetEase(Ease.Linear);
+            rectPos.DOAnchorPos(new Vector3(0, -600), speed)
+                                .SetEase(Ease.Linear)
+                                .SetUpdate(true);
         }
     }
     #endregion
