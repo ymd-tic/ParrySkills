@@ -9,6 +9,7 @@ Shader "FStarVR/2DClouds" {
 		_ScatterMap1 ("Scatter Map 2", 2D) = "white" {}
 		_DensityMap ("Density Map", 2D) = "white" {}
 		_TextureMap ("Texture Map", 2D) = "white" {}
+		_UnscaledTime ("Unscaled Time", Float) = 0.0
 	}
 
 	SubShader {
@@ -36,6 +37,7 @@ Shader "FStarVR/2DClouds" {
 			fixed4 _TextureMap_ST;
 			fixed _Speed;
 			fixed _Density;
+			float _UnscaledTime;
 
 			struct appdata {
 				fixed4 vertex : POSITION;
@@ -51,10 +53,10 @@ Shader "FStarVR/2DClouds" {
 			v2f vert (appdata v) {
 				v2f o;
 				o.pos = UnityObjectToClipPos(v.vertex);
-				o.uv0.xy = TRANSFORM_TEX(v.texcoord, _ScatterMap0)* fixed2(2, 2) + _Time.x * _Speed * fixed2(1.5, 1.0);
-				o.uv0.zw = TRANSFORM_TEX(v.texcoord, _ScatterMap1)* fixed2(2, 2) + _Time.x * _Speed * fixed2(1.0, 1.2);
-				o.uv1.xy = TRANSFORM_TEX(v.texcoord, _DensityMap) * fixed2(10, 10.5) + _Time.x * _Speed * fixed2(0.75, 0.5);
-				o.uv1.zw = TRANSFORM_TEX(v.texcoord, _TextureMap) * fixed2(10.6, 10) + _Time.x * _Speed * fixed2(0.5, 0.6);
+				o.uv0.xy = TRANSFORM_TEX(v.texcoord, _ScatterMap0)* fixed2(2, 2) + _UnscaledTime.x * 0.1f * _Speed * fixed2(1.5, 1.0);
+				o.uv0.zw = TRANSFORM_TEX(v.texcoord, _ScatterMap1)* fixed2(2, 2) + _UnscaledTime.x * 0.1f * _Speed * fixed2(1.0, 1.2);
+				o.uv1.xy = TRANSFORM_TEX(v.texcoord, _DensityMap) * fixed2(10, 10.5) + _UnscaledTime.x * 0.1f * _Speed * fixed2(0.75, 0.5);
+				o.uv1.zw = TRANSFORM_TEX(v.texcoord, _TextureMap) * fixed2(10.6, 10) + _UnscaledTime.x * 0.1f * _Speed * fixed2(0.5, 0.6);
 				return o;
 			}
 			

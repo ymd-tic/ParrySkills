@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
@@ -12,6 +13,9 @@ public class MeneCtrl : MonoBehaviour
     //-----SerializeField------------------------------------------------------------
     [Header("メニュー")]
     [SerializeField] private GameObject menuObj;    // メニュー画面
+
+    [Header("テキスト")]
+    [SerializeField] private TMP_Text menuKeyText;  // メニューの操作キーテキスト
 
     [Header("キャンバスグループ")]
     [SerializeField] private List<CanvasGroup> canvasGroups; 
@@ -52,6 +56,8 @@ public class MeneCtrl : MonoBehaviour
                 group.blocksRaycasts = false;
             }
 
+            menuKeyText.SetText("閉じる");
+
             // メニューを移動
             rectPos.DOAnchorPos(new Vector2(0, 0), speed)
                                 .SetEase(Ease.Linear)
@@ -68,6 +74,8 @@ public class MeneCtrl : MonoBehaviour
             {
                 group.blocksRaycasts = true;
             }
+
+            menuKeyText.SetText("設定");
 
             // メニューを移動
             rectPos.DOAnchorPos(new Vector3(0, -600), speed)

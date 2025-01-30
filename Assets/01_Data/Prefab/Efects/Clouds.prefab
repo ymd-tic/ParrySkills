@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8979912600380153305}
+  - component: {fileID: 6212373389231214567}
+  - component: {fileID: 5195562637698980804}
   m_Layer: 0
   m_Name: Clouds
   m_TagString: Untagged
@@ -25,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2138596792886014299}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 65, y: 0, z: 112.6}
+  m_LocalPosition: {x: 65, y: 106, z: 112.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -33,6 +35,32 @@ Transform:
   - {fileID: 6632997310456414059}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6212373389231214567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138596792886014299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a18e69166b5fe043842e3f4c5d999a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cloudMaterial: {fileID: 2100000, guid: 0e149e22a60d2eb47b181688cff3297d, type: 2}
+--- !u!114 &5195562637698980804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138596792886014299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a18e69166b5fe043842e3f4c5d999a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cloudMaterial: {fileID: 2100000, guid: 4195d31cc7b144914b4ffe90c3adf382, type: 2}
 --- !u!1 &4430459011117426315
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,8 +89,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 2.5, z: 5}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 17.88, y: 8.94, z: 17.88}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8979912600380153305}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -144,8 +172,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 2, z: 4}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 12.36, y: 6.18, z: 12.36}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8979912600380153305}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -207,6 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuObj: {fileID: 1051974587681018509}
+  menuKeyText: {fileID: 0}
   canvasGroups: []
 --- !u!114 &4531326426589462121
 MonoBehaviour:
@@ -1217,7 +1218,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 2152124808229094269}
   m_HandleRect: {fileID: 4862035002869011160}
   m_Direction: 0
-  m_MinValue: -80
+  m_MinValue: -60
   m_MaxValue: 0
   m_WholeNumbers: 0
   m_Value: 0
