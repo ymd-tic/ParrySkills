@@ -74,7 +74,7 @@ public class EnemyWizardCtrl : EnemyBase
     {
         if (AnimationEnd("Die"))
         {
-            MySceneManager sceneManager = new MySceneManager();
+            var sceneManager = GameObject.Find("SceneManager").GetComponent<MySceneManager>();
             sceneManager.GameFinish(MySceneManager.GameEndStatus.CLEAR);
             Destroy(this.gameObject);
         }

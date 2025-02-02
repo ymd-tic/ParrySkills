@@ -4568,6 +4568,30 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3281266705809788452, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: dieVoice.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281266705809788452, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: damageVoice.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281266705809788452, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: dieVoice.clips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281266705809788452, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: damageVoice.clips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281266705809788452, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: dieVoice.clips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 6dcf0636526ef614598b633003ffa5fa, type: 3}
+    - target: {fileID: 3281266705809788452, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: damageVoice.clips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 004f4518aa968094ca3922f41c049a01, type: 3}
     - target: {fileID: 5088264823213497113, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.392

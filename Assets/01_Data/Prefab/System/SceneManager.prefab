@@ -44,5 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a821e77f9b800440ba025763917f26e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameClearObj: {fileID: 0}
-  gameOverObj: {fileID: 0}
+  gameClear:
+    panel: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: e9e12ca491f6a9a40aeace1f374e4531, type: 3}
+  gameOver:
+    panel: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: de5f43d57d3f1ec498525b898fcd5186, type: 3}

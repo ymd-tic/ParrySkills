@@ -10,6 +10,7 @@ public class AudioCtrl : MonoBehaviour
     //-----SerializeField------------------------------------------------------------
     [Header("スライダー")]
     [SerializeField] private Slider bgmSlider;
+    [SerializeField] private Slider seSlider;
 
     [Header("オーディオミキサー")]
     [SerializeField] private AudioMixer audioMixer;
@@ -35,10 +36,17 @@ public class AudioCtrl : MonoBehaviour
         audioMixer.GetFloat("BGM", out float bgmVolume);
         bgmSlider.value = bgmVolume;
         //SE
+        audioMixer.GetFloat("SE", out float seVolume);
+        seSlider.value = seVolume;
     }
 
     public void SetValumeBGM(float _volume)
     {
         audioMixer.SetFloat("BGM", _volume);
+    }
+
+    public void SetValumeSE(float _volume)
+    {
+        audioMixer.SetFloat("SE", _volume);
     }
 }

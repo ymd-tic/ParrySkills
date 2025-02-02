@@ -222,6 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmSlider: {fileID: 736909026397687144}
+  seSlider: {fileID: 5857232507615755860}
   audioMixer: {fileID: 24100000, guid: 2d6b013802325af43b31652c2c57239c, type: 2}
 --- !u!114 &871884412285690176
 MonoBehaviour:
@@ -941,13 +942,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 525588693284305669}
   m_HandleRect: {fileID: 2087558749078198361}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 0
+  m_MinValue: -50
+  m_MaxValue: 10
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 10
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4531326426589462121}
+        m_TargetAssemblyTypeName: AudioCtrl, Assembly-CSharp
+        m_MethodName: SetValumeSE
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5134747103056436280
 GameObject:
   m_ObjectHideFlags: 0

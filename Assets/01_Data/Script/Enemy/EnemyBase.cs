@@ -42,8 +42,8 @@ public class EnemyBase : MonoBehaviour
 
 
     //-----privateField--------------------------------------------------------------
-    private CapsuleCollider capsuleCollider;// カプセルコライダー
-
+    private CapsuleCollider capsuleCollider;// コライダー
+    private EnemyAudioCtrl audioCtrl;       // オーディオ
 
     //-----publicField---------------------------------------------------------------
     [NonSerialized]public float atackPower = 10;
@@ -71,10 +71,12 @@ public class EnemyBase : MonoBehaviour
     {
         playerPos = GameObject.FindWithTag("Player").transform;
         enemyPos = this.gameObject.transform;
+
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         rigidbody = GetComponent<Rigidbody>();
+        audioCtrl = GetComponent<EnemyAudioCtrl>();
         damageText = damageTextObj.transform.GetChild(0).GetComponent<TMP_Text>();
 
         hpValue = new Generic.ParamateValue(maxHp, maxHp, 0);
@@ -113,12 +115,10 @@ public class EnemyBase : MonoBehaviour
 
         hpValue.cur += _damage;
 
-        // 受けたダメージを反映
-        damageText.text = $"{Mathf.Abs(_damage)}";
-        // UIのポップアップ位置
-        Vector3 popTextPos = new Vector3(enemyPos.position.x, 2.5f, enemyPos.position.z);
         // ダメージUI生成
-        Instantiate(damageTextObj, popTextPos, Quaternion.identity);
+        damageText.text = $"{Mathf.Abs(_damage)}"; // ダメージをテキストに反映
+        Vector3 popTextPos = new Vector3(enemyPos.position.x, 2.5f, enemyPos.position.z); // UIの出現位置調整
+        Instantiate(damageTextObj, popTextPos, Quaternion.identity); // 生成
 
         if (hpValue.cur <= hpValue.min)
         {

@@ -297,7 +297,7 @@ public class PlayerCtrl : MonoBehaviour
         // HP‚ª0ˆÈ‰º‚É‚È‚Á‚½‚ç
         if (hpValue.cur <= hpValue.min)
         {
-            MySceneManager sceneManager = new MySceneManager();
+            var sceneManager = GameObject.Find("SceneManager").GetComponent<MySceneManager>();
             sceneManager.GameFinish(MySceneManager.GameEndStatus.OVER);
         }
     }

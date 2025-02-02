@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,11 +18,17 @@ public class MySceneManager : MonoBehaviour
         OVER
     }
 
+    [Serializable]
+    private class GameFinishData // ゲーム終了時のデータ
+    {
+        public GameObject panel; // パネル
+        public AudioClip audioClip; // BGM
+    }
 
     //-----SerializeField------------------------------------------------------------
     [Tooltip("ゲーム終了")]
-    [SerializeField] GameObject gameClearObj;   // クリア
-    [SerializeField] GameObject gameOverObj;    // オーバー
+    [SerializeField] GameFinishData gameClear;   // クリア
+    [SerializeField] GameFinishData gameOver;    // オーバー
 
 
     //-----privateField--------------------------------------------------------------
@@ -99,15 +106,22 @@ public class MySceneManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Time.timeScale = 0f;
         AreaManager.enemyList.Clear();
+        AudioManager manager = GameObject.FindObjectOfType<AudioManager>();
+        AudioSource source = manager.audioSource;
 
         switch (_status)
         {
             case GameEndStatus.CLEAR:
-                gameClearObj.SetActive(true);
+                gameClear.panel.SetActive(true);
+                source.clip = gameClear.audioClip;
                 break;
             case GameEndStatus.OVER:
-                gameOverObj.SetActive(true);
+                gameOver.panel.SetActive(true);
+                source.clip= gameOver.audioClip;
                 break;
         }
+
+        source.loop = false;
+        source.Play();
     }
 }

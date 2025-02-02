@@ -6,11 +6,14 @@ public class ParrySystem : MonoBehaviour
 {
 
     //-----SerializeField------------------------------------------------------------
-    [Header("パリィ成功エフェクト")][SerializeField] ParticleSystem[] parryEfects;
+    [Header("パリィ成功エフェクト")]
+    [SerializeField] ParticleSystem[] parryEfects;
 
+    [Header("スクリプト")]
+    [SerializeField] private PlayerAudioCtrl audioCtrl;
 
     //-----privateField--------------------------------------------------------------
-    private PlayerCtrl playerCtrl;
+
     private Dictionary<int, bool> atackCollider { get; } = new Dictionary<int, bool>();
 
 
@@ -26,10 +29,6 @@ public class ParrySystem : MonoBehaviour
 
     #region システム
 
-    private void Start()
-    {
-        playerCtrl = this.transform.parent.GetComponent<PlayerCtrl>();
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -52,6 +51,7 @@ public class ParrySystem : MonoBehaviour
     private void SuccessParry(Collider _other)
     {
         parrySuccess = true;
+
         // 判定を一度だけにする
         EnemyBase enemy = _other.GetComponent<EnemyAtack>().enemy;
         int enemyId = enemy.GetInstanceID();
@@ -60,6 +60,7 @@ public class ParrySystem : MonoBehaviour
 
         // アドレナリンゲージを増やす
         this.transform.parent.GetComponent<SkillCtrl>().AdrenalineGaugeCalculation(10f);
+
         // 敵をノックバックさせる
         enemy.TakeParry();
 
@@ -70,6 +71,7 @@ public class ParrySystem : MonoBehaviour
         {
             Instantiate(efect, efectPos, Quaternion.identity);
         }
+
 
         Time.timeScale = 0.5f;
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -14,10 +15,9 @@ public class AudioManager : MonoBehaviour
 
     //-----privateField--------------------------------------------------------------
     private Dictionary<string , AudioClip> sceneBGM = new Dictionary<string, AudioClip>();
-    private AudioSource audioSource;
 
     //-----publicField---------------------------------------------------------------
-
+    [NonSerialized] public AudioSource audioSource;
 
 
     //-----staticField---------------------------------------------------------------
@@ -43,6 +43,8 @@ public class AudioManager : MonoBehaviour
             audioSource.clip = SetBGM();
             audioSource.Play();
 
+            audioSource.loop = true;
+
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -53,6 +55,8 @@ public class AudioManager : MonoBehaviour
                 instance.audioSource.clip = SetBGM();
                 instance.audioSource.Play();
             }
+
+            instance.audioSource.loop = true;
 
             Destroy(gameObject);
         }

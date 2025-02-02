@@ -141,5 +141,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0d8eff04964ea746bcd291d9f837216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nomalBGM: {fileID: 8300000, guid: 80697d642440c224cb860589c94989ea, type: 3}
-  stageBGM: {fileID: 8300000, guid: 125f216b712ecd1469f3cc3c271aa096, type: 3}
+  nomalBGM: {fileID: 8300000, guid: 0f16c34d76d4c91479db9a6fbff1c725, type: 3}
+  stageBGM: {fileID: 8300000, guid: 8a24a7308145ddc41b4da2ff34b3c46a, type: 3}

@@ -1158,6 +1158,18 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3281266705809788452, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: dieVoice.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281266705809788452, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: dieVoice.clips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281266705809788452, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
+      propertyPath: dieVoice.clips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: b13e21c59f5e99549b02b1bfbf4ea56b, type: 3}
     - target: {fileID: 4566584141961772332, guid: 98594e4a346a5c7408948f65d18774dc, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -1294,7 +1306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c92028cea91b34793c4aca44f2aea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 600
+  maxHp: 20
   speed:
     fast: 3
     slow: 1

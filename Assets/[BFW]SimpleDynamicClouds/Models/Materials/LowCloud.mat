@@ -117,7 +117,7 @@ Material:
     - _Speed: -0.28
     - _SrcBlend: 5
     - _UVSec: 0
-    - _UnscaledTime: 34.855865
+    - _UnscaledTime: 27.772987
     - _ZWrite: 0
     m_Colors:
     - _CloudColor: {r: 0.23829655, g: 0.2959963, b: 0.3301887, a: 0.3882353}
