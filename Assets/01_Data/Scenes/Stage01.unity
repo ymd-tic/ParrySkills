@@ -255,7 +255,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4665913410126338551, guid: 51b1bdf063d6fa94d91c5474bfa7f33a, type: 3}
     - target: {fileID: 8832030787540280305, guid: 1c0f2134a87d0194d8a9646a34d60c8c, type: 3}
+      propertyPath: nomalEnemys.Array.data[1].enemyObj
+      value: 
+      objectReference: {fileID: 4665913410126338551, guid: 51b1bdf063d6fa94d91c5474bfa7f33a, type: 3}
+    - target: {fileID: 8832030787540280305, guid: 1c0f2134a87d0194d8a9646a34d60c8c, type: 3}
       propertyPath: nomalEnemys.Array.data[0].spownValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8832030787540280305, guid: 1c0f2134a87d0194d8a9646a34d60c8c, type: 3}
+      propertyPath: nomalEnemys.Array.data[1].spownValue
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9102965048906716306, guid: 1c0f2134a87d0194d8a9646a34d60c8c, type: 3}
@@ -721,8 +729,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4665913410126338551, guid: 51b1bdf063d6fa94d91c5474bfa7f33a, type: 3}
     - target: {fileID: 8832030787540280305, guid: 1c0f2134a87d0194d8a9646a34d60c8c, type: 3}
+      propertyPath: nomalEnemys.Array.data[1].enemyObj
+      value: 
+      objectReference: {fileID: 4665913410126338551, guid: 51b1bdf063d6fa94d91c5474bfa7f33a, type: 3}
+    - target: {fileID: 8832030787540280305, guid: 1c0f2134a87d0194d8a9646a34d60c8c, type: 3}
       propertyPath: nomalEnemys.Array.data[0].spownValue
-      value: 5
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8832030787540280305, guid: 1c0f2134a87d0194d8a9646a34d60c8c, type: 3}
+      propertyPath: nomalEnemys.Array.data[1].spownValue
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9102965048906716306, guid: 1c0f2134a87d0194d8a9646a34d60c8c, type: 3}
       propertyPath: m_Name
@@ -2297,6 +2313,30 @@ PrefabInstance:
       propertyPath: m_Rigs.Array.data[2]
       value: 
       objectReference: {fileID: 530815597}
+    - target: {fileID: 3425859503094866987, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3425859503094866987, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3425859503094866987, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4835208732313604967, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4835208732313604967, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4835208732313604967, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4835208732313604967, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.99991864
@@ -2304,6 +2344,18 @@ PrefabInstance:
     - target: {fileID: 4835208732313604967, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.012760822
+      objectReference: {fileID: 0}
+    - target: {fileID: 7614234415465851973, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7614234415465851973, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7614234415465851973, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2418,9 +2470,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1311734047996592681, guid: 34c1181bb9c4cb049a5e9ebf29f89032, type: 3}
+      propertyPath: m_Center.z
+      value: -18.97
+      objectReference: {fileID: 0}
     - target: {fileID: 4075727786804425785, guid: 34c1181bb9c4cb049a5e9ebf29f89032, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 130
+      value: 124.2
       objectReference: {fileID: 0}
     - target: {fileID: 4075727786804425785, guid: 34c1181bb9c4cb049a5e9ebf29f89032, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2428,7 +2484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4075727786804425785, guid: 34c1181bb9c4cb049a5e9ebf29f89032, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 221.8
+      value: 216
       objectReference: {fileID: 0}
     - target: {fileID: 4075727786804425785, guid: 34c1181bb9c4cb049a5e9ebf29f89032, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2473,7 +2529,7 @@ PrefabInstance:
     - target: {fileID: 7919007616009431102, guid: 34c1181bb9c4cb049a5e9ebf29f89032, type: 3}
       propertyPath: bossEnemys.Array.data[0].enemyObj
       value: 
-      objectReference: {fileID: 9089897779028780591, guid: ebc283088d649b94895e4bbcf320ab18, type: 3}
+      objectReference: {fileID: 7663533201012574449, guid: 01e1294b336bdb04692918f4eeab9dd1, type: 3}
     - target: {fileID: 7919007616009431102, guid: 34c1181bb9c4cb049a5e9ebf29f89032, type: 3}
       propertyPath: nomalEnemys.Array.data[0].enemyObj
       value: 
@@ -2484,7 +2540,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7919007616009431102, guid: 34c1181bb9c4cb049a5e9ebf29f89032, type: 3}
       propertyPath: nomalEnemys.Array.data[0].spownValue
-      value: 4
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8107391053962321923, guid: 34c1181bb9c4cb049a5e9ebf29f89032, type: 3}
+      propertyPath: m_Center.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

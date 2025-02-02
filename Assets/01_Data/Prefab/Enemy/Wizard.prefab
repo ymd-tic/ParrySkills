@@ -32125,12 +32125,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 447b4ff0a75506b4683ccd5e4a877971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 20
+  maxHp: 500
   speed:
     fast: 2
     slow: 1
   range:
-    far: 10
+    far: 15
     near: 2
     atack: 4
   parryEfect: {fileID: 4505119153791457844}
@@ -32140,7 +32140,7 @@ MonoBehaviour:
   distanceTime:
     def: 3
   warpTime:
-    def: 5
+    def: 4
   hpGage: {fileID: 2342625406504493984}
   fireBall: {fileID: 5019171374544439892, guid: 959bf1b37c5262744ad74326c44a83a0, type: 3}
   warpEffect: {fileID: 5162910912013668194, guid: 3dd51084744db614c8119cda344504ef, type: 3}

@@ -17,9 +17,12 @@ public class SkillCtrl : MonoBehaviour
     [Header("アドレナリン")]
     [SerializeField] private float maxAdrenaline;   // 最大アドレナリン
     [SerializeField] public Slider adrenalineGauge; // アドレナリンゲージ
+
     [Header("スキル")]
     [SerializeField] private SkillParamate[] skills = new SkillParamate[4]; // スキルのパラメータ
 
+    [Header("エフェクト")]
+    [SerializeField] private ParticleSystem healEffect;   // 回復
 
     //-----privateField--------------------------------------------------------------
     private delegate void SkillAction();
@@ -82,7 +85,11 @@ public class SkillCtrl : MonoBehaviour
     public void OnSkillTwo(InputAction.CallbackContext _context)
     {
         if (!_context.performed) return;
-        SkillExe(skills[1], () => Debug.Log("スキル2は未実装"));
+
+        if( SkillExe(skills[1], () => playerController.HpFluctuation(20)) == true)
+        {
+            healEffect.Play();
+        }
     }
 
     /// <summary>
@@ -102,7 +109,7 @@ public class SkillCtrl : MonoBehaviour
     public void OnSkillFour(InputAction.CallbackContext _context)
     {
         if (!_context.performed) return;
-        SkillExe(skills[3], () => playerController.HpFluctuation(20));
+        SkillExe(skills[3], () => Debug.Log("スキル4は未実装"));
     }
 
     #endregion
@@ -114,13 +121,21 @@ public class SkillCtrl : MonoBehaviour
     /// スキルの使用
     /// </summary>
     /// <param name="_skills"></param>
-    private void SkillExe(SkillParamate _skills, SkillAction skillAction)
+    private bool SkillExe(SkillParamate _skills, SkillAction skillAction)
     {
-        if (adrenalineValue.cur - _skills.cost < adrenalineValue.min) { return; }
-        if (_skills.icon.fillAmount != 0) { return; }
+        // アドレナリンゲージが十分にあるかチェック
+        if (adrenalineValue.cur - _skills.cost < adrenalineValue.min) { return false; }
+        // クールタイムが終わっているかチェック
+        if (_skills.icon.fillAmount != 0) { return false; }
+
+        // クールタイムを設ける
         StartCoroutine(SkillCoolTimeCoroutine(_skills.coolTime, _skills.icon));
+        // アドレナリンゲージを消費
         AdrenalineGaugeCalculation(-_skills.cost);
+        // スキル内容実行
         skillAction?.Invoke();
+
+        return true;
     }
 
     /// <summary>

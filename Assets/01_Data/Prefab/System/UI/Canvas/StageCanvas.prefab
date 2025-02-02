@@ -1611,18 +1611,18 @@ PrefabInstance:
     - target: {fileID: 6941383065227067373, guid: 214e6c0624865f1499077185cf472d07, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 2a5c892bdd014164da633b8c6fd0f246, type: 3}
+      objectReference: {fileID: 21300000, guid: bb67b03c2969d104caba950c446f8c8d, type: 3}
     - target: {fileID: 6941383065227067373, guid: 214e6c0624865f1499077185cf472d07, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6941383065227067373, guid: 214e6c0624865f1499077185cf472d07, type: 3}
       propertyPath: m_Color.g
-      value: 0.90482306
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6941383065227067373, guid: 214e6c0624865f1499077185cf472d07, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 0.11012435
       objectReference: {fileID: 0}
     - target: {fileID: 7000187548314294250, guid: 214e6c0624865f1499077185cf472d07, type: 3}
       propertyPath: m_Name
@@ -1630,7 +1630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7000187548314294250, guid: 214e6c0624865f1499077185cf472d07, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2610,6 +2610,10 @@ PrefabInstance:
     - target: {fileID: 7000187548314294250, guid: 214e6c0624865f1499077185cf472d07, type: 3}
       propertyPath: m_Name
       value: Skill4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7000187548314294250, guid: 214e6c0624865f1499077185cf472d07, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
