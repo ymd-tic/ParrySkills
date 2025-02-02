@@ -22,7 +22,8 @@ public class SkillCtrl : MonoBehaviour
     [SerializeField] private SkillParamate[] skills = new SkillParamate[4]; // スキルのパラメータ
 
     [Header("エフェクト")]
-    [SerializeField] private ParticleSystem healEffect;   // 回復
+    [SerializeField] private GameObject healEffect;   // 回復
+    [SerializeField] private GameObject buffEffect;   // 強化
 
     //-----privateField--------------------------------------------------------------
     private delegate void SkillAction();
@@ -75,7 +76,11 @@ public class SkillCtrl : MonoBehaviour
     public void OnSkillOne(InputAction.CallbackContext _context)
     {
         if (!_context.performed) return;
-        SkillExe(skills[0], () => StartCoroutine(SkillBuffCoroutine(5)));
+
+        if( SkillExe(skills[0], () => StartCoroutine(SkillBuffCoroutine(3))))
+        {
+            Instantiate(buffEffect, this.transform.position, Quaternion.identity, transform);
+        }
     }
 
     /// <summary>
@@ -86,9 +91,9 @@ public class SkillCtrl : MonoBehaviour
     {
         if (!_context.performed) return;
 
-        if( SkillExe(skills[1], () => playerController.HpFluctuation(20)) == true)
+        if( SkillExe(skills[1], () => playerController.HpFluctuation(20)))
         {
-            healEffect.Play();
+            Instantiate(healEffect, this.transform.position, Quaternion.identity, transform);
         }
     }
 

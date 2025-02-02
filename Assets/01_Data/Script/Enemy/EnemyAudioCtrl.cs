@@ -16,11 +16,9 @@ public class EnemyAudioCtrl : MonoBehaviour
     [Header("オーディオソース")]
     [SerializeField] private AudioSource audioSource;
 
-    [Header("ダメージボイス")]
-    [SerializeField] private AudioData damageVoice;  // ダメージ声
-
-    [Header("やられボイス")]
-    [SerializeField] private AudioData dieVoice;  // やられ声
+    [Header("効果音")]
+    [SerializeField] private AudioData damageVoice;     // ダメージボイス
+    [SerializeField] private AudioData dieVoice;        // 倒されたボイス
 
     //-----privateField--------------------------------------------------------------
 

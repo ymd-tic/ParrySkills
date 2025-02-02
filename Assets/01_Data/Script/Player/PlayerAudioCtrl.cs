@@ -16,15 +16,11 @@ public class PlayerAudioCtrl : MonoBehaviour
     [Header("オーディオソース")]
     [SerializeField] private AudioSource audioSource;
 
-    [Header("走る音")]
-    [SerializeField] private AudioData runSE;  // 足音
-    [Header("剣を振る音")]
-    [SerializeField] private AudioData atackSE;  // 攻撃音
-    [Header("回避する音")]
-    [SerializeField] private AudioData rollingSE;  // 攻撃音
-
-    [Header("ダメージ声")]
-    [SerializeField] private AudioData damageVoice;  // ダメージ声
+    [Header("効果音")]
+    [SerializeField] private AudioData runSE;       // 走る音
+    [SerializeField] private AudioData atackSE;     // 攻撃音
+    [SerializeField] private AudioData rollingSE;   // 回避音
+    [SerializeField] private AudioData damageVoice; // ダメージボイス
 
 
     //-----privateField--------------------------------------------------------------
@@ -64,6 +60,9 @@ public class PlayerAudioCtrl : MonoBehaviour
         SetSE(rollingSE);
     }
 
+    /// <summary>
+    /// ダメージボイスの再生
+    /// </summary>
     private void SoundDamageVoice()
     {
         SetSE(damageVoice);

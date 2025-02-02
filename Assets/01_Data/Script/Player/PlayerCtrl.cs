@@ -153,6 +153,7 @@ public class PlayerCtrl : MonoBehaviour
 
         // UŒ‚—Íİ’è
         atackPower = (int)curAtackState * 2 + 10;
+        atackPower = (int)Generic.RandomErrorRange(atackPower, 2f);
         // ƒoƒt‚ğ’Ç‰Á
         atackPower += skillController.GetAtackBuff();
 
