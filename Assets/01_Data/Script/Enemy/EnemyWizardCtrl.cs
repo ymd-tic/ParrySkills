@@ -468,7 +468,8 @@ public class EnemyWizardCtrl : EnemyBase
         var shadow = Instantiate(warpShadowEffect, efectPos, Quaternion.identity);
         warpPos.y = 1f;   // ワープ地点の高さを上げる
         shadow.transform.position = new(shadow.transform.position.x,warpPos.y,shadow.transform.position.z);
-        shadow.transform.DOMove(warpPos, waitTime);    // ワープ地点まで残像を移動
+        shadow.transform.DOMove(warpPos, waitTime)    // ワープ地点まで残像を移動
+                                .SetLink(gameObject);
 
         // 姿を非表示
         this.transform.GetChild(0).gameObject.SetActive(false);

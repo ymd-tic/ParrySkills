@@ -998,6 +998,10 @@ PrefabInstance:
       value: StageCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 8596841419863502951, guid: 2a3c4b50fb40ee44aa5d1eb85e570095, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8596841419863502951, guid: 2a3c4b50fb40ee44aa5d1eb85e570095, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -1095,6 +1099,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1530309966896738833, guid: 2a3c4b50fb40ee44aa5d1eb85e570095, type: 3}
   m_PrefabInstance: {fileID: 787593763066912062}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &787593763066912067 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1810709755518765346, guid: 2a3c4b50fb40ee44aa5d1eb85e570095, type: 3}
+  m_PrefabInstance: {fileID: 787593763066912062}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787593763066912063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b25fd49b9d74d248998fbadceb0a617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1234451273226967523
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1106,6 +1121,10 @@ PrefabInstance:
     - target: {fileID: 5290556226077091749, guid: a165ff9e9f737e242854a8266b3359b3, type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290556226077091749, guid: a165ff9e9f737e242854a8266b3359b3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8554705421895680930, guid: a165ff9e9f737e242854a8266b3359b3, type: 3}
       propertyPath: subject
@@ -1301,6 +1320,14 @@ PrefabInstance:
     - target: {fileID: 220660993054754608, guid: 02c605a278c4a1f47ac3b585e54fd5fb, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.5642509
+      objectReference: {fileID: 0}
+    - target: {fileID: 380735086764824749, guid: 02c605a278c4a1f47ac3b585e54fd5fb, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 787593763066912067}
+    - target: {fileID: 380735086764824749, guid: 02c605a278c4a1f47ac3b585e54fd5fb, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMenu
       objectReference: {fileID: 0}
     - target: {fileID: 429303309127081360, guid: 02c605a278c4a1f47ac3b585e54fd5fb, type: 3}
       propertyPath: m_LocalRotation.w

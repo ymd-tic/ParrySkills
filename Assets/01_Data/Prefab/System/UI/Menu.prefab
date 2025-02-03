@@ -124,7 +124,6 @@ GameObject:
   - component: {fileID: 2157820015790667417}
   - component: {fileID: -9041693738724857410}
   - component: {fileID: 4531326426589462121}
-  - component: {fileID: 871884412285690176}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -206,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b25fd49b9d74d248998fbadceb0a617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuObj: {fileID: 1051974587681018509}
+  menuPanel: {fileID: 0}
   menuKeyText: {fileID: 0}
   canvasGroups: []
 --- !u!114 &4531326426589462121
@@ -224,52 +223,6 @@ MonoBehaviour:
   bgmSlider: {fileID: 736909026397687144}
   seSlider: {fileID: 5857232507615755860}
   audioMixer: {fileID: 24100000, guid: 2d6b013802325af43b31652c2c57239c, type: 2}
---- !u!114 &871884412285690176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1051974587681018509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 85ea5f532c3fe6f449aab3be4012bda5, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -9041693738724857410}
-        m_TargetAssemblyTypeName: MeneCtrl, Assembly-CSharp
-        m_MethodName: OnMenu
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 1a3beb0a-8e3b-41a8-9d3c-a98ab034a896
-    m_ActionName: Menu/Open[/Keyboard/escape]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Menu
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1 &1471839756734072243
 GameObject:
   m_ObjectHideFlags: 0

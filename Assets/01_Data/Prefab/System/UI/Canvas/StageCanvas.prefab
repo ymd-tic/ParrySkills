@@ -236,7 +236,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.402
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -365,7 +365,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.771
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1651,6 +1651,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 8927201838777000610}
     m_Modifications:
     - target: {fileID: -9041693738724857410, guid: d77b7ea6dab23564a81b89c239749531, type: 3}
+      propertyPath: menuPanel
+      value: 
+      objectReference: {fileID: 1530309966896738833}
+    - target: {fileID: -9041693738724857410, guid: d77b7ea6dab23564a81b89c239749531, type: 3}
       propertyPath: menuKeyText
       value: 
       objectReference: {fileID: 5676495639106569982}
@@ -1786,6 +1790,11 @@ PrefabInstance:
 --- !u!224 &826545719427458234 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1215381930124395558, guid: d77b7ea6dab23564a81b89c239749531, type: 3}
+  m_PrefabInstance: {fileID: 1992171715574735004}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1530309966896738833 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1051974587681018509, guid: d77b7ea6dab23564a81b89c239749531, type: 3}
   m_PrefabInstance: {fileID: 1992171715574735004}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3586039270035901084
