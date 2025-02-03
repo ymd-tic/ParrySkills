@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,6 +18,7 @@ public class MenuCtrl : MonoBehaviour
 
     [Header("テキスト")]
     [SerializeField] private TMP_Text menuKeyText;  // パネルの操作Keyテキスト
+    [SerializeField] private Button menuKeyBtn;  // パネルの操作Keyテキスト
 
     [Header("キャンバスグループ")]
     [SerializeField] private List<CanvasGroup> canvasGroups; 
@@ -47,7 +49,17 @@ public class MenuCtrl : MonoBehaviour
     public void OnMenu(InputAction.CallbackContext _context)
     {
         if (!enabled) return;
-        if (!_context.performed) { return; }
+
+        if (_context.started)
+        {
+            ExecuteEvents.Execute(menuKeyBtn.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerDownHandler);
+            return;
+        }
+        else if (_context.canceled)
+        {
+            ExecuteEvents.Execute(menuKeyBtn.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerUpHandler);
+            return;
+        }
 
         if (!isOpenMenu) // パネルが閉じていたら
         {

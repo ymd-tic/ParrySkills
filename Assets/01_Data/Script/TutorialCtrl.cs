@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
 using System;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class TutorialCtrl : MonoBehaviour
 {
@@ -22,8 +24,9 @@ public class TutorialCtrl : MonoBehaviour
     [SerializeField] private TutorialPanel panelLeft;       // 説明パネル左
     [SerializeField] private TutorialPanel panelRight;      // 説明パネル右
 
-    [Header("テキスト")]
+    [Header("対象キー")]
     [SerializeField] private TMP_Text tutoriaKeyText;  // パネルの操作Keyテキスト
+    [SerializeField] private Button tutoriaKeyBtn;  // パネルの操作KeyBtn
 
     [Header("キャンバスグループ")]
     [SerializeField] private List<CanvasGroup> canvasGroups;
@@ -59,14 +62,26 @@ public class TutorialCtrl : MonoBehaviour
     /// <param name="_context">対象Key</param>
     public void OnTutorial(InputAction.CallbackContext _context)
     {
-        if (!_context.performed) { return; }
-        if(menuCtrl.isOpenMenu)  { return; }
+        if (_context.started)
+        {
+            ExecuteEvents.Execute(tutoriaKeyBtn.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerDownHandler);
+            return; 
+        }
+        else if(_context.canceled)
+        {
+            ExecuteEvents.Execute(tutoriaKeyBtn.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerUpHandler);
+            return ;
+        }
 
-        if(!isOpenTutorial) // パネルが閉じていたら
+
+        if (menuCtrl.isOpenMenu)  { return; }
+
+        if (!isOpenTutorial) // パネルが閉じていたら
         {
             isOpenTutorial = true;
             menuCtrl.enabled = false;
             tutoriaKeyText.SetText("閉じる");
+
 
             panelLeft.rect.DOAnchorPos(new Vector2(89, -50), speed)
                                 .SetEase(Ease.Linear)
