@@ -23,7 +23,7 @@ public class MenuCtrl : MonoBehaviour
     [Header("キャンバスグループ")]
     [SerializeField] private List<CanvasGroup> canvasGroups; 
     //-----privateField--------------------------------------------------------------
-    private float speed = 0.2f; // パネル開閉速度
+    private float speed = 0.5f; // パネル開閉速度
     private RectTransform rectPos;
 
     //-----publicField---------------------------------------------------------------
@@ -77,9 +77,9 @@ public class MenuCtrl : MonoBehaviour
 
             // パネルを移動
             rectPos.DOAnchorPos(new Vector2(0, 0), speed)
-                                .SetEase(Ease.Linear)
-                                .SetUpdate(true)
-                                .SetLink(gameObject);
+                        .SetEase(Ease.OutQuart)
+                        .SetUpdate(true)
+                        .SetLink(gameObject);
         }
         else
         {
@@ -92,17 +92,17 @@ public class MenuCtrl : MonoBehaviour
 
             // パネルを移動
             rectPos.DOAnchorPos(new Vector3(0, -600), speed)
-                                .SetEase(Ease.Linear)
-                                .SetUpdate(true)
-                                .SetLink(gameObject)
-                                .OnComplete(() =>
-                                {
-                                    // パネル以外のUIを制御可能にする
-                                    foreach (var group in canvasGroups)
-                                    {
-                                        group.blocksRaycasts = true;
-                                    }
-                                });
+                        .SetEase(Ease.OutQuart)
+                        .SetUpdate(true)
+                        .SetLink(gameObject)
+                        .OnComplete(() =>
+                        {
+                            // パネル以外のUIを制御可能にする
+                            foreach (var group in canvasGroups)
+                            {
+                                group.blocksRaycasts = true;
+                            }
+                        });
         }
     }
 

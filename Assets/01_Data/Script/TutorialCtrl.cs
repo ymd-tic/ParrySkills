@@ -36,7 +36,7 @@ public class TutorialCtrl : MonoBehaviour
 
     //-----privateField--------------------------------------------------------------
     private bool isOpenTutorial = false;    // パネル開閉フラグ (true => 開いている false => 閉じている)
-    private float speed = 0.2f; // パネル開閉速度
+    private float speed = 0.5f; // パネル開閉速度
 
 
     //-----publicField---------------------------------------------------------------
@@ -62,6 +62,8 @@ public class TutorialCtrl : MonoBehaviour
     /// <param name="_context">対象Key</param>
     public void OnTutorial(InputAction.CallbackContext _context)
     {
+        if (menuCtrl.isOpenMenu) { return; }
+
         if (_context.started)
         {
             ExecuteEvents.Execute(tutoriaKeyBtn.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerDownHandler);
@@ -73,32 +75,23 @@ public class TutorialCtrl : MonoBehaviour
             return ;
         }
 
-
-        if (menuCtrl.isOpenMenu)  { return; }
-
         if (!isOpenTutorial) // パネルが閉じていたら
         {
             isOpenTutorial = true;
             menuCtrl.enabled = false;
             tutoriaKeyText.SetText("閉じる");
 
+            // パネルを画面内に移動
+            PanelMove(panelLeft, new Vector2(89, -50));
+            PanelMove(panelRight,new Vector2(-95, -50));
 
-            panelLeft.rect.DOAnchorPos(new Vector2(89, -50), speed)
-                                .SetEase(Ease.Linear)
-                                .SetUpdate(true)
-                                .SetLink(gameObject);
-
-            panelRight.rect.DOAnchorPos(new Vector2(-95, -50), speed)
-                                .SetEase(Ease.Linear)
-                                .SetUpdate(true)
-                                .SetLink(gameObject);
-
+            // 他のUIをフェードイン
             foreach (CanvasGroup group in canvasGroups)
             {
                 group.blocksRaycasts = false;
                 group.DOFade(0,speed)
-                    .SetUpdate(true)
-                    .SetLink(gameObject);
+                        .SetUpdate(true)
+                        .SetLink(gameObject);
             }
         }
         else
@@ -107,23 +100,31 @@ public class TutorialCtrl : MonoBehaviour
             menuCtrl.enabled = true;
             tutoriaKeyText.SetText("ゲーム説明");
 
-            panelLeft.rect.DOAnchorPos(new Vector2(-1130, -50), speed)
-                                .SetEase(Ease.Linear)
-                                .SetUpdate(true)
-                                .SetLink(gameObject);
+            // パネルを画面外に移動
+            PanelMove(panelLeft,new Vector2 (-1130, -50));
+            PanelMove(panelRight, new Vector2(600, -50));
 
-            panelRight.rect.DOAnchorPos(new Vector2(600, -50), speed)
-                                .SetEase(Ease.Linear)
-                                .SetUpdate(true)
-                                .SetLink(gameObject);
-
+            // 他のUIをフェードアウト
             foreach (CanvasGroup group in canvasGroups)
             {
                 group.blocksRaycasts = true;
                 group.DOFade(1, speed)
-                    .SetUpdate(true)
-                    .SetLink(gameObject);
+                        .SetUpdate(true)
+                        .SetLink(gameObject);
             }
         }
+    }
+
+    /// <summary>
+    /// パネルの移動
+    /// </summary>
+    /// <param name="_panel">パネル</param>
+    /// <param name="_vec2">目標座標</param>
+    private void PanelMove(TutorialPanel _panel, Vector2 _vec2)
+    {
+        _panel.rect.DOAnchorPos(_vec2, speed)
+                        .SetEase(Ease.OutQuart)
+                        .SetUpdate(true)
+                        .SetLink(gameObject);
     }
 }
