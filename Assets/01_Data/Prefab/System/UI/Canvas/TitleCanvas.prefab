@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ParrySkils
+  m_text: ParrySkills
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 69767ec52fab43e47b674e173a09a7e0, type: 2}
   m_sharedMaterial: {fileID: -6486093386369435699, guid: 69767ec52fab43e47b674e173a09a7e0, type: 2}

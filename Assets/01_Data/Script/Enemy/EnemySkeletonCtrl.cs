@@ -285,6 +285,7 @@ private void Damage()
 
             // ƒvƒŒƒCƒ„[‚Æ‚Ì‹——£‚ª’ÇÕ”ÍˆÍ“à‚È‚ç
             if (DistanceFromPlayer() <= range.far)
+
             {   // ‚©‚ÂUŒ‚”ÍˆÍ“à‚È‚ç
                 if (DistanceFromPlayer() <= range.atack)
                 {
