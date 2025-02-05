@@ -62,7 +62,6 @@ public class EnemyMinotaurCtrl : EnemyBase
     protected override void Update()
     {
         base.Update();
-
         // Ž€‚ñ‚¾‚ç‰½‚à‚µ‚È‚¢
         if (isDie) { return; }
 
@@ -100,6 +99,8 @@ public class EnemyMinotaurCtrl : EnemyBase
                 Distance();
                 break;
         }
+
+        Debug.Log(aiState);
     }
 
     #endregion
@@ -350,9 +351,8 @@ public class EnemyMinotaurCtrl : EnemyBase
             atackTime.cur = 0;
             return;
         }
-
         // ˆê’è‚Ì‹——£‚ðŽæ‚Á‚½‚çIdleó‘Ô‚É‘JˆÚ
-        if (DistanceFromPlayer() >= range.near)
+        else if (DistanceFromPlayer() > range.near)
         {
             ChangeAIState(AIState.Idle);
         }

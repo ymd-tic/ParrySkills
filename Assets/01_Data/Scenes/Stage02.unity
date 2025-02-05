@@ -260,11 +260,11 @@ PrefabInstance:
       objectReference: {fileID: 4665913410126338551, guid: 51b1bdf063d6fa94d91c5474bfa7f33a, type: 3}
     - target: {fileID: 8832030787540280305, guid: 1c0f2134a87d0194d8a9646a34d60c8c, type: 3}
       propertyPath: nomalEnemys.Array.data[0].spownValue
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8832030787540280305, guid: 1c0f2134a87d0194d8a9646a34d60c8c, type: 3}
       propertyPath: nomalEnemys.Array.data[1].spownValue
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9102965048906716306, guid: 1c0f2134a87d0194d8a9646a34d60c8c, type: 3}
       propertyPath: m_Name
@@ -1975,6 +1975,10 @@ PrefabInstance:
     - target: {fileID: 5575656411293146536, guid: 02c605a278c4a1f47ac3b585e54fd5fb, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.7186345
+      objectReference: {fileID: 0}
+    - target: {fileID: 5637735183298660156, guid: 02c605a278c4a1f47ac3b585e54fd5fb, type: 3}
+      propertyPath: maxHp
+      value: 1e+14
       objectReference: {fileID: 0}
     - target: {fileID: 5637735183298660156, guid: 02c605a278c4a1f47ac3b585e54fd5fb, type: 3}
       propertyPath: hpGage

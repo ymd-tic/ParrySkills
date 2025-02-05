@@ -98,6 +98,8 @@ public class EnemySkeletonCtrl : EnemyBase
                 Distance();
                 break;
         }
+        //Debug.Log(aiState);
+
     }
 
     #endregion
@@ -111,27 +113,25 @@ public class EnemySkeletonCtrl : EnemyBase
         if (DistanceFromPlayer() > range.far)
         {
             ChangeAIState(AIState.Patrol);
-            return;
         }
         // プレイヤーとの距離が攻撃範囲外なら
         else if (DistanceFromPlayer() > range.atack)
         {
             ChangeAIState(AIState.Chase);
-            return;
+        }
+        else if(DistanceFromPlayer() > range.near)
+        {
+            // 攻撃クールタイムが終わったら攻撃ステートに移る
+            atackTime.cur += Time.deltaTime;
+            if (atackTime.cur > atackTime.goal)
+            {
+                ChangeAIState(AIState.Atack);
+                atackTime.cur = 0;
+            }
         }
         else if(DistanceFromPlayer() <= range.near)
         {
             ChangeAIState(AIState.Distance);
-            return;
-        }
-
-        // 攻撃クールタイムが終わったら攻撃ステートに移る
-        atackTime.cur += Time.deltaTime;
-        if (atackTime.cur > atackTime.goal)
-        {
-            ChangeAIState(AIState.Atack);
-            atackTime.cur = 0;
-            return;
         }
     }
 
@@ -180,14 +180,19 @@ public class EnemySkeletonCtrl : EnemyBase
         if (DistanceFromPlayer() > range.far)
         {
             ChangeAIState(AIState.Patrol);
-            return;
         }
+        // プレイヤーとの距離が攻撃範囲外なら
+        else if (DistanceFromPlayer() > range.atack)
+        {
 
-        // プレイヤーとの距離が攻撃範囲内なら
-        if (DistanceFromPlayer() <= range.atack)
+        }
+        else if (DistanceFromPlayer() > range.near)
         {
             ChangeAIState(AIState.Idle);
-            return;
+        }
+        else if (DistanceFromPlayer() <= range.near)
+        {
+            ChangeAIState(AIState.Distance);
         }
     }
 
@@ -244,7 +249,6 @@ private void Damage()
         if (atackTime.cur > atackTime.goal)
         {
             ChangeAIState(AIState.Atack);
-            atackTime.cur = 0;
             rigidbody.isKinematic = true;
             return;
         }
@@ -323,12 +327,11 @@ private void Damage()
         if (atackTime.cur > atackTime.goal)
         {
             ChangeAIState(AIState.Atack);
-            atackTime.cur = 0;
             return;
         }
 
         // 一定の距離を取ったらIdle状態に遷移
-        if (DistanceFromPlayer() >= range.near)
+        if (DistanceFromPlayer() > range.near)
         {
             ChangeAIState(AIState.Idle);
         }
@@ -373,16 +376,18 @@ private void Damage()
 
         aiState = _nextState;   // ステート更新
 
-        animator.SetTrigger($"{_nextState}");   // アニメーション更新
-
         foreach (var animState in animator.parameters)
         {
             // トリガー以外はスキップ
             if (animState.type != AnimatorControllerParameterType.Trigger) { continue; }
 
-            if (animState.name != $"{_nextState}")
+            if (animState.name == $"{_nextState}")
             {
-                animator.ResetTrigger($"{animState.name}");
+                animator.SetTrigger($"{_nextState}");   // 更新
+            }
+            else
+            {
+                animator.ResetTrigger($"{animState.name}"); // 他をリセット
             }
         }
 
@@ -415,6 +420,7 @@ private void Damage()
                 SetAtackState(atack);
 
                 // 攻撃クールタイムをランダムで設定
+                atackTime.cur = 0;
                 atackTime.goal = Generic.RandomErrorRange(atackTime.def, 0.5f);
 
                 canDamageAnim = false;
@@ -439,7 +445,7 @@ private void Damage()
                 break;
         }
 
-        //Debug.Log($"{_nextState}ステートに更新");
+        Debug.Log($"{_nextState}ステートに更新");
     }
 
     /// <summary>
