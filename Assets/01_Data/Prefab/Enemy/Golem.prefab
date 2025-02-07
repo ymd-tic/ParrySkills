@@ -1308,8 +1308,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 600
   speed:
-    fast: 3
-    slow: 1
+    fast: 4
+    slow: 2
   range:
     far: 20
     near: 2.5

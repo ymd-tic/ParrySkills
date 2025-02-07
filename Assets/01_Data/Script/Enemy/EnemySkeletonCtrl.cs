@@ -190,10 +190,6 @@ public class EnemySkeletonCtrl : EnemyBase
         {
             ChangeAIState(AIState.Idle);
         }
-        else if (DistanceFromPlayer() <= range.near)
-        {
-            ChangeAIState(AIState.Distance);
-        }
     }
 
     private void Atack()
@@ -463,7 +459,7 @@ private void Damage()
         switch (_atack)
         {
             case AtackState.Melee1:
-                atackPower = Generic.RandomErrorRange(-10.0f, 2.0f);
+                atackPower = Generic.RandomErrorRange(-7.0f, 2.0f);
                 break;
         }
     }
@@ -482,6 +478,7 @@ private void Damage()
         float waitTime = 5.5f; // ‘Ò‹@ŽžŠÔ
         yield return new WaitForSeconds(waitTime);
         ChangeAIState(AIState.Patrol);
+        coroutine = null;
     }
 
     #endregion

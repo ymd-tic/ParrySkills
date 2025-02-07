@@ -1973,13 +1973,13 @@ MonoBehaviour:
   maxStamina: 100
   moveSpeed: 7
   rotSpeed: 10
-  rollingSpeed: 5
-  staminaHealSpeed: 3
+  rollingSpeed: 6
+  staminaHealSpeed: 5
   staminaUseValue: 20
   mainCamera: {fileID: 3165472214829628834, guid: a165ff9e9f737e242854a8266b3359b3, type: 3}
   hpGage: {fileID: 0}
   staminaGage: {fileID: 0}
-  parryCollider: {fileID: 7140726068584412766}
+  parryCollider: {fileID: 1128030937464084841}
   slashEfects:
   - {fileID: 8095144745230039255}
   - {fileID: 5989903817662904846}
@@ -2016,7 +2016,7 @@ MonoBehaviour:
     coolTime: 20
     icon: {fileID: 0}
   - cost: 20
-    coolTime: 50
+    coolTime: 30
     icon: {fileID: 0}
   - cost: 30
     coolTime: 40
@@ -2228,6 +2228,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 33dc2269-92f7-4c1e-b158-ac1bef035af3
     m_ActionName: Player/Menu[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fc517692-a34e-435d-acab-486b21393744
+    m_ActionName: Player/Tutorial[/Keyboard/f1]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -3419,9 +3423,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5119623737345673519}
-  - component: {fileID: 7140726068584412766}
   - component: {fileID: 1694135905017288847}
   - component: {fileID: 1680448167122782342}
+  - component: {fileID: 1128030937464084841}
   m_Layer: 0
   m_Name: ParrySystem
   m_TagString: Untagged
@@ -3444,27 +3448,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4323720422831310932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7140726068584412766
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6865335243551676722}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 0.7, y: 2, z: 0.7}
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &1694135905017288847
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3508,6 +3491,29 @@ MonoBehaviour:
   - {fileID: 19800000, guid: 3156817f64ec68948ad6bb26569b9ef5, type: 3}
   - {fileID: 7980029976762078213, guid: d107c99f513d5b845ab01f4dfe2daf91, type: 3}
   audioCtrl: {fileID: 1141065253800712623}
+--- !u!136 &1128030937464084841
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6865335243551676722}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.7
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0.52}
 --- !u!1 &6900567468435302570
 GameObject:
   m_ObjectHideFlags: 0

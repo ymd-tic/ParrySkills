@@ -32140,7 +32140,7 @@ MonoBehaviour:
   distanceTime:
     def: 3
   warpTime:
-    def: 4
+    def: 5
   hpGage: {fileID: 2342625406504493984}
   fireBall: {fileID: 5019171374544439892, guid: 959bf1b37c5262744ad74326c44a83a0, type: 3}
   warpEffect: {fileID: 5162910912013668194, guid: 3dd51084744db614c8119cda344504ef, type: 3}

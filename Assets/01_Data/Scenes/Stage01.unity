@@ -765,7 +765,7 @@ PrefabInstance:
       objectReference: {fileID: 4665913410126338551, guid: 51b1bdf063d6fa94d91c5474bfa7f33a, type: 3}
     - target: {fileID: 8832030787540280305, guid: 1c0f2134a87d0194d8a9646a34d60c8c, type: 3}
       propertyPath: nomalEnemys.Array.data[0].spownValue
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8832030787540280305, guid: 1c0f2134a87d0194d8a9646a34d60c8c, type: 3}
       propertyPath: nomalEnemys.Array.data[1].spownValue
@@ -2465,11 +2465,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3425859503094866987, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0000018887864
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3425859503094866987, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.00000026545163
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4835208732313604967, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2477,11 +2477,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4835208732313604967, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0000018887864
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4835208732313604967, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.00000026545163
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4835208732313604967, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2497,11 +2497,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7614234415465851973, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0000018887864
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7614234415465851973, guid: ee9dc40198e5ac147818b9b7f80c2779, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.00000026545163
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2686,7 +2686,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7919007616009431102, guid: 34c1181bb9c4cb049a5e9ebf29f89032, type: 3}
       propertyPath: nomalEnemys.Array.data[0].spownValue
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8107391053962321923, guid: 34c1181bb9c4cb049a5e9ebf29f89032, type: 3}
       propertyPath: m_Center.z

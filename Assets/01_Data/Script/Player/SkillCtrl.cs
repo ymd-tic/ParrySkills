@@ -91,7 +91,7 @@ public class SkillCtrl : MonoBehaviour
     {
         if (!_context.performed) return;
 
-        if( SkillExe(skills[1], () => playerController.HpFluctuation(20)))
+        if( SkillExe(skills[1], () => playerController.HpFluctuation(35)))
         {
             Instantiate(healEffect, this.transform.position, Quaternion.identity, transform);
         }

@@ -1656,9 +1656,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 485c66817d4924d47a61e8083ba11791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 100
+  maxHp: 70
   speed:
-    fast: 2
+    fast: 2.5
     slow: 1
   range:
     far: 10
@@ -1667,7 +1667,7 @@ MonoBehaviour:
   parryEfect: {fileID: 1450043979336239922}
   damageTextObj: {fileID: 8924579130654965952, guid: 8de52498b8a88484188f0e75f954eb5a, type: 3}
   atackTime:
-    def: 1
+    def: 3
 --- !u!1001 &7771094622385373580
 PrefabInstance:
   m_ObjectHideFlags: 0

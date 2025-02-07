@@ -26,7 +26,7 @@ public class PlayerCtrl : MonoBehaviour
 
 
     [Header("コライダー")]    
-    [SerializeField] public BoxCollider parryCollider; // パリィ当たり判定
+    [SerializeField] public CapsuleCollider parryCollider; // パリィ当たり判定
 
     [Header("エフェクト")] 
     [SerializeField] public ParticleSystem[] slashEfects = new ParticleSystem[4]; // 剣の軌跡

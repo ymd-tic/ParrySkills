@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
@@ -120,6 +121,8 @@ public class EnemyBase : MonoBehaviour
         Vector3 popTextPos = new Vector3(enemyPos.position.x, 2.5f, enemyPos.position.z); // UIの出現位置調整
         Instantiate(damageTextObj, popTextPos, Quaternion.identity); // 生成
 
+        StartCoroutine(HitStop());
+
         if (hpValue.cur <= hpValue.min)
         {
             Die();
@@ -149,6 +152,24 @@ public class EnemyBase : MonoBehaviour
 
     #endregion
 
+    #region コルーチン
+
+    /// <summary>
+    /// 巡回地点に着いたら一定時間待機してから次の地点を決める
+    /// </summary>
+    /// <returns></returns>
+
+    IEnumerator HitStop()
+    {
+        float pauseTime = 0.1f;
+        animator.speed = 0;
+
+        yield return new WaitForSeconds(pauseTime);
+
+        animator.speed = 1f;
+    }
+
+    #endregion
 
 
     #region アニメーションEvent

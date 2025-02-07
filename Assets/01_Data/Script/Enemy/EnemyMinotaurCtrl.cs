@@ -491,7 +491,7 @@ public class EnemyMinotaurCtrl : EnemyBase
                 break;
 
             case AtackState.Melee3:
-                atackPower = Generic.RandomErrorRange(-20.0f, 3.0f);
+                atackPower = Generic.RandomErrorRange(-17.0f, 3.0f);
                 break;
 
             case AtackState.Kick:
